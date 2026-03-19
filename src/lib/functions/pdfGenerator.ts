@@ -2,10 +2,11 @@ import { registerTemplate, generatePdf } from '$lib/functions/pdfEngine';
 import { hotashaCoverTemplate } from '$lib/templates/hotasha';
 import { omanishaCoverTemplate } from '$lib/templates/omanisha';
 import { omabossaCoverTemplate } from '$lib/templates/omabossha';
-import type { CoverState } from '$lib/types';
+import type { CoverState, ResumeData } from '$lib/types';
 import omanisha from '$lib/assets/template_thumbs/omanisha.png';
 import ordhochondro from '$lib/assets/template_thumbs/ordhochondro.png';
 import omabossa from '$lib/assets/template_thumbs/omabossa.png';
+import { defaultTemplate } from '$lib/templates/default';
 export const templates = {
 	OMANISHA: {
 		name: 'Omanisha',
@@ -13,7 +14,8 @@ export const templates = {
 		img: omanisha
 	},
 	ORDHOCHONDRO: { name: 'Ordhochondro', value: 'ORDHOCHONDRO', img: ordhochondro },
-	OMABOSSA: { name: 'Omabossa', value: 'OMABOSSA', img: omabossa }
+	OMABOSSA: { name: 'Omabossa', value: 'OMABOSSA', img: omabossa },
+	DEFAULT: { name: 'Default', value: 'DEFAULT', img: omabossa }
 };
 export const fonts = {
 	TINOS: {
@@ -33,14 +35,13 @@ export const fonts = {
 		value: 'JETBRAINSMONO'
 	}
 };
-registerTemplate(templates.OMANISHA.value, omanishaCoverTemplate);
-registerTemplate(templates.ORDHOCHONDRO.value, hotashaCoverTemplate);
-registerTemplate(templates.OMABOSSA.value, omabossaCoverTemplate);
+
+registerTemplate(templates.DEFAULT.value, defaultTemplate);
 
 export function createPDFDocument(
-	template = templates.ORDHOCHONDRO.value,
-	state: CoverState,
+	template = templates.DEFAULT.value,
+	data: ResumeData,
 	font = fonts.ROBOTO.value
 ) {
-	return generatePdf(template, state, font);
+	return generatePdf(template, data, font);
 }

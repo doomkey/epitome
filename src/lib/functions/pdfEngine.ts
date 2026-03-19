@@ -1,7 +1,7 @@
 import pdfMake from 'pdfmake/build/pdfmake';
 //@ts-ignore
 import * as vfs from '$lib/assets/fonts/vfs_fonts';
-import type { CoverState } from '$lib/types';
+import type { CoverState, ResumeData } from '$lib/types';
 import type { PdfTemplateFunction } from './helpers';
 
 (pdfMake as any).vfs = vfs;
@@ -38,10 +38,10 @@ export function registerTemplate(name: string, templateFn: PdfTemplateFunction) 
 	templates[name] = templateFn;
 }
 
-export function generatePdf(templateName: string, state: CoverState, font: string) {
+export function generatePdf(templateName: string, data: ResumeData, font: string) {
 	const template = templates[templateName];
 	if (!template) throw new Error(`Template "${templateName}" not found.`);
 
-	const docDefinition = template(state, font);
+	const docDefinition = template(data, font);
 	return pdfMake.createPdf(docDefinition as any);
 }

@@ -15,6 +15,8 @@
 	import * as Field from '$lib/components/ui/field/index.js';
 	import FAQ from '$lib/components/FAQ.svelte';
 	import TemplateSelector from '$lib/components/TemplateSelector.svelte';
+	import SectionsTab from '$lib/components/SectionsTab.svelte';
+	import { resumeData } from '$lib/stores/resumeStore.svelte';
 	//@ts-ignore
 	let state = $state({
 		subtitle: { value: '', visible: true, placeholder: 'A report on' },
@@ -36,7 +38,7 @@
 		date: { value: '', visible: true, placeholder: 'Submission Date' }
 	});
 	let font = $state(fonts.TINOS.value);
-	let template = $state(templates.OMANISHA.value);
+	let template = $state(templates.DEFAULT.value);
 	let conditions = $state({
 		varsity: true,
 		dept: true
@@ -55,7 +57,7 @@
 	$effect(() => {
 		if (!browser) return;
 
-		const currentState = $state.snapshot(state);
+		const currentState = $state.snapshot(resumeData);
 		const currentFont = $state.snapshot(font);
 		const currentTemplate = $state.snapshot(template);
 		const updatePreview = async () => {
@@ -102,10 +104,10 @@
 		if (!browser) return;
 		const doc = createPDFDocument(
 			$state.snapshot(template),
-			$state.snapshot(state),
+			$state.snapshot(resumeData),
 			$state.snapshot(font)
 		);
-		doc.download(`${state.title.value || 'Cover_Page'}.pdf`);
+		doc.download(`${resumeData.personal.fullName || 'resume'}.pdf`);
 	}
 	const triggerContent = $derived(
 		Object.values(fonts).find((f) => f.value === font)?.name ?? 'Select a font'
@@ -117,21 +119,21 @@
 
 <nav class="flex items-center justify-between border-b bg-background px-8 py-4">
 	<div class="text-xl font-bold">
-		Overcast <span class="text-sm font-normal text-muted-foreground"
+		Epitome <span class="text-sm font-normal text-muted-foreground"
 			>by <a href="https://doomkey.github.io">doomkey</a></span
 		>
 	</div>
 </nav>
 
 <main class="container mx-auto">
-	<section class="grid grid-cols-1 items-start gap-8 space-y-6 py-6 lg:grid-cols-2">
-		<Card.Root>
-			<Card.Header>
+	<section class="grid grid-cols-1 items-start gap-8 space-y-6 py-6 lg:grid-cols-3">
+		<div class="lg:col-span-2">
+			<!-- <Card.Header>
 				<Card.Title>Assignment Details</Card.Title>
 				<Card.Description>Fill in the details to update the cover page preview.</Card.Description>
-			</Card.Header>
-			<Card.Content>
-				<Field.Group>
+			</Card.Header> -->
+			<SectionsTab />
+			<!-- <Field.Group>
 					<Field.Set>
 						<Field.Group>
 							<Field.Field orientation="horizontal">
@@ -264,10 +266,9 @@
 						</Field.Group>
 					</Field.Set>
 
-					<Button class="mt-4 w-full" onclick={download}>Download PDF</Button>
-				</Field.Group>
-			</Card.Content>
-		</Card.Root>
+					</Field.Group> -->
+			<Button class="mt-4 w-full" onclick={download}>Download PDF</Button>
+		</div>
 		<section class="sticky top-0 flex h-screen items-start justify-center p-0">
 			<Card.Root
 				class="flex h-full w-full flex-col items-center justify-center overflow-hidden border-2 bg-muted/20 p-6"
