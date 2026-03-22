@@ -3,7 +3,7 @@
 	import * as Accordion from './ui/accordion';
 </script>
 
-<section class="container mx-auto">
+<section>
 	<Card.Root>
 		<Card.Header>
 			<h3 class="text-lg font-bold">FAQ</h3>
