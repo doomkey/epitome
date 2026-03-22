@@ -8,13 +8,6 @@ import ordhochondro from '$lib/assets/template_thumbs/ordhochondro.png';
 import omabossa from '$lib/assets/template_thumbs/omabossa.png';
 import { defaultTemplate } from '$lib/templates/default';
 export const templates = {
-	OMANISHA: {
-		name: 'Omanisha',
-		value: 'OMANISHA',
-		img: omanisha
-	},
-	ORDHOCHONDRO: { name: 'Ordhochondro', value: 'ORDHOCHONDRO', img: ordhochondro },
-	OMABOSSA: { name: 'Omabossa', value: 'OMABOSSA', img: omabossa },
 	DEFAULT: { name: 'Default', value: 'DEFAULT', img: omabossa }
 };
 export const fonts = {

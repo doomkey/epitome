@@ -5,32 +5,37 @@ export const defaultTemplate = (data: ResumeData, font: string) => {
 	return {
 		pageSize: 'A4',
 		pageMargins: [pt(20), pt(20), pt(20), pt(20)],
-		defaultStyle: { font: font || 'TINOS', fontSize: 10, lineHeight: 1.4 },
+		defaultStyle: { font: font || 'TINOS', fontSize: 10, lineHeight: 1.4, characterSpacing: 0 },
 		styles: {
-			name: { fontSize: 24, bold: true },
-			title: { fontSize: 12, color: '#555555' },
+			name: { fontSize: 18, bold: true },
+			jobTitle: { fontSize: 11, color: '#444444' },
+
 			sectionHeader: { fontSize: 11, bold: true, color: '#1a1a1a' },
-			institution: { fontSize: 10, bold: true },
-			meta: { fontSize: 9, color: '#666666' },
-			subtle: { fontSize: 9, italics: true, color: '#888888' }
+
+			entryTitle: { fontSize: 10, bold: true },
+
+			entrySubtitle: { fontSize: 10, bold: true, color: '#333333' },
+			period: { fontSize: 9, color: '#666666' },
+			meta: { fontSize: 9, color: '#555555' },
+			subtle: { fontSize: 9, color: '#888888' }
 		},
 		content: [
 			buildHeader(data),
 
 			data.personal.summary &&
-				buildSection('Summary', [{ text: data.personal.summary, style: 'meta' }]),
+				buildSection('SUMMARY', [{ text: data.personal.summary, style: 'meta' }]),
 
 			data.experience.length &&
-				buildSection('Work Experience', data.experience.map(buildExperienceEntry)),
+				buildSection('WORK EXPERIENCE', data.experience.map(buildExperienceEntry)),
 
-			data.education.length && buildSection('Education', data.education.map(buildEducationEntry)),
+			data.education.length && buildSection('EDUCATION', data.education.map(buildEducationEntry)),
 
-			data.projects.length && buildSection('Projects', data.projects.map(buildProjectEntry)),
+			data.projects.length && buildSection('PROJECTS', data.projects.map(buildProjectEntry)),
 
-			data.skills.categories.length && buildSection('Skills', [buildSkills(data.skills)]),
+			data.skills.categories.length && buildSection('SKILLS', [buildSkills(data.skills)]),
 
 			data.certifications.length &&
-				buildSection('Certifications', data.certifications.map(buildCertEntry))
+				buildSection('CERTIFICATIONS', data.certifications.map(buildCertEntry))
 		].filter(Boolean)
 	};
 };
@@ -42,43 +47,40 @@ function buildHeader(data: ResumeData) {
 
 	return {
 		stack: [
-			{ text: fullName || 'Your Name', style: 'name' },
-			title && { text: title, style: 'title', margin: [0, 2, 0, 0] },
+			{ text: fullName || 'Your Name', style: 'name', lineheight: 1 },
+			title && { text: title, style: 'jobTitle', margin: [0, 2, 0, 2] },
+
 			contactParts.length && {
-				text: contactParts.join('  ·  '),
+				text: contactParts.join(' | '),
 				style: 'meta',
-				margin: [0, 4, 0, 0]
+				margin: [0, 2, 0, 0]
 			}
 		].filter(Boolean),
-		margin: [0, 0, 0, pt(6)]
+		margin: [0, 0, 0, pt(8)]
 	};
 }
 
 function buildSection(title: string, entries: object[]) {
 	return {
 		stack: [
+			{ text: title, style: 'sectionHeader' },
 			{
-				stack: [
-					{ text: title.toUpperCase(), style: 'sectionHeader' },
+				canvas: [
 					{
-						canvas: [
-							{
-								type: 'line',
-								x1: 0,
-								y1: 2,
-								x2: pt(170),
-								y2: 2,
-								lineWidth: 0.5,
-								lineColor: '#cccccc'
-							}
-						]
+						type: 'line',
+						x1: 0,
+						y1: 2,
+						x2: pt(170),
+						y2: 2,
+						lineWidth: 0.5,
+						lineColor: '#cccccc'
 					}
 				],
-				margin: [0, 0, 0, pt(3)]
+				margin: [0, 0, 0, pt(4)]
 			},
 			...entries
 		],
-		margin: [0, 0, 0, pt(6)]
+		margin: [0, 0, 0, pt(8)]
 	};
 }
 
@@ -91,23 +93,26 @@ function buildExperienceEntry(exp: ResumeData['experience'][number]) {
 		stack: [
 			{
 				columns: [
-					{ text: exp.jobTitle, style: 'institution', width: '*' },
-					{ text: period, style: 'subtle', alignment: 'right', width: 'auto' }
+					{ text: exp.jobTitle, style: 'entryTitle', width: '*' },
+					{ text: period, style: 'period', alignment: 'right', width: 'auto' }
 				]
 			},
+
 			{
 				columns: [
-					{ text: exp.company, style: 'meta', width: '*' },
+					{ text: exp.company, style: 'entrySubtitle', width: '*' },
 					exp.location && { text: exp.location, style: 'subtle', alignment: 'right', width: 'auto' }
 				].filter(Boolean)
 			},
 			exp.responsibilities && {
 				text: exp.responsibilities,
-				margin: [0, pt(2), 0, 0],
-				fontSize: 9
+				style: 'meta',
+
+				margin: [pt(4), pt(3), 0, 0]
 			}
 		].filter(Boolean),
-		margin: [0, 0, 0, pt(4)]
+
+		margin: [0, 0, 0, pt(6)]
 	};
 }
 
@@ -118,19 +123,24 @@ function buildEducationEntry(edu: ResumeData['education'][number]) {
 		stack: [
 			{
 				columns: [
-					{ text: edu.degree, style: 'institution', width: '*' },
-					{ text: period, style: 'subtle', alignment: 'right', width: 'auto' }
+					{ text: edu.degree, style: 'entryTitle', width: '*' },
+					{ text: period, style: 'period', alignment: 'right', width: 'auto' }
 				]
 			},
+
 			{
 				columns: [
-					{ text: edu.institution, style: 'meta', width: '*' },
+					{ text: edu.institution, style: 'entrySubtitle', width: '*' },
 					edu.location && { text: edu.location, style: 'subtle', alignment: 'right', width: 'auto' }
 				].filter(Boolean)
 			},
-			edu.gpa && { text: `GPA: ${edu.gpa}`, style: 'subtle', margin: [0, 1, 0, 0] }
+			edu.gpa && {
+				text: `GPA: ${edu.gpa}`,
+				style: 'subtle',
+				margin: [0, 2, 0, 0]
+			}
 		].filter(Boolean),
-		margin: [0, 0, 0, pt(4)]
+		margin: [0, 0, 0, pt(6)]
 	};
 }
 
@@ -139,7 +149,7 @@ function buildProjectEntry(proj: ResumeData['projects'][number]) {
 		stack: [
 			{
 				columns: [
-					{ text: proj.name, style: 'institution', width: '*' },
+					{ text: proj.name, style: 'entryTitle', width: '*' },
 					proj.link && {
 						text: proj.link,
 						style: 'subtle',
@@ -149,26 +159,34 @@ function buildProjectEntry(proj: ResumeData['projects'][number]) {
 					}
 				].filter(Boolean)
 			},
-			proj.technologies && { text: proj.technologies, style: 'subtle', margin: [0, 1, 0, 0] },
-			proj.description && { text: proj.description, fontSize: 9, margin: [0, pt(2), 0, 0] }
+			proj.technologies && {
+				text: proj.technologies,
+				style: 'subtle',
+				margin: [0, 2, 0, 0]
+			},
+			proj.description && {
+				text: proj.description,
+				style: 'meta',
+				margin: [0, pt(2), 0, 0]
+			}
 		].filter(Boolean),
-		margin: [0, 0, 0, pt(4)]
+		margin: [0, 0, 0, pt(6)]
 	};
 }
 
 function buildSkills(skills: ResumeData['skills']) {
 	if (skills.merge) {
-		const all = skills.categories.flatMap((c) => c.skills).join('  ·  ');
-		return { text: all, fontSize: 9 };
+		const all = skills.categories.flatMap((c) => c.skills).join(', ');
+		return { text: all, style: 'meta' };
 	}
 
 	return {
 		stack: skills.categories.map((cat) => ({
 			columns: [
-				{ text: cat.category, style: 'institution', width: pt(35) },
-				{ text: cat.skills.join('  ·  '), fontSize: 9, width: '*' }
+				{ text: cat.category, style: 'entrySubtitle', width: pt(40) },
+				{ text: cat.skills.join(', '), style: 'meta', width: '*' }
 			],
-			margin: [0, 0, 0, pt(2)]
+			margin: [0, 0, 0, pt(3)]
 		}))
 	};
 }
@@ -176,10 +194,10 @@ function buildSkills(skills: ResumeData['skills']) {
 function buildCertEntry(cert: ResumeData['certifications'][number]) {
 	return {
 		stack: [
-			{ text: cert.name, style: 'institution' },
+			{ text: cert.name, style: 'entryTitle' },
 			{
 				columns: [
-					{ text: cert.organization, style: 'meta', width: '*' },
+					{ text: cert.organization, style: 'entrySubtitle', width: '*' },
 					cert.url && {
 						text: cert.url,
 						style: 'subtle',
@@ -190,6 +208,6 @@ function buildCertEntry(cert: ResumeData['certifications'][number]) {
 				].filter(Boolean)
 			}
 		],
-		margin: [0, 0, 0, pt(3)]
+		margin: [0, 0, 0, pt(5)]
 	};
 }

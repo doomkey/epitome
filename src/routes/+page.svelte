@@ -37,7 +37,7 @@
 		session: { value: '', visible: true, placeholder: 'Session' },
 		date: { value: '', visible: true, placeholder: 'Submission Date' }
 	});
-	let font = $state(fonts.TINOS.value);
+	let font = $state(fonts.ROBOTO.value);
 	let template = $state(templates.DEFAULT.value);
 	let conditions = $state({
 		varsity: true,

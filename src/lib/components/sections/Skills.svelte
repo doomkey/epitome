@@ -13,8 +13,6 @@
 
 	const { skills } = resumeData;
 
-	let mergeSkills = $state(false);
-
 	// derived flat list for the PDF renderer to consume
 	let categories = $state([createSkillCategory(true)]);
 
@@ -28,16 +26,16 @@
 			.map((s) => s.trim())
 			.filter((s) => s.length > 0);
 		if (newSkills.length === 0) return;
-		categories = categories.map((c) =>
-			c.id === catId ? { ...c, skills: [...c.skills, ...newSkills] } : c
-		);
+		const cat = resumeData.skills.categories.find((c) => c.id === catId);
+		if (!cat) return;
+		cat.skills = [...cat.skills, ...newSkills];
 		inputs[catId] = '';
 	}
 
 	function removeSkill(catId: number, skill: string) {
-		categories = categories.map((c) =>
-			c.id === catId ? { ...c, skills: c.skills.filter((s) => s !== skill) } : c
-		);
+		const cat = resumeData.skills.categories.find((c) => c.id === catId);
+		if (!cat) return;
+		cat.skills = cat.skills.filter((s) => s !== skill);
 	}
 
 	function handleKeydown(e: KeyboardEvent, catId: number) {
@@ -49,14 +47,17 @@
 </script>
 
 <Tabs.Content value={sections.skills.value}>
-	{#each categories as cat, i (cat.id)}
+	{#each resumeData.skills.categories as cat, i (cat.id)}
 		<SectionEntry
 			title={cat.category || 'Untitled'}
 			index={i}
-			total={categories.length}
-			onMoveUp={() => (categories = moveItem(categories, i, 'up'))}
-			onMoveDown={() => (categories = moveItem(categories, i, 'down'))}
-			onRemove={() => (categories = removeItem(categories, cat.id))}
+			total={resumeData.skills.categories.length}
+			onMoveUp={() =>
+				(resumeData.skills.categories = moveItem(resumeData.skills.categories, i, 'up'))}
+			onMoveDown={() =>
+				(resumeData.skills.categories = moveItem(resumeData.skills.categories, i, 'down'))}
+			onRemove={() =>
+				(resumeData.skills.categories = removeItem(resumeData.skills.categories, cat.id))}
 		>
 			<Field.Field>
 				<Field.Label>Name of the Category</Field.Label>
@@ -71,7 +72,7 @@
 				/>
 			</Field.Field>
 			<div class="mb-3 flex flex-wrap gap-2">
-				{#each cat.skills as skill (skill)}
+				{#each cat.skills as skill, si (si)}
 					<span
 						class="inline-flex items-center gap-1 rounded-md border border-border bg-muted px-2.5 py-1 text-sm font-medium text-muted-foreground"
 					>
@@ -89,11 +90,14 @@
 		</SectionEntry>
 	{/each}
 
-	<Button onclick={() => (categories = [...categories, createSkillCategory()])}>Add Category</Button
+	<Button
+		onclick={() =>
+			(resumeData.skills.categories = [...resumeData.skills.categories, createSkillCategory()])}
+		>Add Category</Button
 	>
 
 	<div class="mt-4 flex items-center gap-3">
-		<Switch id="merge-skills" bind:checked={mergeSkills} />
+		<Switch id="merge-skills" bind:checked={resumeData.skills.merge} />
 		<Label for="merge-skills">
 			Merge all skills into one list <span class="text-xs text-muted-foreground"
 				>(no grouping on resume)</span
