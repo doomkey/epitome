@@ -19,10 +19,6 @@ export const fonts = {
 	EB_GARAMOND: {
 		name: 'EB Garamond',
 		value: 'EBGARAMOND'
-	},
-	JETBRAINSMONO: {
-		name: 'JetBrains Mono',
-		value: 'JETBRAINSMONO'
 	}
 };
 
