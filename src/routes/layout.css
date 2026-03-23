@@ -3,7 +3,14 @@
 @import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
-@variant data-active (&[data-active]);
+
+@custom-variant data-open (&[data-state=open]);
+@custom-variant data-closed (&[data-state=closed]);
+@custom-variant data-active (&[data-active]);
+@custom-variant data-checked (&[data-state=checked]);
+@custom-variant data-unchecked (&[data-state=unchecked]);
+@custom-variant data-disabled (&[data-disabled]);
+
 :root {
 	--background: oklch(0.9809 0.0025 228.7836);
 	--foreground: oklch(0.3211 0 0);

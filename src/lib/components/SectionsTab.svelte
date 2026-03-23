@@ -12,19 +12,26 @@
 	import { Label } from './ui/label';
 	import Separator from './ui/separator/separator.svelte';
 	import { resumeData } from '$lib/stores/resumeStore.svelte';
-
+	import { saveCurrentWorkspace } from '$lib/stores/workspace.svelte';
 	const sectionList = Object.values(sections);
 	let activeTab = $state<string>(sections.personal.value);
 
 	const activeSection = $derived(sectionList.find((s) => s.value === activeTab));
 
-	$effect(() => {
-		console.log(resumeData);
-	});
+	// $effect(() => {
+	// 	console.log(resumeData);
+	// });
+
+	async function handleTabChange(val: string) {
+		console.log(val);
+
+		await saveCurrentWorkspace();
+		activeTab = val;
+	}
 </script>
 
 <div class="flex w-full flex-col gap-6">
-	<Tabs.Root bind:value={activeTab}>
+	<Tabs.Root bind:value={activeTab} onValueChange={handleTabChange}>
 		<!-- Desktop: tab list -->
 		<Tabs.List class="mb-4 hidden sm:flex">
 			{#each sectionList as { title, value } (value)}

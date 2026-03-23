@@ -84,6 +84,11 @@ export type SkillsData = {
 	merge: boolean;
 };
 
+export type ResumeConfig = {
+	font: string;
+	template: string;
+};
+
 export type ResumeData = {
 	personal: PersonalData;
 	education: EducationEntry[];

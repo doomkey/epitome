@@ -12,8 +12,6 @@
 	import { resumeData } from '$lib/stores/resumeStore.svelte';
 	import EmptySection from '../EmptySection.svelte';
 
-	const { skills } = resumeData;
-
 	// derived flat list for the PDF renderer to consume
 	let categories = $state([createSkillCategory(true)]);
 

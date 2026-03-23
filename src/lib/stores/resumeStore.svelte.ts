@@ -1,3 +1,4 @@
+import { templates, fonts } from '$lib/functions/pdfGenerator';
 import { createEdu, createExp, createProject, createCert } from '$lib/functions/helpers';
 
 export const resumeData = $state({
@@ -25,5 +26,9 @@ export const resumeData = $state({
 			}
 		],
 		merge: false
+	},
+	config: {
+		font: fonts.TINOS.value,
+		template: templates.DEFAULT.value
 	}
 });
