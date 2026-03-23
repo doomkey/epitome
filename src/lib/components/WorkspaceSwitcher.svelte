@@ -16,6 +16,7 @@
 	import PencilIcon from '@lucide/svelte/icons/pencil';
 	import CheckIcon from '@lucide/svelte/icons/check';
 	import XIcon from '@lucide/svelte/icons/x';
+	import BackupManager from './BackupManager.svelte';
 
 	let open = $state(false);
 	let editingId = $state<string | null>(null);
@@ -76,7 +77,11 @@
 		</Sheet.Header>
 
 		<!-- Workspace list -->
-		<div class="flex-1 overflow-y-auto py-4">
+		<div class="flex-1 overflow-y-auto px-4">
+			<Button onclick={handleNew} variant="outline" class="mb-4 w-full gap-2">
+				<PlusIcon class="h-4 w-4" />
+				New Workspace
+			</Button>
 			<div class="flex flex-col gap-1">
 				{#each workspaceStore.workspaces as workspace (workspace.id)}
 					<div
@@ -140,10 +145,7 @@
 		</div>
 
 		<Sheet.Footer class="border-t pt-4">
-			<Button onclick={handleNew} variant="outline" class="w-full gap-2">
-				<PlusIcon class="h-4 w-4" />
-				New Workspace
-			</Button>
+			<BackupManager />
 		</Sheet.Footer>
 	</Sheet.Content>
 </Sheet.Root>

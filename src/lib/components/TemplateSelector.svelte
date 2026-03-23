@@ -29,7 +29,7 @@
 		>
 			<Card.Root
 				class={cn(
-					'm-0 overflow-hidden border-2 p-0 transition-all', // Added p-0 and m-0
+					'm-0 overflow-hidden border-2 p-0 transition-all',
 					selectedName === item.value
 						? 'border-primary ring-2 ring-primary/20'
 						: 'border-muted hover:border-muted-foreground/30'

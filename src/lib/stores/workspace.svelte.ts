@@ -30,7 +30,7 @@ export async function initWorkspaces() {
 	const savedId = localStorage.getItem(ACTIVE_KEY);
 
 	if (workspaces.length === 0) {
-		const id = await createWorkspace('My Workspace', cloneResumeData());
+		const id = await createWorkspace('Resume for X Corp.', cloneResumeData());
 		workspaceStore.workspaces = await getAllWorkspaces();
 		await switchWorkspace(id);
 	} else {

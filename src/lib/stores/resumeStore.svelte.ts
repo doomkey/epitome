@@ -1,7 +1,8 @@
 import { templates, fonts } from '$lib/functions/pdfGenerator';
 import { createEdu, createExp, createProject, createCert } from '$lib/functions/helpers';
+import type { ResumeData } from '$lib/types';
 
-export const resumeData = $state({
+export const defaultResumeData: ResumeData = $state({
 	personal: {
 		fullName: '',
 		title: '',
@@ -32,3 +33,4 @@ export const resumeData = $state({
 		template: templates.DEFAULT.value
 	}
 });
+export const resumeData: ResumeData = $state(JSON.parse(JSON.stringify(defaultResumeData)));

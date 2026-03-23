@@ -38,10 +38,10 @@ export function registerTemplate(name: string, templateFn: PdfTemplateFunction) 
 	templates[name] = templateFn;
 }
 
-export function generatePdf(templateName: string, data: ResumeData, font: string) {
-	const template = templates[templateName];
-	if (!template) throw new Error(`Template "${templateName}" not found.`);
+export function generatePdf(data: ResumeData) {
+	const template = templates[data.config.template];
+	if (!template) throw new Error(`Template not found.`);
 
-	const docDefinition = template(data, font);
+	const docDefinition = template(data, data.config.font);
 	return pdfMake.createPdf(docDefinition as any);
 }

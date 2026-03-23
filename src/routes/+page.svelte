@@ -1,19 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import PDFWorker from 'pdfjs-dist/legacy/build/pdf.worker.mjs?worker';
 	import * as Card from '$lib/components/ui/card';
-	import * as Accordion from '$lib/components/ui/accordion';
-	import { Input } from '$lib/components/ui/input';
-	import { Switch } from '$lib/components/ui/switch';
 	import { Button } from '$lib/components/ui/button';
-	import { Separator } from '$lib/components/ui/separator';
-	import { Checkbox } from '$lib/components/ui/checkbox';
-	import * as Select from '$lib/components/ui/select/index.js';
-	import { Label } from '$lib/components/ui/label';
-	import Roadmap from '$lib/components/Roadmap.svelte';
-	import * as Field from '$lib/components/ui/field/index.js';
-	import FAQ from '$lib/components/FAQ.svelte';
-	import TemplateSelector from '$lib/components/TemplateSelector.svelte';
 	import SectionsTab from '$lib/components/SectionsTab.svelte';
 	import { resumeData } from '$lib/stores/resumeStore.svelte';
 
@@ -33,11 +21,7 @@
 					pdfjs.GlobalWorkerOptions.workerSrc = worker.default;
 				}
 
-				const pdfDocGenerator = createPDFDocument(
-					currentState.config.template,
-					currentState,
-					currentState.config.font
-				);
+				const pdfDocGenerator = createPDFDocument(currentState);
 				const pdfData = await pdfDocGenerator.getBuffer();
 
 				const loadingTask = pdfjs.getDocument({
@@ -71,20 +55,8 @@
 	function download() {
 		if (!browser) return;
 		const currentState = $state.snapshot(resumeData);
-		const doc = createPDFDocument(
-			currentState.config.template,
-			currentState,
-			currentState.config.font
-		);
+		const doc = createPDFDocument(currentState);
 		doc.download(`${resumeData.personal.fullName || 'resume'}.pdf`);
-	}
-	// IMPLEMENT
-	const triggerContent = $derived(
-		Object.values(fonts).find((f) => f.value === resumeData.config.template)?.name ??
-			'Select a font'
-	);
-	function templateChange(value: string) {
-		resumeData.config.template = value;
 	}
 </script>
 
@@ -93,7 +65,7 @@
 		<div class="lg:col-span-2">
 			<SectionsTab />
 
-			<Button class="mt-4 w-full" onclick={download}>Download PDF</Button>
+			<!-- <Button class="mt-4 w-full" onclick={download}>Download PDF</Button> -->
 		</div>
 		<section class="sticky top-0 flex h-screen items-start justify-center p-0">
 			<Card.Root
@@ -115,5 +87,4 @@
 			</Card.Root>
 		</section>
 	</section>
-	<FAQ />
 </main>

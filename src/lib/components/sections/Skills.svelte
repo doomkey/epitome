@@ -12,7 +12,6 @@
 	import { resumeData } from '$lib/stores/resumeStore.svelte';
 	import EmptySection from '../EmptySection.svelte';
 
-	// derived flat list for the PDF renderer to consume
 	let categories = $state([createSkillCategory(true)]);
 
 	const flatSkills = $derived(categories.flatMap((c) => c.skills));

@@ -29,10 +29,6 @@ export const fonts = {
 registerTemplate(templates.DEFAULT.value, defaultTemplate);
 registerTemplate(templates.CLASSIC.value, classicTemplate);
 
-export function createPDFDocument(
-	template = templates.DEFAULT.value,
-	data: ResumeData,
-	font = fonts.ROBOTO.value
-) {
-	return generatePdf(template, data, font);
+export function createPDFDocument(data: ResumeData) {
+	return generatePdf(data);
 }

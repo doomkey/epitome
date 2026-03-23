@@ -96,4 +96,5 @@ export type ResumeData = {
 	projects: ProjectEntry[];
 	certifications: CertificationEntry[];
 	skills: SkillsData;
+	config: ResumeConfig;
 };
