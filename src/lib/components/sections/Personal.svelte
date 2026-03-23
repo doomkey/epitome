@@ -7,6 +7,13 @@
 	import { resumeData } from '$lib/stores/resumeStore.svelte';
 
 	const personal = resumeData.personal;
+	let summaryLength = $state(0);
+	const RECOMMENDED_LENGTH = 400;
+	const isRecommendedExceeded = $derived(summaryLength > RECOMMENDED_LENGTH);
+	// @ts-ignore
+	function updateSummaryCount(e) {
+		summaryLength = e.target.value.length;
+	}
 </script>
 
 <Tabs.Content value={sections.personal.value}>
@@ -56,11 +63,26 @@
 			</Field.Group>
 			<Field.Group>
 				<Field.Field>
-					<Field.Label>Summary</Field.Label>
+					<div class="flex justify-between">
+						<Field.Label>Summary</Field.Label>
+						<p
+							class="text-xs"
+							class:text-destructive={isRecommendedExceeded}
+							class:text-muted-foreground={!isRecommendedExceeded}
+						>
+							{summaryLength} ch
+						</p>
+					</div>
 					<Textarea
 						placeholder="Write something describing yourself."
 						bind:value={personal.summary}
+						oninput={updateSummaryCount}
 					/>
+					{#if isRecommendedExceeded}
+						<p class="text-sm text-muted-foreground">
+							It is recommended to keep the summary short.
+						</p>
+					{/if}
 				</Field.Field>
 			</Field.Group>
 		</Field.Set>

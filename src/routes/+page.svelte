@@ -17,41 +17,13 @@
 	import TemplateSelector from '$lib/components/TemplateSelector.svelte';
 	import SectionsTab from '$lib/components/SectionsTab.svelte';
 	import { resumeData } from '$lib/stores/resumeStore.svelte';
-	//@ts-ignore
-	let state = $state({
-		subtitle: { value: '', visible: true, placeholder: 'A report on' },
-		title: { value: '', visible: true, placeholder: 'Title of the document' },
-		submittedTo: { value: '', visible: true, placeholder: 'Name of the professor' },
-		designation: { value: '', visible: true, placeholder: 'Designation' },
-		dept: { value: 'Department of Dept.', visible: true, placeholder: 'Department Name' },
-		dept_bottom: { value: '', visible: true, placeholder: 'Department Name' },
-		varsity: {
-			value: 'Patuakhali Science and Technology University',
-			visible: true,
-			placeholder: 'Name of the Institution'
-		},
-		varsity_bottom: { value: '', visible: true, placeholder: 'Name of the Institution' },
-		submittedBy: { value: '', visible: true, placeholder: 'Student Name' },
-		studentId: { value: '', visible: true, placeholder: 'ID Number' },
-		regNo: { value: '', visible: true, placeholder: 'Registration No' },
-		session: { value: '', visible: true, placeholder: 'Session' },
-		date: { value: '', visible: true, placeholder: 'Submission Date' }
-	});
-	let font = $state(fonts.ROBOTO.value);
-	let template = $state(templates.DEFAULT.value);
-	let conditions = $state({
-		varsity: true,
-		dept: true
-	});
 
 	$effect(() => {
-		if (conditions.varsity) {
-			state.varsity_bottom.value = state.varsity.value;
-		}
-		if (conditions.dept) {
-			state.dept_bottom.value = state.dept.value;
-		}
+		console.log(resumeData);
 	});
+
+	let font = $state(fonts.TINOS.value);
+	let template = $state(templates.CLASSIC.value);
 
 	let previewUrl = $state('');
 	$effect(() => {
@@ -109,6 +81,7 @@
 		);
 		doc.download(`${resumeData.personal.fullName || 'resume'}.pdf`);
 	}
+	// IMPLEMENT
 	const triggerContent = $derived(
 		Object.values(fonts).find((f) => f.value === font)?.name ?? 'Select a font'
 	);

@@ -1,14 +1,11 @@
 import { registerTemplate, generatePdf } from '$lib/functions/pdfEngine';
-import { hotashaCoverTemplate } from '$lib/templates/hotasha';
-import { omanishaCoverTemplate } from '$lib/templates/omanisha';
-import { omabossaCoverTemplate } from '$lib/templates/omabossha';
 import type { CoverState, ResumeData } from '$lib/types';
-import omanisha from '$lib/assets/template_thumbs/omanisha.png';
-import ordhochondro from '$lib/assets/template_thumbs/ordhochondro.png';
 import omabossa from '$lib/assets/template_thumbs/omabossa.png';
-import { defaultTemplate } from '$lib/templates/default';
+import { defaultTemplate } from '$lib/templates/DEFAULT';
+import { classicTemplate } from '$lib/templates/CLASSIC';
 export const templates = {
-	DEFAULT: { name: 'Default', value: 'DEFAULT', img: omabossa }
+	DEFAULT: { name: 'Default', value: 'DEFAULT', img: omabossa },
+	CLASSIC: { name: 'Classic', value: 'CLASSIC', img: omabossa }
 };
 export const fonts = {
 	TINOS: {
@@ -30,6 +27,7 @@ export const fonts = {
 };
 
 registerTemplate(templates.DEFAULT.value, defaultTemplate);
+registerTemplate(templates.CLASSIC.value, classicTemplate);
 
 export function createPDFDocument(
 	template = templates.DEFAULT.value,

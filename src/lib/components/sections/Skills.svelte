@@ -10,6 +10,7 @@
 	import { Switch } from '../ui/switch';
 	import { Label } from '../ui/label';
 	import { resumeData } from '$lib/stores/resumeStore.svelte';
+	import EmptySection from '../EmptySection.svelte';
 
 	const { skills } = resumeData;
 
@@ -47,48 +48,56 @@
 </script>
 
 <Tabs.Content value={sections.skills.value}>
-	{#each resumeData.skills.categories as cat, i (cat.id)}
-		<SectionEntry
-			title={cat.category || 'Untitled'}
-			index={i}
-			total={resumeData.skills.categories.length}
-			onMoveUp={() =>
-				(resumeData.skills.categories = moveItem(resumeData.skills.categories, i, 'up'))}
-			onMoveDown={() =>
-				(resumeData.skills.categories = moveItem(resumeData.skills.categories, i, 'down'))}
-			onRemove={() =>
-				(resumeData.skills.categories = removeItem(resumeData.skills.categories, cat.id))}
-		>
-			<Field.Field>
-				<Field.Label>Name of the Category</Field.Label>
-				<Input placeholder="Category name (e.g. Frontend)" bind:value={cat.category} class="mb-3" />
-			</Field.Field>
-			<Field.Field>
-				<Field.Label>Skills</Field.Label>
-				<Input
-					placeholder="Type a skill and press Enter or comma..."
-					bind:value={inputs[cat.id]}
-					onkeydown={(e) => handleKeydown(e, cat.id)}
-				/>
-			</Field.Field>
-			<div class="mb-3 flex flex-wrap gap-2">
-				{#each cat.skills as skill, si (si)}
-					<span
-						class="inline-flex items-center gap-1 rounded-md border border-border bg-muted px-2.5 py-1 text-sm font-medium text-muted-foreground"
-					>
-						{skill}
-						<button
-							onclick={() => removeSkill(cat.id, skill)}
-							class="ml-1 rounded transition-colors hover:text-destructive"
-							aria-label="Remove {skill}"
+	{#if resumeData.skills.categories.length > 0}
+		{#each resumeData.skills.categories as cat, i (cat.id)}
+			<SectionEntry
+				title={cat.category || 'Untitled'}
+				index={i}
+				total={resumeData.skills.categories.length}
+				onMoveUp={() =>
+					(resumeData.skills.categories = moveItem(resumeData.skills.categories, i, 'up'))}
+				onMoveDown={() =>
+					(resumeData.skills.categories = moveItem(resumeData.skills.categories, i, 'down'))}
+				onRemove={() =>
+					(resumeData.skills.categories = removeItem(resumeData.skills.categories, cat.id))}
+			>
+				<Field.Field>
+					<Field.Label>Name of the Category</Field.Label>
+					<Input
+						placeholder="Category name (e.g. Frontend)"
+						bind:value={cat.category}
+						class="mb-3"
+					/>
+				</Field.Field>
+				<Field.Field>
+					<Field.Label>Skills</Field.Label>
+					<Input
+						placeholder="Type a skill and press Enter or comma..."
+						bind:value={inputs[cat.id]}
+						onkeydown={(e) => handleKeydown(e, cat.id)}
+					/>
+				</Field.Field>
+				<div class="mb-3 flex flex-wrap gap-2">
+					{#each cat.skills as skill, si (si)}
+						<span
+							class="inline-flex items-center gap-1 rounded-md border border-border bg-muted px-2.5 py-1 text-sm font-medium text-muted-foreground"
 						>
-							<XIcon class="h-3 w-3" />
-						</button>
-					</span>
-				{/each}
-			</div>
-		</SectionEntry>
-	{/each}
+							{skill}
+							<button
+								onclick={() => removeSkill(cat.id, skill)}
+								class="ml-1 rounded transition-colors hover:text-destructive"
+								aria-label="Remove {skill}"
+							>
+								<XIcon class="h-3 w-3" />
+							</button>
+						</span>
+					{/each}
+				</div>
+			</SectionEntry>
+		{/each}
+	{:else}
+		<EmptySection />
+	{/if}
 
 	<Button
 		onclick={() =>
