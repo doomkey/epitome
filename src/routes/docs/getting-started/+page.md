@@ -4,7 +4,9 @@ Upon opening the [generate](/generate) page, a new workspace will be created. It
 
 ## Adding Data
 
-Input the apporpriate data in appropriate sections by the navigating between tabs (large screen) or dropdown(smol screen). Your data will be saved automatically when you:
+Input the apporpriate data in appropriate sections by the navigating between tabs (large screen) or dropdown(smol screen). The preview will be updated as you type. 
+
+Your data will be saved automatically when you:
 
 1. Navigate between sections
 2. Rename the workspace
