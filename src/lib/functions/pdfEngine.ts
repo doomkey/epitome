@@ -1,7 +1,6 @@
 import pdfMake from 'pdfmake/build/pdfmake';
-//@ts-ignore
 import * as vfs from '$lib/assets/fonts/vfs_fonts';
-import type { CoverState, ResumeData } from '$lib/types';
+import type { ResumeData } from '$lib/types';
 import type { PdfTemplateFunction } from './helpers';
 
 (pdfMake as any).vfs = vfs;
@@ -18,17 +17,17 @@ pdfMake.addFonts({
 		italics: 'EBGaramond-Italic.ttf',
 		bolditalics: 'EBGaramond-BoldItalic.ttf'
 	},
-	JETBRAINSMONO: {
-		normal: 'JetBrainsMono-Regular.ttf',
-		bold: 'JetBrainsMono-Bold.ttf',
-		italics: 'JetBrainsMono-Italic.ttf',
-		bolditalics: 'JetBrainsMono-BoldItalic.ttf'
-	},
 	ROBOTO: {
 		normal: 'Roboto-Regular.ttf',
 		bold: 'Roboto-Bold.ttf',
 		italics: 'Roboto-Italic.ttf',
 		bolditalics: 'Roboto-BoldItalic.ttf'
+	},
+	UBUNTU: {
+		normal: 'Ubuntu-Regular.ttf',
+		bold: 'Ubuntu-Bold.ttf',
+		italics: 'Ubuntu-Italic.ttf',
+		bolditalics: 'Ubuntu-BoldItalic.ttf'
 	}
 });
 

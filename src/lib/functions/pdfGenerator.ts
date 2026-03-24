@@ -1,5 +1,5 @@
 import { registerTemplate, generatePdf } from '$lib/functions/pdfEngine';
-import type { CoverState, ResumeData } from '$lib/types';
+import type { ResumeData } from '$lib/types';
 import omabossa from '$lib/assets/template_thumbs/omabossa.png';
 import { defaultTemplate } from '$lib/templates/DEFAULT';
 import { classicTemplate } from '$lib/templates/CLASSIC';
@@ -9,7 +9,7 @@ export const templates = {
 };
 export const fonts = {
 	TINOS: {
-		name: 'Tinos (Times New Roman)',
+		name: 'Tinos',
 		value: 'TINOS'
 	},
 	ROBOTO: {
@@ -19,6 +19,10 @@ export const fonts = {
 	EB_GARAMOND: {
 		name: 'EB Garamond',
 		value: 'EBGARAMOND'
+	},
+	UBUNTU: {
+		name: 'Ubuntu',
+		value: 'UBUNTU'
 	}
 };
 
