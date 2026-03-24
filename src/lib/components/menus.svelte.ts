@@ -12,6 +12,7 @@ import { getAllWorkspaces } from '$lib/db/workspaces';
 import { templates, fonts, createPDFDocument } from '$lib/functions/pdfGenerator';
 import { toast } from 'svelte-sonner';
 import { browser } from '$app/environment';
+import { resolve } from '$app/paths';
 
 export type MenuAction = {
 	type?: undefined;
@@ -181,7 +182,7 @@ export function getMenus(opts: {
 			items: [
 				{
 					label: 'How to...',
-					onSelect: () => window.open('/docs', '_blank')
+					onSelect: () => window.open(resolve('/docs'), '_blank')
 				},
 				{
 					label: 'GitHub',

@@ -6,6 +6,7 @@
 	import Pricing from './Pricing.svelte';
 	import NavbarDefault from './NavbarDefault.svelte';
 	let visible = $state(false);
+	import { resolve } from '$app/paths';
 
 	onMount(() => {
 		setTimeout(() => (visible = true), 50);
@@ -75,11 +76,13 @@
 			</p>
 
 			<div class="flex flex-wrap items-center gap-3">
-				<Button href="/generate" size="lg" class="group gap-2 font-medium">
+				<Button href={resolve('/generate')} size="lg" class="group gap-2 font-medium">
 					Generate Resume
 					<span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
 				</Button>
-				<Button href="/docs" variant="outline" size="lg" class="font-medium">Documentation</Button>
+				<Button href={resolve('/docs')} variant="outline" size="lg" class="font-medium"
+					>Documentation</Button
+				>
 			</div>
 
 			<Separator />

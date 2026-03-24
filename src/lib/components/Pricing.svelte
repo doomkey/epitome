@@ -4,6 +4,7 @@
 	import { Badge } from '$lib/components/ui/badge';
 	import CheckIcon from '@lucide/svelte/icons/check';
 	import XIcon from '@lucide/svelte/icons/x';
+	import { resolve } from '$app/paths';
 
 	const them = {
 		name: 'The Others',
@@ -38,7 +39,7 @@
 		period: 'forever',
 		description: 'Just use your browser.',
 		cta: 'Generate Resume',
-		href: '/generate',
+		href: resolve('/generate'),
 		features: [
 			{ label: 'Create a resume', included: true },
 			{ label: 'Choose a template', included: true },

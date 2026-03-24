@@ -1,3 +1,8 @@
+<script>
+import { base } from '$app/paths';
+</script>
+
+
 # Terms of Services
 
 
@@ -11,7 +16,7 @@ Welcome to **Epitome**, a Free and Open-Source (FOSS) application developed by *
 ### 1. Software License
 Epitome is licensed under the **GNU Affero General Public License v3 (AGPLv3)**. 
 * You are free to use, study, modify, and redistribute this software under the terms of that license. 
-* The full text of the license is available in the `LICENSE` file provided with the source code and [here](/pages/legal/license)
+* The full text of the license is available in the `LICENSE` file provided with the source code and [here](/epitome/pages/legal/license)
 
 ### 2. Nature of Service
 Epitome is a **local-only** application. 

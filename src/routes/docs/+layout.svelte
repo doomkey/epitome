@@ -3,6 +3,7 @@
 	import { nav } from './nav';
 	import MenuIcon from '@lucide/svelte/icons/menu';
 	import XIcon from '@lucide/svelte/icons/x';
+	import { resolve, base } from '$app/paths';
 
 	let { children } = $props();
 	let sidebarOpen = $state(false);
@@ -63,10 +64,10 @@
 				</div>
 			{:else}
 				<a
-					href={item.href}
+					href={resolve(item.href)}
 					onclick={() => (sidebarOpen = false)}
 					class="mb-2 block rounded-md px-2 py-1 text-sm transition-colors hover:bg-muted
-                {page.url.pathname === item.href
+                {page.url.pathname === `${base}${item.href}`
 						? 'bg-muted font-medium text-foreground'
 						: 'text-muted-foreground'}"
 				>

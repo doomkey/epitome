@@ -2,6 +2,7 @@
 	import MoonIcon from '@lucide/svelte/icons/moon';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { page } from '$app/state';
+	import { resolve } from '$app/paths';
 	const links = [
 		{
 			title: 'Home',
@@ -27,7 +28,10 @@
 >
 	<div class="container mx-auto flex h-14 items-center justify-between px-4">
 		<div class="flex items-center gap-2">
-			<a href="/" class="text-xl font-bold tracking-tight transition-opacity hover:opacity-80">
+			<a
+				href={resolve('/')}
+				class="text-xl font-bold tracking-tight transition-opacity hover:opacity-80"
+			>
 				Epitome
 			</a>
 		</div>
@@ -35,7 +39,7 @@
 		<nav class="hidden items-center gap-6 text-sm font-medium md:flex">
 			{#each links as { title, href, rel, target } (title)}
 				<a
-					{href}
+					href={resolve(href)}
 					class="text-foreground/60 transition-colors hover:text-primary"
 					{rel}
 					{target}

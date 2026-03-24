@@ -6,4 +6,8 @@ You can delete data either from
 
 or by clearing the data of this website.
 
-Please do a [backup of data](/docs/data-management/exporting-data) before wiping everything.
+Please do a [backup of data](/epitome/docs/data-management/exporting-data) before wiping everything.
+
+<script>
+import { base } from '$app/paths';
+</script>

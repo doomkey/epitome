@@ -1,6 +1,6 @@
 <script lang="ts">
 	import StarIcon from '@lucide/svelte/icons/star';
-
+	import { resolve } from '$app/paths';
 	const product = [
 		{ label: 'Generate Resume', href: '/generate' },
 		{ label: 'Features', href: '/#features' },
@@ -24,7 +24,10 @@
 	<div class="container mx-auto px-4 py-12">
 		<div class="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-4">
 			<div class="col-span-2 sm:col-span-2 lg:col-span-1">
-				<a href="/" class="text-lg font-bold tracking-tight transition-colors hover:text-primary">
+				<a
+					href={resolve('/')}
+					class="text-lg font-bold tracking-tight transition-colors hover:text-primary"
+				>
 					Epitome
 				</a>
 				<p class="mt-2 max-w-xs text-sm text-muted-foreground">
@@ -48,7 +51,7 @@
 					{#each product as link (link.label)}
 						<li>
 							<a
-								href={link.href}
+								href={resolve(link.href)}
 								class="text-sm text-muted-foreground transition-colors hover:text-foreground"
 							>
 								{link.label}
@@ -64,7 +67,7 @@
 					{#each resources as link (link.label)}
 						<li>
 							<a
-								href={link.href}
+								href={resolve(link.href)}
 								class="text-sm text-muted-foreground transition-colors hover:text-foreground"
 							>
 								{link.label}
@@ -80,7 +83,7 @@
 					{#each legal as link (link.label)}
 						<li>
 							<a
-								href={link.href}
+								href={resolve(link.href)}
 								class="text-sm text-muted-foreground transition-colors hover:text-foreground"
 							>
 								{link.label}

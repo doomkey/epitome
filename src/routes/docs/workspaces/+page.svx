@@ -3,6 +3,7 @@ import RW from "./rename-workspace.png"
 import NW from "./nw.png"
 import del from "./del.png"
   import res from "./res.png"
+  import { base } from '$app/paths';
 </script>
 
 
@@ -44,4 +45,4 @@ This will revert all the input data to empty value in the currently selected wor
 
 ## Deleting all Workspaces
 
-See [Data Deletion](/docs/data-management/data-deletion)
+See [Data Deletion]({base}/docs/data-management/data-deletion)

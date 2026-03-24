@@ -220,7 +220,7 @@
 						class:translate-x-full={animating && direction === 'push'}
 						class:-translate-x-full={animating && direction === 'pop'}
 					>
-						{#each currentView.items as menuItem}
+						{#each currentView.items as menuItem (menuItem)}
 							{@render renderItem(menuItem)}
 						{/each}
 					</div>

@@ -4,8 +4,8 @@ Epitome is a free, open-source resume/CV builder. It works fully in the browser.
 
 It has many useful features like:
 
-- [Workspaces](/docs/workspaces)
-- [Templates](/docs/templates/)
+- [Workspaces](/epitome/docs/workspaces/)
+- [Templates](/epitome/docs/templates/)
 - Customize resume sections
 - It is local-only, there is no server. Eveything runs on your browser
 - Backup and restore all of your data
@@ -14,3 +14,7 @@ It has many useful features like:
 - No analytics. (subject to change, however, even if analytics is added, non-intrusive analytics solution will be used with several notices accross the site).
 - No ads.
 - And so on, I'm not gonna list them all.
+- 
+<script>
+import { base } from '$app/paths';
+</script>

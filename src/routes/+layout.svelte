@@ -6,6 +6,7 @@
 	import { Toaster } from '$lib/components/ui/sonner/index.js';
 	import Footer from '$lib/components/Footer.svelte';
 	import NavbarDefault from '$lib/components/NavbarDefault.svelte';
+	import { base } from '$app/paths';
 	let { children } = $props();
 </script>
 
@@ -13,7 +14,7 @@
 	<meta property="og:image" content={banner} />
 </svelte:head>
 <Toaster position="top-center" />
-{#if page.url.pathname !== '/generate'}
+{#if page.url.pathname !== base + '/generate'}
 	<NavbarDefault />
 {/if}
 
