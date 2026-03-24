@@ -58,11 +58,7 @@
 		<div class="mb-16 flex flex-col gap-8">
 			<Separator />
 			<div class="flex flex-wrap items-baseline justify-between gap-6">
-				<h2
-					class="font-[Playfair_Display,serif] text-[clamp(1.8rem,4vw,2.8rem)] font-bold text-foreground"
-				>
-					Pricing
-				</h2>
+				<h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold text-foreground">Pricing</h2>
 				<p class="max-w-sm text-sm leading-relaxed font-light text-muted-foreground">
 					Whoa... what pricing?
 				</p>
