@@ -24,8 +24,14 @@ export function buildSections(
 	data: ResumeData,
 	builders: Record<string, (data: ResumeData) => any>
 ) {
-	return data.sections_order
-		.filter((key) => !data.sections[key].hidden)
+	// summary is not on the sections order so this shenanigan is needed
+	// maybe just adding summary to the sections would do
+	const order = [...data.sections_order];
+	if (!order.includes('summary')) {
+		order.splice(1, 0, 'summary');
+	}
+	return order
+		.filter((key) => !data.sections[key]?.hidden)
 		.flatMap((key) => builders[key]?.(data) ?? []);
 }
 
