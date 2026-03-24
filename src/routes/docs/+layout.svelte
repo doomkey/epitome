@@ -49,10 +49,10 @@
 						{#each item.links as link (link.href)}
 							<li>
 								<a
-									href={link.href}
+									href={resolve(link.href)}
 									onclick={() => (sidebarOpen = false)}
 									class="block rounded-md px-2 py-1 text-sm transition-colors hover:bg-muted
-                                {page.url.pathname === link.href
+                                 {page.url.pathname === `${base}${link.href}`
 										? 'bg-muted font-medium text-foreground'
 										: 'text-muted-foreground'}"
 								>

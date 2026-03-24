@@ -18,6 +18,10 @@
 		{ label: 'Privacy Policy', href: '/pages/legal/pp' },
 		{ label: 'License', href: 'https://github.com/doomkey/epitome/blob/main/LICENSE' }
 	];
+	function res(href) {
+		if (href.startsWith('http')) return href;
+		else return resolve(href);
+	}
 </script>
 
 <footer class="mt-auto border-t bg-background">
@@ -51,7 +55,7 @@
 					{#each product as link (link.label)}
 						<li>
 							<a
-								href={resolve(link.href)}
+								href={res(link.href)}
 								class="text-sm text-muted-foreground transition-colors hover:text-foreground"
 							>
 								{link.label}
@@ -67,7 +71,7 @@
 					{#each resources as link (link.label)}
 						<li>
 							<a
-								href={resolve(link.href)}
+								href={res(link.href)}
 								class="text-sm text-muted-foreground transition-colors hover:text-foreground"
 							>
 								{link.label}
@@ -83,7 +87,7 @@
 					{#each legal as link (link.label)}
 						<li>
 							<a
-								href={resolve(link.href)}
+								href={res(link.href)}
 								class="text-sm text-muted-foreground transition-colors hover:text-foreground"
 							>
 								{link.label}
