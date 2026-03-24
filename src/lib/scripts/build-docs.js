@@ -5,7 +5,7 @@ import { join, relative } from 'path';
 
 const DOCS_DIR = 'src/routes/docs';
 const OUTPUT = 'src/routes/docs/nav.ts';
-
+const PINNED = ['introduction', 'getting-started'];
 function scan(dir, base = '') {
 	const entries = readdirSync(dir, { withFileTypes: true }).filter(
 		(e) => !['nav.ts', '+layout.svelte', '+layout.ts'].includes(e.name)
@@ -39,7 +39,21 @@ function scan(dir, base = '') {
 			: 'Introduction';
 		links.unshift({ label, href });
 	}
+	links.sort((a, b) => {
+		if (a.label === 'Introduction') return -1;
+		if (b.label === 'Introduction') return 1;
+		const aSlug = (a.href ?? '').split('/').pop() ?? '';
+		const bSlug = (b.href ?? '').split('/').pop() ?? '';
+		const aPin = PINNED.indexOf(aSlug);
+		const bPin = PINNED.indexOf(bSlug);
 
+		if (aPin !== -1 && bPin !== -1) return aPin - bPin; // both pinned, keep pin order
+		if (aPin !== -1) return -1; // a pinned
+		if (bPin !== -1) return 1; // b pinned
+		return aSlug.localeCompare(bSlug);
+	});
+
+	return links;
 	return links;
 }
 
