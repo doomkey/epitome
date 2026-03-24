@@ -103,7 +103,7 @@ export function getMenus(opts: {
 			items: [
 				{
 					label: 'Generate PDF',
-					shortcut: '⌘G',
+					// shortcut: 'ALT G',
 					onSelect: handleGenerate
 				},
 				{ type: 'separator' },

@@ -36,7 +36,7 @@
 		class="mb-16 sm:mb-0 sm:block sm:w-48 sm:shrink-0
             {sidebarOpen ? 'block' : 'hidden'}"
 	>
-		<p class="mb-2 text-2xl">Epitome</p>
+		<!-- <p class="mb-2 text-2xl">Epitome</p> -->
 		{#each nav as item (item)}
 			{#if 'heading' in item}
 				<!-- NavSection -->
@@ -65,7 +65,7 @@
 				<a
 					href={item.href}
 					onclick={() => (sidebarOpen = false)}
-					class="mb-1 block rounded-md px-2 py-1 text-sm transition-colors hover:bg-muted
+					class="mb-2 block rounded-md px-2 py-1 text-sm transition-colors hover:bg-muted
                 {page.url.pathname === item.href
 						? 'bg-muted font-medium text-foreground'
 						: 'text-muted-foreground'}"
