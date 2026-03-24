@@ -11,7 +11,7 @@
 <svelte:head>
 	<title>Documentation - Epitome</title>
 </svelte:head>
-<div class="sticky top-0 z-10 flex items-center gap-2 border-b bg-background px-4 py-2 sm:hidden">
+<div class="flex h-14 items-center gap-2 border-b bg-background px-4 py-2 sm:hidden">
 	<button
 		onclick={() => (sidebarOpen = !sidebarOpen)}
 		class="flex items-center gap-2 text-sm font-medium"

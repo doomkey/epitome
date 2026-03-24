@@ -38,7 +38,7 @@
 		period: 'forever',
 		description: 'Just use your browser.',
 		cta: 'Generate Resume',
-		href: '/app',
+		href: '/generate',
 		features: [
 			{ label: 'Create a resume', included: true },
 			{ label: 'Choose a template', included: true },

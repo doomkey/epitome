@@ -1,4 +1,6 @@
 <script lang="ts">
+	import NavbarDefault from '$lib/components/NavbarDefault.svelte';
+
 	let { children } = $props();
 </script>
 

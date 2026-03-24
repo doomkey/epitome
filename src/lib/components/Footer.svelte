@@ -9,7 +9,7 @@
 
 	const resources = [
 		{ label: 'Documentation', href: '/docs' },
-		{ label: 'Open Source Licenses', href: '/licenses' },
+		{ label: 'Open Source Licenses', href: '/pages/res/osl' },
 		{ label: 'GitHub', href: 'https://github.com/doomkey/epitome' }
 	];
 

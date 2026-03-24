@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator';
 	import { Badge } from '$lib/components/ui/badge';
+	import { Button } from '$lib/components/ui/button/index.js';
 	import Pricing from './Pricing.svelte';
-
+	import NavbarDefault from './NavbarDefault.svelte';
 	let visible = $state(false);
 
 	onMount(() => {
@@ -75,7 +75,7 @@
 			</p>
 
 			<div class="flex flex-wrap items-center gap-3">
-				<Button href="/app" size="lg" class="group gap-2 font-medium">
+				<Button href="/generate" size="lg" class="group gap-2 font-medium">
 					Generate Resume
 					<span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
 				</Button>
@@ -141,7 +141,7 @@
 					<h2 class="text-[clamp(1.5rem,3vw,2.2rem)] font-bold text-foreground">
 						Ready to build your resume?
 					</h2>
-					<Button href="/app" size="lg" class="group gap-2 font-medium">
+					<Button href="/generate" size="lg" class="group gap-2 font-medium">
 						Free forever
 						<span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
 					</Button>
