@@ -2,9 +2,9 @@
 
 - [ ] Resolve all todos.
 - [x] Add proper footer
-- [ ] A landing page
+- [x] A landing page
 - [ ] SEO
-- [ ] Licensing
+- [x] Licensing
 - [ ] Rearrange and renaming section (is renaming section necessary? may be nice to have.)
 - [ ] Change generate pdf shortcut (ALT G?)
 - [ ] More fonts
