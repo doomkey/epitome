@@ -1,7 +1,7 @@
 # TODO
 
 - [ ] Resolve all todos.
-- [ ] Add proper header/footer
+- [x] Add proper footer
 - [ ] A landing page
 - [ ] SEO
 - [ ] Licensing
