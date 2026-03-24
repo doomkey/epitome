@@ -5,7 +5,7 @@ import { join, relative } from 'path';
 
 const DOCS_DIR = 'src/routes/docs';
 const OUTPUT = 'src/routes/docs/nav.ts';
-const PINNED = ['introduction', 'getting-started'];
+const PINNED = ['getting-started', 'workspaces'];
 function scan(dir, base = '') {
 	const entries = readdirSync(dir, { withFileTypes: true }).filter(
 		(e) => !['nav.ts', '+layout.svelte', '+layout.ts'].includes(e.name)
