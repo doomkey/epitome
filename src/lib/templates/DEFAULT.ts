@@ -11,7 +11,7 @@ export const defaultTemplate = (data: ResumeData, font: string) => ({
 		jobTitle: { fontSize: 11, color: '#444444' },
 		sectionHeader: { fontSize: 11, bold: true, color: '#1a1a1a' },
 		entryTitle: { fontSize: 10, bold: true },
-		entrySubtitle: { fontSize: 10, bold: true, color: '#333333' },
+		entrySubtitle: { fontSize: 10, bold: false, color: '#333333', italics: true },
 		period: { fontSize: 9, color: '#666666' },
 		meta: { fontSize: 9, color: '#555555' },
 		subtle: { fontSize: 9, color: '#888888' }
@@ -54,7 +54,7 @@ function buildSectionWrapper(title: string, entries: object[]) {
 						type: 'line',
 						x1: 0,
 						y1: 2,
-						x2: pt(170),
+						x2: pt(182),
 						y2: 2,
 						lineWidth: 0.5,
 						lineColor: '#cccccc'
@@ -64,7 +64,7 @@ function buildSectionWrapper(title: string, entries: object[]) {
 			},
 			...entries
 		],
-		margin: [0, 0, 0, pt(8)]
+		margin: [0, 0, 0, pt(6)]
 	};
 }
 
@@ -102,12 +102,12 @@ function buildExperienceEntry(exp: ResumeData['experience'][number]) {
 				].filter(Boolean)
 			},
 			ifNotEmpty(exp.responsibilities, {
-				text: exp.responsibilities,
+				ul: toBullets(exp.responsibilities),
 				style: 'meta',
-				margin: [pt(4), pt(3), 0, 0]
+				margin: [pt(4), pt(1), 0, 0]
 			})
 		].filter(Boolean),
-		margin: [0, 0, 0, pt(6)]
+		margin: [0, 0, 0, pt(2)]
 	};
 }
 
@@ -140,9 +140,9 @@ function buildEducationEntry(edu: ResumeData['education'][number]) {
 					})
 				].filter(Boolean)
 			},
-			ifNotEmpty(edu.gpa, { text: `GPA: ${edu.gpa}`, style: 'subtle', margin: [0, 2, 0, 0] })
+			ifNotEmpty(edu.gpa, { text: `CGPA: ${edu.gpa}`, style: 'subtle', margin: [0, 2, 0, 0] })
 		].filter(Boolean),
-		margin: [0, 0, 0, pt(6)]
+		margin: [0, 0, 0, pt(2)]
 	};
 }
 
@@ -176,7 +176,7 @@ function buildProjectEntry(proj: ResumeData['projects'][number]) {
 				margin: [0, pt(2), 0, 0]
 			})
 		].filter(Boolean),
-		margin: [0, 0, 0, pt(6)]
+		margin: [0, 0, 0, pt(0)]
 	};
 }
 

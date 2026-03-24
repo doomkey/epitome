@@ -13,7 +13,7 @@ export const classicTemplate = (data: ResumeData, font: string) => ({
 			fontSize: 10,
 			bold: true,
 			decoration: 'underline',
-			margin: [0, pt(4), 0, pt(4)]
+			margin: [0, pt(4), 0, pt(2)]
 		},
 		entryTitle: { fontSize: 10, bold: true },
 		entrySubtitle: { fontSize: 10, italics: true },
@@ -99,7 +99,7 @@ function buildClassicExperienceEntry(exp: ResumeData['experience'][number]) {
 			ifNotEmpty(exp.responsibilities, {
 				ul: toBullets(exp.responsibilities),
 				style: 'meta',
-				margin: [0, pt(2), 0, pt(4)]
+				margin: [0, pt(0), 0, pt(2)]
 			})
 		].filter(Boolean)
 	};
@@ -129,7 +129,7 @@ function buildClassicEducationEntry(edu: ResumeData['education'][number]) {
 			{
 				columns: [
 					{ text: edu.degree, style: 'meta', width: '*' },
-					ifNotEmpty(edu.gpa, { text: `GPA: ${edu.gpa}`, style: 'meta', width: 'auto' })
+					ifNotEmpty(edu.gpa, { text: `CGPA: ${edu.gpa}`, style: 'meta', width: 'auto' })
 				]
 			}
 		],
