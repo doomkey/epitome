@@ -15,7 +15,8 @@
 
 	const legal = [
 		{ label: 'Terms of Service', href: '/terms' },
-		{ label: 'Privacy Policy', href: '/privacy' }
+		{ label: 'Privacy Policy', href: '/privacy' },
+		{ label: 'License', href: 'https://github.com/doomkey/epitome/blob/main/LICENSE' }
 	];
 </script>
 
