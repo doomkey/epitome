@@ -30,24 +30,41 @@ export const defaultTemplate = (data: ResumeData, font: string) => ({
 function buildHeader(data: ResumeData) {
 	const { fullName, title, email, phone, location, linkedin, github, website } = data.personal;
 
+	const links = [
+		email ? { text: email, link: `mailto:${email}` } : null,
+		phone ? { text: phone, link: `tel:${phone}` } : null,
+		linkedin ? { text: 'LinkedIn', link: linkedin } : null,
+		github ? { text: 'GitHub', link: github } : null,
+		website ? { text: 'Portfolio', link: website } : null
+	].filter(Boolean);
+
+	const contactBar = [];
+	links.forEach((link, i) => {
+		contactBar.push(link);
+		if (i < links.length - 1) contactBar.push({ text: '  •  ', color: '#999999', link: null });
+	});
+
 	return {
 		stack: [
 			{ text: fullName || 'Your Name', style: 'name' },
 			ifNotEmpty(title, { text: title, style: 'jobTitle', margin: [0, 2, 0, 2] }),
-			ifNotEmpty(formatContact([email, phone, location, linkedin, github, website]), {
-				text: formatContact([email, phone, location, linkedin, github, website]),
-				style: 'meta',
+			{
+				columns: [
+					{ text: contactBar, style: 'meta', width: '*' },
+					{ text: location || '', style: 'subtle', alignment: 'right', width: 'auto' }
+				],
 				margin: [0, 2, 0, 0]
-			})
+			}
 		].filter(Boolean),
 		margin: [0, 0, 0, pt(8)]
 	};
 }
 
-function buildSectionWrapper(title: string, entries: object[]) {
+function buildSectionWrapper(title: string, entries: any[]) {
+	if (!entries || entries.length === 0) return null;
 	return {
 		stack: [
-			{ text: title, style: 'sectionHeader' },
+			{ text: title.toUpperCase(), style: 'sectionHeader' },
 			{
 				canvas: [
 					{
@@ -69,11 +86,17 @@ function buildSectionWrapper(title: string, entries: object[]) {
 }
 
 function buildSummary(data: ResumeData) {
-	return buildSectionWrapper('SUMMARY', [{ text: data.personal.summary, style: 'meta' }]);
+	if (!data.personal.summary) return null;
+	return buildSectionWrapper('OBJECTIVES', [
+		{ text: data.personal.summary, style: 'meta', alignment: 'justify' }
+	]);
 }
 
 function buildExperience(data: ResumeData) {
-	return buildSectionWrapper('WORK EXPERIENCE', data.experience.map(buildExperienceEntry));
+	return buildSectionWrapper(
+		data.sections.experience.title,
+		data.experience.map(buildExperienceEntry)
+	);
 }
 
 function buildExperienceEntry(exp: ResumeData['experience'][number]) {
@@ -112,7 +135,10 @@ function buildExperienceEntry(exp: ResumeData['experience'][number]) {
 }
 
 function buildEducation(data: ResumeData) {
-	return buildSectionWrapper('EDUCATION', data.education.map(buildEducationEntry));
+	return buildSectionWrapper(
+		data.sections.education.title,
+		data.education.map(buildEducationEntry)
+	);
 }
 
 function buildEducationEntry(edu: ResumeData['education'][number]) {
@@ -147,7 +173,7 @@ function buildEducationEntry(edu: ResumeData['education'][number]) {
 }
 
 function buildProjects(data: ResumeData) {
-	return buildSectionWrapper('PROJECTS', data.projects.map(buildProjectEntry));
+	return buildSectionWrapper(data.sections.projects.title, data.projects.map(buildProjectEntry));
 }
 
 function buildProjectEntry(proj: ResumeData['projects'][number]) {
@@ -157,71 +183,80 @@ function buildProjectEntry(proj: ResumeData['projects'][number]) {
 				columns: [
 					{ text: proj.name, style: 'entryTitle', width: '*' },
 					ifNotEmpty(proj.link, {
-						text: proj.link,
+						text: 'View Project',
+						link: proj.link,
 						style: 'subtle',
 						alignment: 'right',
 						width: 'auto',
-						fontSize: 8
+						decoration: 'underline'
 					})
 				].filter(Boolean)
 			},
 			ifNotEmpty(proj.technologies, {
 				text: proj.technologies,
-				style: 'subtle',
-				margin: [0, 2, 0, 0]
+				style: 'entrySubtitle',
+				margin: [0, 1, 0, 0]
 			}),
 			ifNotEmpty(proj.description, {
-				text: proj.description,
+				ul: toBullets(proj.description),
 				style: 'meta',
-				margin: [0, pt(2), 0, 0]
+				margin: [0, pt(1), 0, 0]
 			})
 		].filter(Boolean),
-		margin: [0, 0, 0, pt(0)]
+		margin: [0, 0, 0, pt(2)]
 	};
 }
 
 function buildSkills(data: ResumeData) {
 	const { skills } = data;
+	const title = data.sections.skills.title;
 
 	if (skills.merge) {
-		return buildSectionWrapper('SKILLS', [
-			{ text: flattenSkills(skills.categories), style: 'meta' }
-		]);
+		return buildSectionWrapper(title, [{ text: flattenSkills(skills.categories), style: 'meta' }]);
 	}
 
 	return buildSectionWrapper(
-		'SKILLS',
+		title,
 		skills.categories.map((cat) => ({
 			columns: [
-				{ text: cat.category, style: 'entrySubtitle', width: pt(40) },
+				{ text: cat.category, style: 'entryTitle', width: pt(60) },
 				{ text: cat.skills.join(', '), style: 'meta', width: '*' }
 			],
-			margin: [0, 0, 0, pt(3)]
+			margin: [0, 0, 0, pt(2)]
 		}))
 	);
 }
 
 function buildCertifications(data: ResumeData) {
-	return buildSectionWrapper('CERTIFICATIONS', data.certifications.map(buildCertEntry));
+	return buildSectionWrapper(
+		data.sections.certifications.title,
+		data.certifications.map(buildCertEntry)
+	);
 }
 
 function buildCertEntry(cert: ResumeData['certifications'][number]) {
 	return {
 		stack: [
-			{ text: cert.name, style: 'entryTitle' },
 			{
 				columns: [
-					{ text: cert.organization, style: 'entrySubtitle', width: '*' },
+					{
+						text: cert.name,
+						style: 'entryTitle',
+						link: cert.url || null,
+						width: '*'
+					},
 					ifNotEmpty(cert.url, {
-						text: cert.url,
+						text: 'Verify',
+						link: cert.url,
 						style: 'subtle',
 						alignment: 'right',
 						width: 'auto',
-						fontSize: 8
+						decoration: 'underline'
 					})
-				].filter(Boolean)
-			}
+				]
+			},
+			{ text: cert.organization, style: 'entrySubtitle' }
 		],
-		margin: [0, 0, 0, pt(5)]
+		margin: [0, 0, 0, pt(4)]
 	};
 }
