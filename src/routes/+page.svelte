@@ -1,1 +1,5 @@
-<h1>Home bby</h1>
+<script>
+	import Landing from '$lib/components/Landing.svelte';
+</script>
+
+<Landing />

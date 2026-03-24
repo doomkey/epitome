@@ -33,10 +33,11 @@
 
 <div class="container mx-auto max-w-5xl px-4 py-10 sm:flex sm:gap-10">
 	<aside
-		class="mb-6 sm:mb-0 sm:block sm:w-48 sm:shrink-0
+		class="mb-16 sm:mb-0 sm:block sm:w-48 sm:shrink-0
             {sidebarOpen ? 'block' : 'hidden'}"
 	>
-		{#each nav as item}
+		<p class="mb-2 text-2xl">Epitome</p>
+		{#each nav as item (item)}
 			{#if 'heading' in item}
 				<!-- NavSection -->
 				<div class="mb-6">
@@ -44,7 +45,7 @@
 						{item.heading}
 					</p>
 					<ul class="flex flex-col gap-1">
-						{#each item.links as link}
+						{#each item.links as link (link.href)}
 							<li>
 								<a
 									href={link.href}

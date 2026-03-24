@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin '@tailwindcss/typography';
@@ -44,8 +44,8 @@
 	--sidebar-accent-foreground: oklch(0 0 0);
 	--sidebar-border: oklch(0.8699 0 0);
 	--sidebar-ring: oklch(0.8677 0.0735 7.0855);
-	--font-sans: Poppins, sans-serif;
-	--font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+	--font-sans: 'DM Sans', Poppins, sans-serif;
+	--font-serif: 'Playfair Display', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
 	--font-mono: Roboto Mono, monospace;
 	--radius: 0.5rem;
 	--shadow-x: 0;
@@ -184,6 +184,5 @@
 	}
 }
 :root {
-	--font-sans: 'SF Pro Text', sans-serif;
 	--default-font-family: var(--font-sans);
 }
