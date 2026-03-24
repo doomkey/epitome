@@ -18,3 +18,4 @@
 - [x] Use the resizable component in the generation page
 - [ ] Some Questions that might Arise in Your Mind section (SQAYM)
 - [ ] Reason behind the naming (who cares?)
+- [ ] Show all the pages in preview
