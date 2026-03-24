@@ -30,7 +30,6 @@ function scan(dir, base = '') {
 		}
 	}
 
-	// add direct page link at the top of this level
 	if (hasDirectPage) {
 		const href = '/docs' + (base ? '/' + base.replace(/\\/g, '/') : '');
 		const slug = base.split(/[\\/]/).pop() ?? '';
@@ -53,7 +52,6 @@ function scan(dir, base = '') {
 		return aSlug.localeCompare(bSlug);
 	});
 
-	return links;
 	return links;
 }
 
