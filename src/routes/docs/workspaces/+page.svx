@@ -1,3 +1,11 @@
+<script>
+import RW from "./rename-workspace.png"
+import NW from "./nw.png"
+import del from "./del.png"
+  import res from "./res.png"
+</script>
+
+
 # Workspaces
 
 Workspaces allow you to save different resume for different purpose.
@@ -8,6 +16,8 @@ For example, you might create a resume targeting company A, and later you need a
 
 > Menu > Workspace > New Workspace
 
+<img src={NW} />
+
 **Creating a new workspace will copy over the currently selected workspace's data to the new one.**
 
 
@@ -15,18 +25,19 @@ For example, you might create a resume targeting company A, and later you need a
 
 Click the pencil icon besides the Workspace name in the generate page.
 
-TODO Add image? 
+<img src={RW} />
 
 ## Deletion
 
 You may delete a workspace (why though? workspaces are unlimited) by clicking the trash icon in the workspace menu.
 
-TODO Add image? 
+<img src={del} />
 
 ## Resetting a Workspace
 
 > Menu > Workspace > Reset Current Workspace
 
+<img src={res} />
 
 This will revert all the input data to empty value in the currently selected workspace. **It is recommended to use the *new workspace* feature to modify something, rather than erasing all the data you've entered.** However, the option is there for UX purposes. Some might need it.
 
@@ -34,5 +45,3 @@ This will revert all the input data to empty value in the currently selected wor
 ## Deleting all Workspaces
 
 See [Data Deletion](/docs/data-management/data-deletion)
-
-TODO Actually add the page.

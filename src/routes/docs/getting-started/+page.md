@@ -1,15 +1,25 @@
+<script>
+  import def from "./def.png"
+</script>
+
+
 # Getting Started
 
 Upon opening the [generate](/generate) page, a new workspace will be created. It will be populated with some prefilled information (to enhance the preview). You can resize the information panel and preview panel by dragging the handle sideways (on large screen). On smaller screen, the preview is under the information panel.
 
 ## Adding Data
 
-Input the apporpriate data in appropriate sections by the navigating between tabs (large screen) or dropdown(smol screen). The preview will be updated as you type. 
+Input the apporpriate data in appropriate sections by the navigating between tabs (large screen) or dropdown(smol screen).
+
+<img src={def} />
+
+
+The preview will be updated as you type. 
 
 Your data will be saved automatically when you:
 
 1. Navigate between sections
-2. Rename the workspace
+2. Rename the [workspace](/docs/workspaces)
 3. Update any section(rename/hide/reorder)
 4. Generate a pdf
 5. Import/export a backup
