@@ -33,6 +33,6 @@ This will revert all the input data to empty value in the currently selected wor
 
 ## Deleting all Workspaces
 
-See [Data Deletion](/docs/data-management/purge)
+See [Data Deletion](/docs/data-management/data-deletion)
 
 TODO Actually add the page.
