@@ -1,8 +1,15 @@
+<script>
+  import se from "./se.png"
+</script>
+
 # Sections
 
 Epitome allows you to hide/rename/reorder the sections in your resume.
 
 **Reordering the Personal section is not possible.** (why would you even do that?)
+
+<img src={se} />
+
 
 ## Hiding and Reordering Sections
 

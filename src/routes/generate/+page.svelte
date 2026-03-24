@@ -7,7 +7,9 @@
 	import { createPDFDocument } from '$lib/functions/pdfGenerator';
 	import { Button } from '$lib/components/ui/button';
 
-	let previewUrl = $state('');
+	let previewUrls = $state<string[]>([]);
+	let currentPage = $state(0);
+	let totalPages = $state(0);
 	$effect(() => {
 		if (!browser) return;
 
@@ -30,22 +32,31 @@
 				});
 
 				const pdf = await loadingTask.promise;
-				const page = await pdf.getPage(1);
 
-				const viewport = page.getViewport({ scale: 1.5 });
-				const canvas = document.createElement('canvas');
-				const context = canvas.getContext('2d');
-				if (!context) return;
+				const urls: string[] = [];
+				totalPages = pdf.numPages;
 
-				canvas.height = viewport.height;
-				canvas.width = viewport.width;
-				//@ts-ignore
-				await page.render({ canvasContext: context, viewport }).promise;
+				for (let i = 1; i <= pdf.numPages; i++) {
+					const page = await pdf.getPage(i);
+					const viewport = page.getViewport({ scale: 2 });
+					const canvas = document.createElement('canvas');
+					const context = canvas.getContext('2d');
+					if (!context) continue;
 
-				if (previewUrl) URL.revokeObjectURL(previewUrl);
-				previewUrl = canvas.toDataURL('image/png');
+					canvas.height = viewport.height;
+					canvas.width = viewport.width;
+					await page.render({ canvasContext: context, viewport }).promise;
+					urls.push(canvas.toDataURL('image/png'));
+				}
+
+				// Cleanup old URLs
+				previewUrls.forEach((url) => URL.revokeObjectURL(url));
+				previewUrls = urls;
+
+				// Reset page index if its  out of bounds
+				if (currentPage >= totalPages) currentPage = 0;
 			} catch (err) {
-				console.error('Minimal Preview Error:', err);
+				console.error(' Preview Error:', err);
 			}
 		};
 
@@ -58,6 +69,12 @@
 		const doc = createPDFDocument(currentState);
 		doc.download(`${resumeData.personal.fullName || 'resume'}.pdf`);
 	}
+	const nextPage = () => {
+		if (currentPage < totalPages - 1) currentPage++;
+	};
+	const prevPage = () => {
+		if (currentPage > 0) currentPage--;
+	};
 </script>
 
 <main class="container mx-auto">
@@ -98,13 +115,37 @@
 	</section>
 </main>
 {#snippet preview()}
-	{#if previewUrl}
-		<div class="relative flex h-full w-full items-center justify-center">
-			<img
-				src={previewUrl}
-				alt="Preview"
-				class="max-h-full max-w-full rounded-sm border object-contain"
-			/>
+	{#if previewUrls.length > 0}
+		<div class="relative flex h-full w-full flex-col items-center justify-center gap-4">
+			{#if totalPages > 1}
+				<div class="flex items-center gap-4">
+					<Button variant="outline" size="icon" onclick={prevPage} disabled={currentPage === 0}>
+						<span class="sr-only">Previous Page</span>
+						&larr;
+					</Button>
+
+					<span class="text-sm font-medium">
+						Page {currentPage + 1} of {totalPages}
+					</span>
+
+					<Button
+						variant="outline"
+						size="icon"
+						onclick={nextPage}
+						disabled={currentPage === totalPages - 1}
+					>
+						<span class="sr-only">Next Page</span>
+						&rarr;
+					</Button>
+				</div>
+			{/if}
+			<div class="relative flex flex-1 items-center justify-center overflow-hidden">
+				<img
+					src={previewUrls[currentPage]}
+					alt="Preview Page {currentPage + 1}"
+					class="max-h-full max-w-full rounded-sm border object-contain shadow-sm"
+				/>
+			</div>
 		</div>
 	{:else}
 		<div class="flex h-full items-center justify-center text-muted-foreground italic">

@@ -1,5 +1,6 @@
 <script>
-  import def from "./def.png"
+import def from "./def.png"
+  import ed from "./ed.png"
 </script>
 
 
@@ -21,11 +22,17 @@ Your data will be saved automatically when you:
 1. Navigate between sections
 2. Rename the [workspace](/docs/workspaces)
 3. Update any section(rename/hide/reorder)
+4. Switch between workspaces.
 4. Generate a pdf
 5. Import/export a backup
 
 Note that the saving occurs in your current browser only. If you want to use another browser, use the [import/export](/docs/data-management/exporting-data) functionalities.
 
-Sections like education, experience etc feature folded-list entry. Use the caret icon on the left side of each entry to fold-unfold an entry. You can reorder and delete an entry with the icons on the right side. Note that if a section has no entry, it will be hidden from the resume. However, you can [hide a section](/docs/customization/sections/) without deleting all of the entries of that section.
+Sections like education, experience etc feature folded-list entry. Use the caret icon on the left side of each entry to fold-unfold an entry. You can reorder and delete an entry with the icons on the right side. 
+
+
+<img src={ed} />
+
+Note that if a section has no entry, it will be hidden from the resume. However, you can [hide a section](/docs/customization/sections/) without deleting all of the entries of that section.
 
 Visit [customization](/docs/customization) for customizing various aspects of your resume.

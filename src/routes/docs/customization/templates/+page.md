@@ -3,4 +3,6 @@
 
 ## Usage
 
-Templates can be found on the menu > Customize. 
+> Menu > Customize.
+
+Currently there are 3 available templates. More will be added in the future.

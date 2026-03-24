@@ -1,3 +1,7 @@
+<script>
+  import f from "./f.png"
+</script>
+
 
 # Fonts 
 
@@ -9,3 +13,5 @@ Available fonts are:
 2. EB Garamond
 3. Roboto
 4. Ubuntu
+
+<img src={f} />
