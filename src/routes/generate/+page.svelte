@@ -6,10 +6,12 @@
 	import * as Resizable from '$lib/components/ui/resizable/index.js';
 	import { createPDFDocument } from '$lib/functions/pdfGenerator';
 	import { Button } from '$lib/components/ui/button';
+	import * as Dialog from '$lib/components/ui/dialog';
 
 	let previewUrls = $state<string[]>([]);
 	let currentPage = $state(0);
 	let totalPages = $state(0);
+	let isFullscreen = $state(false);
 	$effect(() => {
 		if (!browser) return;
 
@@ -120,33 +122,58 @@
 			{#if totalPages > 1}
 				<div class="flex items-center gap-4">
 					<Button variant="outline" size="icon" onclick={prevPage} disabled={currentPage === 0}>
-						<span class="sr-only">Previous Page</span>
 						&larr;
 					</Button>
-
-					<span class="text-sm font-medium">
-						Page {currentPage + 1} of {totalPages}
-					</span>
-
+					<span class="text-sm font-medium">Page {currentPage + 1} of {totalPages}</span>
 					<Button
 						variant="outline"
 						size="icon"
 						onclick={nextPage}
 						disabled={currentPage === totalPages - 1}
 					>
-						<span class="sr-only">Next Page</span>
 						&rarr;
 					</Button>
 				</div>
 			{/if}
-			<div class="relative flex flex-1 items-center justify-center overflow-hidden">
+			<button
+				type="button"
+				onclick={() => (isFullscreen = true)}
+				class="relative flex flex-1 cursor-zoom-in items-center justify-center overflow-hidden transition-opacity hover:opacity-95 lg:cursor-default"
+			>
 				<img
 					src={previewUrls[currentPage]}
 					alt="Preview Page {currentPage + 1}"
 					class="max-h-full max-w-full rounded-sm border object-contain shadow-sm"
 				/>
-			</div>
+				<div
+					class="absolute right-2 bottom-2 rounded bg-black/50 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100"
+				>
+					Click to enlarge
+				</div>
+			</button>
 		</div>
+
+		<Dialog.Root bind:open={isFullscreen}>
+			<Dialog.Content
+				class="flex h-dvh max-w-[100vw] flex-col items-center justify-center bg-background/95 p-0 backdrop-blur-md"
+			>
+				<Dialog.Header class="sr-only">
+					<Dialog.Title>Resume Preview</Dialog.Title>
+				</Dialog.Header>
+
+				<div class="relative flex w-full flex-1 items-center justify-center overflow-auto">
+					<img
+						src={previewUrls[currentPage]}
+						alt="Fullscreen Preview"
+						class="max-h-full w-auto object-contain shadow-2xl"
+					/>
+				</div>
+
+				<div class="m-2">
+					<Button onclick={download}>Download PDF</Button>
+				</div>
+			</Dialog.Content>
+		</Dialog.Root>
 	{:else}
 		<div class="flex h-full items-center justify-center text-muted-foreground italic">
 			<span class="animate-pulse">Generating preview...</span>
