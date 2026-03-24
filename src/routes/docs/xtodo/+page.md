@@ -21,3 +21,4 @@
 - [x] Show all the pages in preview
 - [x] show full preview image in popup when clicked
 - [ ] references section
+- [ ] add contribution, running locally etc guide
