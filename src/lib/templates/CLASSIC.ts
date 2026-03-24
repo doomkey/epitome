@@ -18,7 +18,7 @@ export const classicTemplate = (data: ResumeData, font: string) => ({
 		contact: { fontSize: 10, alignment: 'center' }
 	},
 	content: buildSections(data, {
-		header: buildClassicHeader,
+		personal: buildClassicHeader,
 		summary: buildClassicSummary,
 		experience: buildClassicExperience,
 		education: buildClassicEducation,

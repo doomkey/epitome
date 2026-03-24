@@ -58,6 +58,7 @@ export const defaultResumeData: ResumeData = $state({
 			title: sections.skills.heading,
 			hidden: false
 		}
-	}
+	},
+	sections_order: Object.keys(sections)
 });
 export const resumeData: ResumeData = $state(JSON.parse(JSON.stringify(defaultResumeData)));

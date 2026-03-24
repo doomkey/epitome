@@ -20,20 +20,17 @@ export function baseDefaultStyle(font: string) {
 	return { font: font || 'TINOS', fontSize: 10, lineHeight: 1.4 };
 }
 
-export function buildSections(data: ResumeData, builders: SectionBuilders) {
-	return [
-		builders.header(data),
-		data.personal.summary && builders.summary?.(data),
-		data.experience.length && builders.experience?.(data),
-		data.education.length && builders.education?.(data),
-		data.projects.length && builders.projects?.(data),
-		data.skills.categories.length && builders.skills?.(data),
-		data.certifications.length && builders.certifications?.(data)
-	].filter(Boolean);
+export function buildSections(
+	data: ResumeData,
+	builders: Record<string, (data: ResumeData) => any>
+) {
+	return data.sections_order
+		.filter((key) => !data.sections[key].hidden)
+		.flatMap((key) => builders[key]?.(data) ?? []);
 }
 
 export type SectionBuilders = {
-	header: (data: ResumeData) => object;
+	personal: (data: ResumeData) => object;
 	summary?: (data: ResumeData) => object;
 	experience?: (data: ResumeData) => object;
 	education?: (data: ResumeData) => object;

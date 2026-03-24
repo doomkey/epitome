@@ -11,6 +11,7 @@
 	import PencilIcon from '@lucide/svelte/icons/pencil';
 	import Trash2Icon from '@lucide/svelte/icons/trash-2';
 	import * as AlertDialog from '$lib/components/ui/alert-dialog/index.js';
+	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	const item =
 		'flex h-9 select-none items-center gap-2 rounded-sm px-3 text-sm font-medium data-highlighted:bg-muted data-disabled:opacity-50 data-disabled:pointer-events-none cursor-default';
 	const separator = 'my-1 -mx-1 block h-px bg-border';
@@ -23,6 +24,8 @@
 	import { resumeData, defaultResumeData } from '$lib/stores/resumeStore.svelte';
 	import { saveCurrentWorkspace } from '$lib/stores/workspace.svelte';
 	import { db } from '$lib/db';
+	import { Button } from '$lib/components/ui/button';
+	import SectionsRearrange from './SectionsRearrange.svelte';
 
 	$effect(() => {
 		if (fileInput) setFileInput(fileInput);
@@ -30,6 +33,7 @@
 
 	let showResetDialog = $state(false);
 	let showDeleteAllDialog = $state(false);
+	let showConfigureSections = $state(false);
 	const menus = $derived(
 		getMenus({
 			onRename: (id, name) => {
@@ -42,7 +46,8 @@
 				toast.success(`"${name}" deleted.`);
 			},
 			onResetCurrent: () => (showResetDialog = true),
-			onDeleteAll: () => (showDeleteAllDialog = true)
+			onDeleteAll: () => (showDeleteAllDialog = true),
+			onConfigureSections: () => (showConfigureSections = true)
 		})
 	);
 	async function handleResetCurrent() {
@@ -139,7 +144,7 @@
 			<Menubar.Trigger class={item}>{menu.label}</Menubar.Trigger>
 			<Menubar.Portal>
 				<Menubar.Content class={content} align="start" sideOffset={4}>
-					{#each menu.items as menuItem}
+					{#each menu.items as menuItem (menuItem)}
 						{@render renderItem(menuItem)}
 					{/each}
 				</Menubar.Content>
@@ -240,3 +245,15 @@
 		</div>
 	</div>
 {/if}
+
+<Sheet.Root bind:open={showConfigureSections}>
+	<Sheet.Content side="left">
+		<Sheet.Header>
+			<Sheet.Title>Configure Sections</Sheet.Title>
+			<Sheet.Description
+				>Use the Eye to toggle visibility, and the arrows to change order.</Sheet.Description
+			>
+		</Sheet.Header>
+		<SectionsRearrange />
+	</Sheet.Content>
+</Sheet.Root>

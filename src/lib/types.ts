@@ -106,4 +106,5 @@ export type ResumeData = {
 		certifications: Section;
 		skills: Section;
 	};
+	sections_order: string[];
 };

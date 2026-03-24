@@ -95,6 +95,7 @@ export function getMenus(opts: {
 	onDelete: (id: string) => void;
 	onResetCurrent: () => void;
 	onDeleteAll: () => void;
+	onConfigureSections: () => void;
 }): Menu[] {
 	return [
 		{
@@ -167,6 +168,11 @@ export function getMenus(opts: {
 						label: f.name,
 						value: f.value
 					}))
+				},
+				{ type: 'separator' },
+				{
+					label: 'Configure Sections',
+					onSelect: () => opts.onConfigureSections()
 				}
 			]
 		},

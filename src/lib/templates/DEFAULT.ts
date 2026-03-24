@@ -17,7 +17,7 @@ export const defaultTemplate = (data: ResumeData, font: string) => ({
 		subtle: { fontSize: 9, color: '#888888' }
 	},
 	content: buildSections(data, {
-		header: buildHeader,
+		personal: buildHeader,
 		summary: buildSummary,
 		experience: buildExperience,
 		education: buildEducation,

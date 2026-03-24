@@ -22,6 +22,8 @@
 	import CheckIcon from '@lucide/svelte/icons/check';
 	import XIcon from '@lucide/svelte/icons/x';
 	import InlineEdit from '$lib/components/InlineEdit.svelte';
+	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
+	import SectionsRearrange from './SectionsRearrange.svelte';
 
 	const sectionList = Object.values(sections);
 	let activeTab = $state<string>(sections.personal.value);
@@ -59,10 +61,14 @@
 <div class="flex w-full flex-col gap-6">
 	<Tabs.Root bind:value={activeTab} onValueChange={handleTabChange}>
 		<div class="mb-2">
-			<InlineEdit
-				value={activeWorkspace?.name ?? 'Workspace'}
-				onconfirm={(newName) => renameWorkspace(workspaceStore.activeId, newName)}
-			/>
+			{#if workspaceStore.ready}
+				<InlineEdit
+					value={activeWorkspace?.name ?? 'Workspace'}
+					onconfirm={(newName) => renameWorkspace(workspaceStore.activeId, newName)}
+				/>
+			{:else}
+				<Skeleton class="h-6 w-24" />
+			{/if}
 		</div>
 
 		<Tabs.List class="mb-4 hidden sm:flex">
