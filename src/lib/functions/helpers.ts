@@ -1,4 +1,4 @@
-import type { CoverState, ResumeData } from '$lib/types';
+import type { ResumeData } from '$lib/types';
 
 export const pt = (mm: number) => mm * 2.83465;
 export const ptY = (mm: number, fontSize: number = 12) => pt(mm - fontSize * 0.25);
@@ -33,13 +33,15 @@ export function createEdu(prefill = false) {
 export function createExp(prefill = false) {
 	return {
 		id: Math.floor(Math.random() * 1000),
-		jobTitle: prefill ? 'Senior Software Engineer' : '',
-		company: prefill ? 'Acme Corp' : '',
-		location: prefill ? 'Dhaka, Bangladesh' : '',
-		start: prefill ? 'Jan 2020' : '',
-		end: prefill ? 'Dec 2023' : '',
+		jobTitle: prefill ? 'Software Engineer' : '',
+		company: prefill ? 'Company Corp' : '',
+		location: prefill ? 'Earth' : '',
+		start: prefill ? 'Jan 1984' : '',
+		end: prefill ? 'Dec 2029' : '',
 		present: false,
-		responsibilities: prefill ? 'Led a team of 5 engineers to deliver...' : ''
+		responsibilities: prefill
+			? 'Led a team of 5 engineers to deliver a product. \n Made many user happy.'
+			: ''
 	};
 }
 
@@ -56,9 +58,9 @@ export function createProject(prefill = false) {
 export function createCert(prefill = false) {
 	return {
 		id: Math.floor(Math.random() * 1000),
-		name: prefill ? 'AWS Certified Solutions Architect' : '',
-		organization: prefill ? 'Amazon Web Services' : '',
-		url: prefill ? 'https://aws.amazon.com/certification' : ''
+		name: prefill ? 'Certified Human' : '',
+		organization: prefill ? 'Some Orgnization' : '',
+		url: prefill ? 'https://some.org/certification' : ''
 	};
 }
 

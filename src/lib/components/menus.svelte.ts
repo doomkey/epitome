@@ -180,6 +180,10 @@ export function getMenus(opts: {
 			label: 'Help',
 			items: [
 				{
+					label: 'How to...',
+					onSelect: () => window.open('/docs', '_blank')
+				},
+				{
 					label: 'GitHub',
 					onSelect: () => window.open('https://github.com/doomkey/epitome', '_blank')
 				},

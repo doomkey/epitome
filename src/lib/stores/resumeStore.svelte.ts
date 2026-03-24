@@ -6,18 +6,19 @@ import { sections } from '$lib/constant';
 export const defaultResumeData: ResumeData = $state({
 	personal: {
 		fullName: '',
-		title: '',
-		email: '',
-		phone: '',
-		location: '',
-		linkedin: '',
-		github: '',
-		website: '',
-		summary: ''
+		title: 'Engineer',
+		email: 'mail@mail.mail',
+		phone: '+00000000',
+		location: 'Earth, Sol',
+		linkedin: 'https://linkedin.com/in/user',
+		github: 'https://github.com/user',
+		website: 'https://coolsite.nice',
+		summary:
+			'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.'
 	},
-	education: [createEdu(true)],
-	experience: [createExp(true)],
-	projects: [createProject(true)],
+	education: [createEdu(true), createEdu(true)],
+	experience: [createExp(true), createExp(true), createExp(true)],
+	projects: [createProject(true), createProject(true)],
 	certifications: [createCert(true)],
 	skills: {
 		categories: [
