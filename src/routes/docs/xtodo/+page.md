@@ -19,4 +19,4 @@
 - [ ] Some Questions that might Arise in Your Mind section (SQAYM)
 - [ ] Reason behind the naming (who cares?)
 - [x] Show all the pages in preview
-- [ ] show full preview image in popup when clicked
+- [x] show full preview image in popup when clicked
