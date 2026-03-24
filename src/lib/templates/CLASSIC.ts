@@ -57,7 +57,10 @@ function buildClassicSummary(data: ResumeData) {
 }
 
 function buildClassicExperience(data: ResumeData) {
-	return buildClassicSection('WORK EXPERIENCE', data.experience.map(buildClassicExperienceEntry));
+	return buildClassicSection(
+		data.sections.experience.title.toUpperCase(),
+		data.experience.map(buildClassicExperienceEntry)
+	);
 }
 
 function buildClassicExperienceEntry(exp: ResumeData['experience'][number]) {
@@ -87,7 +90,10 @@ function buildClassicExperienceEntry(exp: ResumeData['experience'][number]) {
 }
 
 function buildClassicEducation(data: ResumeData) {
-	return buildClassicSection('EDUCATION', data.education.map(buildClassicEducationEntry));
+	return buildClassicSection(
+		data.sections.education.title.toUpperCase(),
+		data.education.map(buildClassicEducationEntry)
+	);
 }
 
 function buildClassicEducationEntry(edu: ResumeData['education'][number]) {
@@ -112,7 +118,10 @@ function buildClassicEducationEntry(edu: ResumeData['education'][number]) {
 }
 
 function buildClassicProjects(data: ResumeData) {
-	return buildClassicSection('PROJECTS', data.projects.map(buildClassicProjectEntry));
+	return buildClassicSection(
+		data.sections.projects.title.toUpperCase(),
+		data.projects.map(buildClassicProjectEntry)
+	);
 }
 
 function buildClassicProjectEntry(proj: ResumeData['projects'][number]) {
@@ -144,15 +153,13 @@ function buildClassicProjectEntry(proj: ResumeData['projects'][number]) {
 
 function buildClassicSkills(data: ResumeData) {
 	const { skills } = data;
-
+	const title = data.sections.skills.title.toUpperCase();
 	if (skills.merge) {
-		return buildClassicSection('SKILLS', [
-			{ text: flattenSkills(skills.categories), style: 'meta' }
-		]);
+		return buildClassicSection(title, [{ text: flattenSkills(skills.categories), style: 'meta' }]);
 	}
 
 	return buildClassicSection(
-		'SKILLS',
+		title,
 		skills.categories.map((cat) => ({
 			text: [
 				{ text: `${cat.category}: `, style: 'entryTitle' },
@@ -164,7 +171,10 @@ function buildClassicSkills(data: ResumeData) {
 }
 
 function buildClassicCertifications(data: ResumeData) {
-	return buildClassicSection('CERTIFICATIONS', data.certifications.map(buildClassicCertEntry));
+	return buildClassicSection(
+		data.sections.certifications.title.toUpperCase(),
+		data.certifications.map(buildClassicCertEntry)
+	);
 }
 
 function buildClassicCertEntry(cert: ResumeData['certifications'][number]) {

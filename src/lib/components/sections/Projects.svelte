@@ -9,46 +9,65 @@
 	import { moveItem, removeItem, createProject } from '$lib/functions/helpers';
 	import { resumeData } from '$lib/stores/resumeStore.svelte';
 	import EmptySection from '../EmptySection.svelte';
+	import InlineEdit from '$lib/components/InlineEdit.svelte';
+	import * as Card from '$lib/components/ui/card/index.js';
 </script>
 
 <Tabs.Content value={sections.projects.value}>
-	{#if resumeData.projects.length > 0}
-		{#each resumeData.projects as p, i (p.id)}
-			<SectionEntry
-				title={p.name || 'Untitled'}
-				index={i}
-				total={resumeData.projects.length}
-				onMoveUp={() => (resumeData.projects = moveItem(resumeData.projects, i, 'up'))}
-				onMoveDown={() => (resumeData.projects = moveItem(resumeData.projects, i, 'down'))}
-				onRemove={() => (resumeData.projects = removeItem(resumeData.projects, p.id))}
-			>
-				<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-					<Field.Field>
-						<Field.Label>Project Name</Field.Label>
-						<Input placeholder="My Awesome Project" bind:value={p.name} required />
-					</Field.Field>
-					<Field.Field>
-						<Field.Label>Technologies Used</Field.Label>
-						<Input placeholder="React, Node.js, PostgreSQL" bind:value={p.technologies} />
-					</Field.Field>
-					<Field.Field class="md:col-span-2">
-						<Field.Label>Project Link</Field.Label>
-						<Input placeholder="https://github.com/you/project" type="url" bind:value={p.link} />
-					</Field.Field>
-					<Field.Field class="md:col-span-2">
-						<Field.Label>Description</Field.Label>
-						<Textarea
-							placeholder="What does the project do? What problem does it solve?"
-							bind:value={p.description}
-							class="min-h-24 resize-y"
-						/>
-					</Field.Field>
-				</div>
-			</SectionEntry>
-		{/each}
-	{:else}
-		<EmptySection />
-	{/if}
+	<Card.Root>
+		<Card.Header>
+			<Card.Title>
+				<InlineEdit
+					value={resumeData.sections.projects.title}
+					onconfirm={(val) => (resumeData.sections.projects.title = val)}
+				/>
+			</Card.Title>
+			<Card.Description>{sections.projects.subtitle}</Card.Description>
+		</Card.Header>
+		<Card.Content>
+			{#if resumeData.projects.length > 0}
+				{#each resumeData.projects as p, i (p.id)}
+					<SectionEntry
+						title={p.name || 'Untitled'}
+						index={i}
+						total={resumeData.projects.length}
+						onMoveUp={() => (resumeData.projects = moveItem(resumeData.projects, i, 'up'))}
+						onMoveDown={() => (resumeData.projects = moveItem(resumeData.projects, i, 'down'))}
+						onRemove={() => (resumeData.projects = removeItem(resumeData.projects, p.id))}
+					>
+						<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+							<Field.Field>
+								<Field.Label>Project Name</Field.Label>
+								<Input placeholder="My Awesome Project" bind:value={p.name} required />
+							</Field.Field>
+							<Field.Field>
+								<Field.Label>Technologies Used</Field.Label>
+								<Input placeholder="React, Node.js, PostgreSQL" bind:value={p.technologies} />
+							</Field.Field>
+							<Field.Field class="md:col-span-2">
+								<Field.Label>Project Link</Field.Label>
+								<Input
+									placeholder="https://github.com/you/project"
+									type="url"
+									bind:value={p.link}
+								/>
+							</Field.Field>
+							<Field.Field class="md:col-span-2">
+								<Field.Label>Description</Field.Label>
+								<Textarea
+									placeholder="What does the project do? What problem does it solve?"
+									bind:value={p.description}
+									class="min-h-24 resize-y"
+								/>
+							</Field.Field>
+						</div>
+					</SectionEntry>
+				{/each}
+			{:else}
+				<EmptySection />
+			{/if}
 
-	<Button onclick={() => resumeData.projects.push(createProject())}>Add New</Button>
+			<Button onclick={() => resumeData.projects.push(createProject())}>Add New</Button>
+		</Card.Content></Card.Root
+	>
 </Tabs.Content>

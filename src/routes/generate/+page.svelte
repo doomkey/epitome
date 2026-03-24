@@ -3,8 +3,9 @@
 	import * as Card from '$lib/components/ui/card';
 	import SectionsTab from '$lib/components/SectionsTab.svelte';
 	import { resumeData } from '$lib/stores/resumeStore.svelte';
-
+	import * as Resizable from '$lib/components/ui/resizable/index.js';
 	import { createPDFDocument } from '$lib/functions/pdfGenerator';
+	import { Button } from '$lib/components/ui/button';
 
 	let previewUrl = $state('');
 	$effect(() => {
@@ -60,30 +61,54 @@
 </script>
 
 <main class="container mx-auto">
-	<section class="grid grid-cols-1 items-start gap-8 space-y-6 py-6 lg:grid-cols-3">
-		<div class="lg:col-span-2">
-			<SectionsTab />
+	<div class="hidden md:block">
+		<Resizable.PaneGroup direction="horizontal">
+			<Resizable.Pane defaultSize={55}>
+				<div class="mr-2">
+					<SectionsTab />
+				</div>
+			</Resizable.Pane>
+			<Resizable.Handle withHandle />
+			<Resizable.Pane defaultSize={45}>
+				<div>
+					<section class=" flex min-h-dvh items-start justify-center p-0">
+						<div
+							class=" flex h-full w-full flex-col items-center justify-center overflow-hidden p-2"
+						>
+							{@render preview()}
+						</div>
+					</section>
+				</div>
+			</Resizable.Pane>
+		</Resizable.PaneGroup>
+	</div>
 
-			<!-- <Button class="mt-4 w-full" onclick={download}>Download PDF</Button> -->
-		</div>
-		<section class="sticky top-0 flex h-screen items-start justify-center p-0">
+	<section class="space-y-6 py-6 lg:hidden">
+		<SectionsTab />
+		<section class="flex h-screen items-start justify-center p-0">
 			<Card.Root
 				class="flex h-full w-full flex-col items-center justify-center overflow-hidden border-2 bg-muted/20 p-6"
 			>
-				{#if previewUrl}
-					<div class="relative flex h-full w-full items-center justify-center">
-						<img
-							src={previewUrl}
-							alt="Preview"
-							class="max-h-full max-w-full rounded-sm border bg-white object-contain shadow-2xl transition-all hover:scale-[1.01]"
-						/>
-					</div>
-				{:else}
-					<div class="flex h-full items-center justify-center text-muted-foreground italic">
-						<span class="animate-pulse">Generating preview...</span>
-					</div>
-				{/if}
+				{@render preview()}
 			</Card.Root>
 		</section>
+		<div class="lg:col-span-2">
+			<Button class="w-full" onclick={download}>Download PDF</Button>
+		</div>
 	</section>
 </main>
+{#snippet preview()}
+	{#if previewUrl}
+		<div class="relative flex h-full w-full items-center justify-center">
+			<img
+				src={previewUrl}
+				alt="Preview"
+				class="max-h-full max-w-full rounded-sm border object-contain"
+			/>
+		</div>
+	{:else}
+		<div class="flex h-full items-center justify-center text-muted-foreground italic">
+			<span class="animate-pulse">Generating preview...</span>
+		</div>
+	{/if}
+{/snippet}

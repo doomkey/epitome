@@ -21,6 +21,7 @@
 	import PencilIcon from '@lucide/svelte/icons/pencil';
 	import CheckIcon from '@lucide/svelte/icons/check';
 	import XIcon from '@lucide/svelte/icons/x';
+	import InlineEdit from '$lib/components/InlineEdit.svelte';
 
 	const sectionList = Object.values(sections);
 	let activeTab = $state<string>(sections.personal.value);
@@ -57,41 +58,11 @@
 
 <div class="flex w-full flex-col gap-6">
 	<Tabs.Root bind:value={activeTab} onValueChange={handleTabChange}>
-		<div class="mb-2 flex items-center gap-2">
-			{#if editing}
-				<Input
-					class="h-8 text-lg font-semibold"
-					bind:value={editingName}
-					onkeydown={(e) => {
-						if (e.key === 'Enter') confirmEdit();
-						if (e.key === 'Escape') cancelEdit();
-					}}
-					autofocus
-				/>
-				<button
-					onclick={confirmEdit}
-					class="text-muted-foreground hover:text-foreground"
-					aria-label="Confirm rename"
-				>
-					<CheckIcon class="h-4 w-4" />
-				</button>
-				<button
-					onclick={cancelEdit}
-					class="text-muted-foreground hover:text-foreground"
-					aria-label="Cancel rename"
-				>
-					<XIcon class="h-4 w-4" />
-				</button>
-			{:else}
-				<h2 class="text-lg font-semibold">{activeWorkspace?.name ?? 'Workspace'}</h2>
-				<button
-					onclick={startEdit}
-					class="text-muted-foreground hover:text-foreground"
-					aria-label="Rename workspace"
-				>
-					<PencilIcon class="h-3.5 w-3.5" />
-				</button>
-			{/if}
+		<div class="mb-2">
+			<InlineEdit
+				value={activeWorkspace?.name ?? 'Workspace'}
+				onconfirm={(newName) => renameWorkspace(workspaceStore.activeId, newName)}
+			/>
 		</div>
 
 		<Tabs.List class="mb-4 hidden sm:flex">
@@ -102,7 +73,7 @@
 
 		<div class="mb-4 sm:hidden">
 			<Label for="section-select" class="mb-1.5 block text-sm font-medium">Section</Label>
-			<Select.Root type="single" value={activeTab} onValueChange={(v) => (activeTab = v)}>
+			<Select.Root type="single" value={activeTab} onValueChange={handleTabChange}>
 				<Select.Trigger class="w-full">
 					{sectionList.find((s) => s.value === activeTab)?.title ?? 'Select section'}
 				</Select.Trigger>
@@ -115,19 +86,11 @@
 			<Separator class="mt-4" />
 		</div>
 
-		<Card.Root>
-			<Card.Header>
-				<Card.Title>{activeSection?.heading}</Card.Title>
-				<Card.Description>{activeSection?.subtitle}</Card.Description>
-			</Card.Header>
-			<Card.Content>
-				<Personal />
-				<Education />
-				<Experience />
-				<Projects />
-				<Certifications />
-				<Skills />
-			</Card.Content>
-		</Card.Root>
+		<Personal />
+		<Education />
+		<Experience />
+		<Projects />
+		<Certifications />
+		<Skills />
 	</Tabs.Root>
 </div>

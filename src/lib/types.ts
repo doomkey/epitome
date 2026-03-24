@@ -23,6 +23,7 @@ export interface CoverState {
 export interface Section {
 	title: string;
 	value: string;
+	hidden?: boolean;
 }
 
 export type PersonalData = {
@@ -97,4 +98,12 @@ export type ResumeData = {
 	certifications: CertificationEntry[];
 	skills: SkillsData;
 	config: ResumeConfig;
+	sections: {
+		personal: Section;
+		education: Section;
+		experience: Section;
+		projects: Section;
+		certifications: Section;
+		skills: Section;
+	};
 };

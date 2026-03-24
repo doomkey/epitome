@@ -1,6 +1,7 @@
 import { templates, fonts } from '$lib/functions/pdfGenerator';
 import { createEdu, createExp, createProject, createCert } from '$lib/functions/helpers';
 import type { ResumeData } from '$lib/types';
+import { sections } from '$lib/constant';
 
 export const defaultResumeData: ResumeData = $state({
 	personal: {
@@ -31,6 +32,32 @@ export const defaultResumeData: ResumeData = $state({
 	config: {
 		font: fonts.TINOS.value,
 		template: templates.DEFAULT.value
+	},
+	sections: {
+		personal: {
+			title: sections.personal.heading,
+			hidden: false
+		},
+		certifications: {
+			title: sections.certifications.heading,
+			hidden: false
+		},
+		education: {
+			title: sections.education.heading,
+			hidden: false
+		},
+		experience: {
+			title: sections.experience.heading,
+			hidden: false
+		},
+		projects: {
+			title: sections.projects.heading,
+			hidden: false
+		},
+		skills: {
+			title: sections.skills.heading,
+			hidden: false
+		}
 	}
 });
 export const resumeData: ResumeData = $state(JSON.parse(JSON.stringify(defaultResumeData)));
