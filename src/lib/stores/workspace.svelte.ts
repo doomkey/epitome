@@ -49,6 +49,7 @@ export async function switchWorkspace(id: string) {
 	hydrateResumeData(JSON.parse(JSON.stringify(workspace.data)));
 	workspaceStore.activeId = id;
 	localStorage.setItem(ACTIVE_KEY, id);
+	await saveCurrentWorkspace();
 }
 
 export async function saveCurrentWorkspace() {
