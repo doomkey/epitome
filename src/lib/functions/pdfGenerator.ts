@@ -3,9 +3,11 @@ import type { ResumeData } from '$lib/types';
 import omabossa from '$lib/assets/template_thumbs/omabossa.png';
 import { defaultTemplate } from '$lib/templates/DEFAULT';
 import { classicTemplate } from '$lib/templates/CLASSIC';
+import { waterfallTemplate } from '$lib/templates/WATERFALL';
 export const templates = {
 	DEFAULT: { name: 'Default', value: 'DEFAULT', img: omabossa },
-	CLASSIC: { name: 'Classic', value: 'CLASSIC', img: omabossa }
+	CLASSIC: { name: 'Classic', value: 'CLASSIC', img: omabossa },
+	WATERFALL: { name: 'Waterfall', value: 'WATERFALL', img: omabossa }
 };
 export const fonts = {
 	TINOS: {
@@ -28,6 +30,7 @@ export const fonts = {
 
 registerTemplate(templates.DEFAULT.value, defaultTemplate);
 registerTemplate(templates.CLASSIC.value, classicTemplate);
+registerTemplate(templates.WATERFALL.value, waterfallTemplate);
 
 export function createPDFDocument(data: ResumeData) {
 	return generatePdf(data);
