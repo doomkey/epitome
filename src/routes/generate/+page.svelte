@@ -44,24 +44,24 @@
 
 				const urls: string[] = [];
 				totalPages = pdf.numPages;
-
+				const canvas = document.createElement('canvas');
 				for (let i = 1; i <= pdf.numPages; i++) {
 					if (cancelled) return;
 					const page = await pdf.getPage(i);
 					const viewport = page.getViewport({ scale: 2 });
-					const canvas = document.createElement('canvas');
 					const context = canvas.getContext('2d');
 					if (!context) continue;
 
 					canvas.height = viewport.height;
 					canvas.width = viewport.width;
 					await page.render({ canvasContext: context, viewport }).promise;
-					urls.push(canvas.toDataURL('image/png'));
+					const blob = await new Promise<Blob>((res) => canvas.toBlob(res, 'image/png'));
+					urls.push(URL.createObjectURL(blob));
 
 					canvas.width = 0;
 					canvas.height = 0;
 				}
-
+				previewUrls.forEach((url) => URL.revokeObjectURL(url));
 				previewUrls = urls;
 
 				// Reset page index if its  out of bounds
