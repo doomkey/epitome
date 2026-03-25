@@ -41,7 +41,6 @@
 				if (e.key === 'Enter') confirmEdit();
 				if (e.key === 'Escape') cancelEdit();
 			}}
-			autofocus
 		/>
 		<button
 			onclick={confirmEdit}

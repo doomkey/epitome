@@ -313,7 +313,6 @@
 					if (e.key === 'Enter') handleRename();
 					if (e.key === 'Escape') renamingId = null;
 				}}
-				autofocus
 			/>
 			<div class="flex justify-end gap-2">
 				<button

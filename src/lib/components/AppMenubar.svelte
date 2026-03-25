@@ -134,10 +134,12 @@
 	</AlertDialog.Content>
 </AlertDialog.Root>
 <Menubar.Root
-	class="hidden h-10 items-center gap-0.5 rounded-none border-x-0 border-t-0 px-2 shadow-none sm:flex"
+	class="sticky top-0 z-90 flex h-10 items-center gap-0 rounded-none border-x-0 border-t-0 border-b-1 bg-background px-1 shadow-md md:gap-0.5 md:px-2"
 >
-	<span class="px-2 text-sm font-semibold text-muted-foreground select-none">epitome</span>
-	<div class="mx-1 h-4 w-px bg-border"></div>
+	<span class="hidden px-2 text-sm font-semibold text-muted-foreground select-none md:block"
+		>epitome</span
+	>
+	<div class="mx-1 hidden h-4 w-px bg-border md:block"></div>
 
 	{#each menus as menu (menu.label)}
 		<Menubar.Menu>
@@ -226,7 +228,6 @@
 					if (e.key === 'Enter') handleRename();
 					if (e.key === 'Escape') renamingId = null;
 				}}
-				autofocus
 			/>
 			<div class="flex justify-end gap-2">
 				<button

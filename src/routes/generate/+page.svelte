@@ -92,7 +92,7 @@
 	};
 </script>
 
-<main class="container mx-auto">
+<main class="container mx-auto mt-4">
 	<div class="hidden md:block">
 		<Resizable.PaneGroup direction="horizontal">
 			<Resizable.Pane defaultSize={55}>
@@ -115,7 +115,7 @@
 		</Resizable.PaneGroup>
 	</div>
 
-	<section class="space-y-6 py-6 lg:hidden">
+	<section class="space-y-6 py-6 md:hidden">
 		<SectionsTab />
 		<section class="flex h-screen items-start justify-center p-0">
 			<Card.Root

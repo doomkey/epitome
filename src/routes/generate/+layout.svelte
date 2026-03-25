@@ -11,5 +11,5 @@
 </script>
 
 <AppMenubar />
-<MobileMenu />
+<!-- <MobileMenu /> -->
 {@render children()}

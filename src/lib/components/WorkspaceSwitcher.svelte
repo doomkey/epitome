@@ -98,7 +98,6 @@
 									if (e.key === 'Enter') confirmRename();
 									if (e.key === 'Escape') cancelRename();
 								}}
-								autofocus
 							/>
 							<button
 								onclick={confirmRename}
