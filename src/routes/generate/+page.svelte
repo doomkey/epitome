@@ -62,7 +62,7 @@
 			}
 		};
 
-		const timer = setTimeout(updatePreview, 250);
+		const timer = setTimeout(updatePreview, 500);
 		return () => clearTimeout(timer);
 	});
 	function download() {
