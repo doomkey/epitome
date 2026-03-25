@@ -12,33 +12,41 @@
 	let currentPage = $state(0);
 	let totalPages = $state(0);
 	let isFullscreen = $state(false);
+	let pdfjsLib: typeof import('pdfjs-dist/legacy/build/pdf.mjs') | null = null;
+	async function getPdfjs() {
+		if (pdfjsLib) return pdfjsLib;
+		pdfjsLib = await import('pdfjs-dist/legacy/build/pdf.mjs');
+		if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+			const worker = await import('pdfjs-dist/legacy/build/pdf.worker.mjs?url');
+			pdfjsLib.GlobalWorkerOptions.workerSrc = worker.default;
+		}
+		return pdfjsLib;
+	}
 	$effect(() => {
 		if (!browser) return;
 
 		const currentState = $state.snapshot(resumeData);
+		let cancelled = false;
 		const updatePreview = async () => {
 			try {
-				const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
-
-				if (!pdfjs.GlobalWorkerOptions.workerSrc) {
-					const worker = await import('pdfjs-dist/legacy/build/pdf.worker.mjs?url');
-					pdfjs.GlobalWorkerOptions.workerSrc = worker.default;
-				}
+				const pdfjs = await getPdfjs();
+				if (cancelled) return;
 
 				const pdfDocGenerator = createPDFDocument(currentState);
 				const pdfData = await pdfDocGenerator.getBuffer();
+				if (cancelled) return;
 
-				const loadingTask = pdfjs.getDocument({
+				const pdf = await pdfjs.getDocument({
 					data: pdfData,
 					isEvalSupported: false
-				});
-
-				const pdf = await loadingTask.promise;
+				}).promise;
+				if (cancelled) return;
 
 				const urls: string[] = [];
 				totalPages = pdf.numPages;
 
 				for (let i = 1; i <= pdf.numPages; i++) {
+					if (cancelled) return;
 					const page = await pdf.getPage(i);
 					const viewport = page.getViewport({ scale: 2 });
 					const canvas = document.createElement('canvas');
@@ -49,21 +57,25 @@
 					canvas.width = viewport.width;
 					await page.render({ canvasContext: context, viewport }).promise;
 					urls.push(canvas.toDataURL('image/png'));
+
+					canvas.width = 0;
+					canvas.height = 0;
 				}
 
-				// Cleanup old URLs
-				previewUrls.forEach((url) => URL.revokeObjectURL(url));
 				previewUrls = urls;
 
 				// Reset page index if its  out of bounds
 				if (currentPage >= totalPages) currentPage = 0;
 			} catch (err) {
-				console.error(' Preview Error:', err);
+				if (!cancelled) console.error('Preview Error:', err);
 			}
 		};
 
 		const timer = setTimeout(updatePreview, 500);
-		return () => clearTimeout(timer);
+		return () => {
+			cancelled = true;
+			clearTimeout(timer);
+		};
 	});
 	function download() {
 		if (!browser) return;
