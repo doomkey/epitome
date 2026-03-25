@@ -1,13 +1,13 @@
 import { registerTemplate, generatePdf } from '$lib/functions/pdfEngine';
 import type { ResumeData } from '$lib/types';
-import omabossa from '$lib/assets/template_thumbs/omabossa.png';
 import { defaultTemplate } from '$lib/templates/DEFAULT';
 import { classicTemplate } from '$lib/templates/CLASSIC';
 import { waterfallTemplate } from '$lib/templates/WATERFALL';
+
 export const templates = {
-	DEFAULT: { name: 'Default', value: 'DEFAULT', img: omabossa },
-	CLASSIC: { name: 'Classic', value: 'CLASSIC', img: omabossa },
-	WATERFALL: { name: 'Waterfall', value: 'WATERFALL', img: omabossa }
+	DEFAULT: { name: 'Default', value: 'DEFAULT' },
+	CLASSIC: { name: 'Classic', value: 'CLASSIC' },
+	WATERFALL: { name: 'Waterfall', value: 'WATERFALL' }
 };
 export const fonts = {
 	TINOS: {
