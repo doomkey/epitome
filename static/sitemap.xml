@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://doomkey.github.io/epitome/</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/docs</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/generate</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/pages/res/osl</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/pages/legal/terms</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/pages/legal/pp</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/docs/getting-started</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/docs/customization</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/docs/customization/fonts</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/docs/customization/sections</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/docs/customization/templates</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/docs/data-management/data-deletion</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/docs/data-management/exporting-data</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/docs/data-management/importing-data</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/docs/xtodo</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://doomkey.github.io/epitome/pages/legal/license</loc>
+  <lastmod>2026-03-25T07:22:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>
