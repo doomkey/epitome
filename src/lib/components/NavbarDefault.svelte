@@ -12,13 +12,7 @@
 			title: 'Home',
 			href: resolve('/')
 		},
-		{ title: 'Docs', href: resolve('/docs') },
-		{
-			title: 'GitHub',
-			href: 'https://github.com/doomkey/epitome',
-			target: '_blank',
-			rel: 'noreferrer'
-		}
+		{ title: 'Docs', href: resolve('/docs') }
 	];
 
 	function checkCurrentPage(a: string) {
