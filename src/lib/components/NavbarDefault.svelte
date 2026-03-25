@@ -1,14 +1,17 @@
 <script lang="ts">
 	import MoonIcon from '@lucide/svelte/icons/moon';
+	import SunIcon from '@lucide/svelte/icons/sun';
+
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
+	import { toggleMode } from 'mode-watcher';
 	const links = [
 		{
 			title: 'Home',
-			href: '/'
+			href: resolve('/')
 		},
-		{ title: 'Docs', href: '/docs' },
+		{ title: 'Docs', href: resolve('/docs') },
 		{
 			title: 'GitHub',
 			href: 'https://github.com/doomkey/epitome',
@@ -39,7 +42,7 @@
 		<nav class="hidden items-center gap-6 text-sm font-medium md:flex">
 			{#each links as { title, href, rel, target } (title)}
 				<a
-					href={resolve(href)}
+					{href}
 					class="text-foreground/60 transition-colors hover:text-primary"
 					{rel}
 					{target}
@@ -49,8 +52,13 @@
 		</nav>
 
 		<div class="flex items-center gap-2">
-			<Button variant="ghost" size="icon" aria-label="Toggle dark mode">
-				<MoonIcon class="h-5 w-5" />
+			<Button variant="ghost" size="icon" aria-label="Toggle dark mode" onclick={toggleMode}>
+				<SunIcon
+					class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all! dark:scale-0 dark:-rotate-90"
+				/>
+				<MoonIcon
+					class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all! dark:scale-100 dark:rotate-0"
+				/>
 			</Button>
 
 			<div class="md:hidden"></div>
