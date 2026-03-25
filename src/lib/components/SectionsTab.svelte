@@ -18,44 +18,27 @@
 		renameWorkspace,
 		workspaceStore
 	} from '$lib/stores/workspace.svelte';
-	import PencilIcon from '@lucide/svelte/icons/pencil';
-	import CheckIcon from '@lucide/svelte/icons/check';
-	import XIcon from '@lucide/svelte/icons/x';
 	import InlineEdit from '$lib/components/InlineEdit.svelte';
 	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
-	import SectionsRearrange from './SectionsRearrange.svelte';
+	import Extcurricular from '$lib/components/sections/Extcurricular.svelte';
+	import References from '$lib/components/sections/References.svelte';
 
 	const sectionList = Object.values(sections);
 	let activeTab = $state<string>(sections.personal.value);
 	const activeSection = $derived(sectionList.find((s) => s.value === activeTab));
-
-	let editing = $state(false);
-	let editingName = $state('');
-
 	const activeWorkspace = $derived(
 		workspaceStore.workspaces.find((w) => w.id === workspaceStore.activeId)
 	);
-
-	function startEdit() {
-		editingName = activeWorkspace?.name ?? '';
-		editing = true;
-	}
-
-	function cancelEdit() {
-		editing = false;
-		editingName = '';
-	}
-
-	async function confirmEdit() {
-		if (!editingName.trim() || !workspaceStore.activeId) return;
-		await renameWorkspace(workspaceStore.activeId, editingName.trim());
-		editing = false;
-	}
-
 	async function handleTabChange(val: string) {
 		await saveCurrentWorkspace();
+		console.log(val);
+
 		activeTab = val;
 	}
+
+	$effect(() => {
+		console.log(activeSection);
+	});
 </script>
 
 <div class="flex w-full flex-col gap-6">
@@ -71,13 +54,13 @@
 			{/if}
 		</div>
 
-		<Tabs.List class="mb-4 hidden sm:flex">
+		<!-- <Tabs.List class="mb-4 hidden sm:flex">
 			{#each sectionList as { title, value } (value)}
 				<Tabs.Trigger {value}>{title}</Tabs.Trigger>
 			{/each}
-		</Tabs.List>
+		</Tabs.List> -->
 
-		<div class="mb-4 sm:hidden">
+		<div class="mb-4">
 			<Label for="section-select" class="mb-1.5 block text-sm font-medium">Section</Label>
 			<Select.Root type="single" value={activeTab} onValueChange={handleTabChange}>
 				<Select.Trigger class="w-full">
@@ -98,5 +81,7 @@
 		<Projects />
 		<Certifications />
 		<Skills />
+		<Extcurricular />
+		<References />
 	</Tabs.Root>
 </div>

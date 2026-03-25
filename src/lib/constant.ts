@@ -34,6 +34,18 @@ export const sections = {
 		value: 'cert',
 		heading: 'Certifications',
 		subtitle: 'Add any certifications or credentials you have earned.'
+	},
+	extcurricular: {
+		title: 'Extracurricular Activities',
+		value: 'ext',
+		heading: 'Extracurricular Activities',
+		subtitle: "List the extracurricular activities you've done"
+	},
+	references: {
+		title: 'References',
+		value: 'ref',
+		heading: 'References',
+		subtitle: 'Add the references/endorsements of yourself'
 	}
 } as const;
 

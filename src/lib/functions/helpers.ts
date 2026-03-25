@@ -44,7 +44,30 @@ export function createExp(prefill = false) {
 			: ''
 	};
 }
-
+export function createExt(prefill = false) {
+	return {
+		id: Math.floor(Math.random() * 1000),
+		role: prefill ? 'Volunteer' : '',
+		org: prefill ? 'Some Org' : '',
+		start: prefill ? 'May 1900' : '',
+		end: prefill ? 'Dec 2100' : '',
+		present: false,
+		responsibilities: prefill
+			? 'Helped penguins to cross mountains \nRefroze 120 tonnes of glaciers.'
+			: ''
+	};
+}
+export function createRef(prefill = false) {
+	return {
+		id: Math.floor(Math.random() * 1000),
+		name: prefill ? 'Dr. X' : '',
+		designation: prefill ? 'Professor' : '',
+		dept: prefill ? 'Dept. of X' : '',
+		org: prefill ? 'University of X' : '',
+		phone: prefill ? '+000000' : '',
+		email: prefill ? 'mail@mail.mail' : ''
+	};
+}
 export function createProject(prefill = false) {
 	return {
 		id: Math.floor(Math.random() * 1000),

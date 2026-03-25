@@ -1,5 +1,12 @@
 import { templates, fonts } from '$lib/functions/pdfGenerator';
-import { createEdu, createExp, createProject, createCert } from '$lib/functions/helpers';
+import {
+	createEdu,
+	createExp,
+	createProject,
+	createCert,
+	createExt,
+	createRef
+} from '$lib/functions/helpers';
 import type { ResumeData } from '$lib/types';
 import { sections } from '$lib/constant';
 
@@ -30,6 +37,8 @@ export const defaultResumeData: ResumeData = $state({
 		],
 		merge: false
 	},
+	extcurricular: [createExt(true)],
+	references: [createRef(true)],
 	config: {
 		font: fonts.TINOS.value,
 		template: templates.DEFAULT.value
@@ -57,6 +66,14 @@ export const defaultResumeData: ResumeData = $state({
 		},
 		skills: {
 			title: sections.skills.heading,
+			hidden: false
+		},
+		extcurricular: {
+			title: sections.extcurricular.heading,
+			hidden: false
+		},
+		references: {
+			title: sections.references.heading,
 			hidden: false
 		}
 	},

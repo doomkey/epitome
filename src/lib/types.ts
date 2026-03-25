@@ -58,7 +58,24 @@ export type ExperienceEntry = {
 	present: boolean;
 	responsibilities: string;
 };
-
+export type ExtcurricularEntry = {
+	id: number;
+	role: string;
+	org: string;
+	start: string;
+	end: string;
+	present: boolean;
+	responsibilities: string;
+};
+export type ReferenceEntry = {
+	id: number;
+	name: string;
+	designation: string;
+	dept: string;
+	org: string;
+	phone: string;
+	email: string;
+};
 export type ProjectEntry = {
 	id: number;
 	name: string;
@@ -97,6 +114,8 @@ export type ResumeData = {
 	projects: ProjectEntry[];
 	certifications: CertificationEntry[];
 	skills: SkillsData;
+	extcurricular: ExtcurricularEntry[];
+	references: ReferenceEntry[];
 	config: ResumeConfig;
 	sections: {
 		personal: Section;
@@ -105,6 +124,8 @@ export type ResumeData = {
 		projects: Section;
 		certifications: Section;
 		skills: Section;
+		extcurricular: Section;
+		references: Section;
 	};
 	sections_order: string[];
 };
