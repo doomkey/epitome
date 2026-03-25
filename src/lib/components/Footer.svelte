@@ -35,7 +35,7 @@
 					Epitome
 				</a>
 				<p class="mt-2 max-w-xs text-sm text-muted-foreground">
-					A free, local-first resume generator. Your data never leaves your device.
+					A free, browser-only resume generator. Your data never leaves your device.
 				</p>
 
 				<a

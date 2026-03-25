@@ -27,7 +27,7 @@ Epitome is licensed under the **GNU Affero General Public License v3 (AGPLv3)**.
 
 ### 2. Nature of Service
 
-Epitome is a **local-only** application.
+Epitome is a **browser-only** application.
 
 - **No Account Required:** You do not need to create an account with Doomkey to use the software.
 - **No Server-Side Processing:** All core functions of the software are performed locally on your device. Doomkey does not provide any cloud synchronization, hosting, or remote backup services.
