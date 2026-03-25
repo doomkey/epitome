@@ -5,7 +5,12 @@
 	import CheckIcon from '@lucide/svelte/icons/check';
 	import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
 	import { getMenus, setFileInput, type MenuItem } from './menus.svelte';
-	import { renameWorkspace, deleteWorkspace, switchWorkspace } from '$lib/stores/workspace.svelte';
+	import {
+		renameWorkspace,
+		deleteWorkspace,
+		switchWorkspace,
+		initWorkspaces
+	} from '$lib/stores/workspace.svelte';
 	import { createWorkspace, getAllWorkspaces } from '$lib/db/workspaces';
 	import { workspaceStore } from '$lib/stores/workspace.svelte';
 	import PencilIcon from '@lucide/svelte/icons/pencil';
@@ -27,6 +32,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import SectionsRearrange from './SectionsRearrange.svelte';
 	import DarkModeToggle from './DarkModeToggle.svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	$effect(() => {
 		if (fileInput) setFileInput(fileInput);
@@ -90,6 +96,7 @@
 			toast.error('Import failed.');
 		} finally {
 			fileInput.value = '';
+			initWorkspaces(); // to refresh the data
 		}
 	}
 </script>
