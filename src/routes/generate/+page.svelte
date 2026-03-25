@@ -48,7 +48,7 @@
 				for (let i = 1; i <= pdf.numPages; i++) {
 					if (cancelled) return;
 					const page = await pdf.getPage(i);
-					const viewport = page.getViewport({ scale: 2 });
+					const viewport = page.getViewport({ scale: 1.5 });
 					const context = canvas.getContext('2d');
 					if (!context) continue;
 
