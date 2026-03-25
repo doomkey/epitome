@@ -144,7 +144,7 @@
 					<h2 class="text-[clamp(1.5rem,3vw,2.2rem)] font-bold text-foreground">
 						Ready to build your resume?
 					</h2>
-					<Button href="/generate" size="lg" class="group gap-2 font-medium">
+					<Button href={resolve('/generate')} size="lg" class="group gap-2 font-medium">
 						Free forever
 						<span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
 					</Button>
