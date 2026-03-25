@@ -21,6 +21,8 @@ It has many useful features like:
 - Everything is totally free.
 - No ads.
 - And so on, I'm not gonna list them all.
-- <script>
+
+
+<script>
   import { base } from '$app/paths';
-  </script>
+</script>
