@@ -54,7 +54,6 @@ export async function switchWorkspace(id: string) {
 
 export async function saveCurrentWorkspace() {
 	if (!workspaceStore.activeId) return;
-	console.log(2);
 	await dbSave(workspaceStore.activeId, cloneResumeData());
 
 	workspaceStore.workspaces = workspaceStore.workspaces.map((w) =>
