@@ -252,7 +252,7 @@
 <Sheet.Root bind:open={showConfigureSections}>
 	<Sheet.Content side="left">
 		<Sheet.Header>
-			<Sheet.Title>Configure Sections</Sheet.Title>
+			<Sheet.Title class="mt-12">Configure Sections</Sheet.Title>
 			<Sheet.Description
 				>Use the Eye to toggle visibility, and the arrows to change order.</Sheet.Description
 			>
