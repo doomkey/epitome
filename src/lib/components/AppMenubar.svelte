@@ -26,6 +26,7 @@
 	import { db } from '$lib/db';
 	import { Button } from '$lib/components/ui/button';
 	import SectionsRearrange from './SectionsRearrange.svelte';
+	import DarkModeToggle from './DarkModeToggle.svelte';
 
 	$effect(() => {
 		if (fileInput) setFileInput(fileInput);
@@ -140,6 +141,7 @@
 		>Epitome</span
 	>
 	<div class="mx-1 hidden h-4 w-px bg-border md:block"></div>
+	<DarkModeToggle />
 
 	{#each menus as menu (menu.label)}
 		<Menubar.Menu>
