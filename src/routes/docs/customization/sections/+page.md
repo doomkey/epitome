@@ -7,22 +7,16 @@ title: Sections
 </script>
 
 <svelte:head>
-	<title>{title} - Epitome Documentation</title>
+<title>{title} - Epitome Documentation</title>
 </svelte:head>
 
-
-
-
-
 # { title }
-
 
 Epitome allows you to hide/rename/reorder the sections in your resume.
 
 **Reordering the Personal section is not possible.** (why would you even do that?)
 
 <img src={se} />
-
 
 ## Hiding and Reordering Sections
 

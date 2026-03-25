@@ -8,15 +8,11 @@ import def from "./def.png";
   import { base } from '$app/paths';
 </script>
 
-
 <svelte:head>
-	<title>{title} - Epitome Documentation</title>
+<title>{title} - Epitome Documentation</title>
 </svelte:head>
 
-
-
 # { title }
-
 
 Upon opening the [generate](/epitome/generate) page, a new workspace will be created. It will be populated with some prefilled information (to enhance the preview). You can resize the information panel and preview panel by dragging the handle sideways (on large screen). On smaller screen, the preview is under the information panel.
 
@@ -26,8 +22,7 @@ Input the apporpriate data in appropriate sections by the navigating between tab
 
 <img src={def} />
 
-
-The preview will be updated as you type. 
+The preview will be updated as you type.
 
 Your data will be saved automatically when you:
 
@@ -35,13 +30,12 @@ Your data will be saved automatically when you:
 2. Rename the [workspace](/epitome/docs/workspaces)
 3. Update any section(rename/hide/reorder)
 4. Switch between workspaces.
-4. Generate a pdf
-5. Import/export a backup
+5. Generate a pdf
+6. Import/export a backup
 
 Note that the saving occurs in your current browser only. If you want to use another browser, use the [import/export](/epitome/docs/data-management/exporting-data) functionalities.
 
-Sections like education, experience etc feature folded-list entry. Use the caret icon on the left side of each entry to fold-unfold an entry. You can reorder and delete an entry with the icons on the right side. 
-
+Sections like education, experience etc feature folded-list entry. Use the caret icon on the left side of each entry to fold-unfold an entry. You can reorder and delete an entry with the icons on the right side.
 
 <img src={ed} />
 

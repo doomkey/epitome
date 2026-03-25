@@ -6,7 +6,7 @@
 - [ ] SEO
 - [x] Licensing
 - [x] Rearrange and renaming section (is renaming section necessary? may be nice to have.)
-- [ ] _droppped (shortcuts wil be dealt later)_ Change generate pdf shortcut (ALT G?) 
+- [ ] _droppped (shortcuts wil be dealt later)_ Change generate pdf shortcut (ALT G?)
 - [ ] More fonts
   - [x] Ubuntu
   - [x] Remove jetbrains

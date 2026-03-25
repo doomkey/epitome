@@ -3,16 +3,12 @@ title: Data Deletion
 ---
 
 <svelte:head>
-	<title>{title} - Epitome Documentation</title>
+<title>{title} - Epitome Documentation</title>
 </svelte:head>
-
-
 
 # { title }
 
-
-
-You can delete data either from 
+You can delete data either from
 
 > Menu > File > Delete All Workspaces
 

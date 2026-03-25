@@ -3,10 +3,8 @@ title: Templates
 ---
 
 <svelte:head>
-	<title>{title} - Epitome Documentation</title>
+<title>{title} - Epitome Documentation</title>
 </svelte:head>
-
-
 
 # { title }
 
