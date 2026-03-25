@@ -35,7 +35,7 @@
 <div class="flex items-center gap-2">
 	{#if editing}
 		<Input
-			class="h-8 w-[50%] min-w-25 text-lg font-semibold"
+			class="h-8 w-full min-w-25 md:w-[50%] "
 			bind:value={editingValue}
 			onkeydown={(e) => {
 				if (e.key === 'Enter') confirmEdit();
@@ -57,7 +57,7 @@
 			<XIcon class="h-4 w-4" />
 		</button>
 	{:else}
-		<p class="font-semibold">{value}</p>
+		<p>{value}</p>
 		<button
 			onclick={startEdit}
 			class="text-muted-foreground hover:text-foreground"
