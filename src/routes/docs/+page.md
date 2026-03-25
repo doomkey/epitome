@@ -11,7 +11,6 @@ It has many useful features like:
 - Backup and restore all of your data
 - It is open source. You can check the code, fork it, contribute to the project etc.
 - Everything is totally free.
-- No analytics. (subject to change, however, even if analytics is added, non-intrusive analytics solution will be used with several notices accross the site).
 - No ads.
 - And so on, I'm not gonna list them all.
 - 

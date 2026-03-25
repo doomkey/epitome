@@ -11,7 +11,7 @@ We believe your data belongs to you. **Epitome** is designed to function without
 
 ### 2. Information Collection
 * **Personal Information:** We do not collect, store, or transmit any personal information (such as names, email addresses, or phone numbers).
-* **Usage Data:** We do not use any telemetry, analytics, or tracking software to monitor how you use the app.
+* **Usage Data:** We use simple privacy-friendly analytics tool (goatcounter). The type of data collected can be seen from [here](https://doomkey.goatcounter.com/help/privacy)
 * **Device Permissions:** If the app requests permissions (such as file storage), they are used strictly to enable local functionality on your device.
 
 ### 3. Data Storage
@@ -19,7 +19,7 @@ We believe your data belongs to you. **Epitome** is designed to function without
 * **No Cloud Sync:** There is no cloud synchronization or remote backup service provided by Doomkey. Your data never leaves your device unless you manually export or share it yourself.
 
 ### 4. Third-Party Services
-Epitome does not contain third-party SDKs, advertising networks, or tracking frameworks. We do not sell, trade, or otherwise transfer any information to outside parties because we do not have access to it in the first place.
+Epitome does not contain third-party SDKs or advertising networks. We do not sell, trade, or otherwise transfer any information to outside parties because we do not have access to it in the first place.
 
 ### 5. Data Retention & Deletion
 Because your data is stored locally:
@@ -35,3 +35,5 @@ We may update this Privacy Policy from time to time. Any changes will be posted 
 ---
 **Contact**
 If you have questions about this policy, you can reach out via the official **Epitome** repository.
+
+*Last updated 25 March 2026*
