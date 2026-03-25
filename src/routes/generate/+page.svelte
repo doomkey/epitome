@@ -22,17 +22,18 @@
 		}
 		return pdfjsLib;
 	}
+	const resumeSnapshot = $derived(JSON.stringify(resumeData));
 	$effect(() => {
 		if (!browser) return;
 
-		const currentState = $state.snapshot(resumeData);
+		// const currentState = $state.snapshot(resumeData);
 		let cancelled = false;
 		const updatePreview = async () => {
 			try {
 				const pdfjs = await getPdfjs();
 				if (cancelled) return;
 
-				const pdfDocGenerator = createPDFDocument(currentState);
+				const pdfDocGenerator = createPDFDocument(JSON.parse(resumeSnapshot));
 				const pdfData = await pdfDocGenerator.getBuffer();
 				if (cancelled) return;
 
