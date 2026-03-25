@@ -23,7 +23,7 @@ Welcome to **Epitome**, a Free and Open-Source (FOSS) application developed by *
 Epitome is licensed under the **GNU Affero General Public License v3 (AGPLv3)**.
 
 - You are free to use, study, modify, and redistribute this software under the terms of that license.
-- The full text of the license is available in the `LICENSE` file provided with the source code and [here](/epitome/pages/legal/license)
+- The full text of the license is available [here](https://github.com/doomkey/epitome/blob/main/LICENSE)
 
 ### 2. Nature of Service
 
