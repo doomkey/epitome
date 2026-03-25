@@ -1,9 +1,20 @@
+---
+title: Fonts 
+---
+
 <script>
   import f from "./f.png"
 </script>
 
 
-# Fonts 
+<svelte:head>
+	<title>{title} - Epitome Documentation</title>
+</svelte:head>
+
+
+
+# { title }
+
 
 You can select fonts from various sensible choices.
 

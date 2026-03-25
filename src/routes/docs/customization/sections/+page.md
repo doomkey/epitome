@@ -1,8 +1,21 @@
+---
+title: Sections
+---
+
 <script>
   import se from "./se.png"
 </script>
 
-# Sections
+<svelte:head>
+	<title>{title} - Epitome Documentation</title>
+</svelte:head>
+
+
+
+
+
+# { title }
+
 
 Epitome allows you to hide/rename/reorder the sections in your resume.
 

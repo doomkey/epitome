@@ -1,4 +1,16 @@
-# Data Deletion
+---
+title: Data Deletion
+---
+
+<svelte:head>
+	<title>{title} - Epitome Documentation</title>
+</svelte:head>
+
+
+
+# { title }
+
+
 
 You can delete data either from 
 

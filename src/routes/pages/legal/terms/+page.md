@@ -1,10 +1,18 @@
+---
+title: Terms of Services
+---
+
 <script>
 import { base } from '$app/paths';
 </script>
 
+<svelte:head>
+	<title>{title} - Epitome Resume Builder</title>
+</svelte:head>
 
-# Terms of Services
 
+
+# { title }
 
 
 **Last Updated: March 2026**

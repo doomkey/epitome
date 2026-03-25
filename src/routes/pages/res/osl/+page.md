@@ -1,4 +1,14 @@
-## Open Source Licenses
+---
+title: Open Source Licenses
+---
+
+<svelte:head>
+	<title>{title} - Epitome Resume Builder</title>
+</svelte:head>
+
+
+
+# { title }
 
 Epitome is made possible by the following awesome open-source projects:
 

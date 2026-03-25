@@ -1,4 +1,16 @@
-# Introduction
+---
+title: Introduction
+---
+
+<svelte:head>
+	<title>{title} - Epitome Documentation</title>
+</svelte:head>
+
+
+
+# { title }
+
+
 
 Epitome is a free, open-source resume/CV builder. It works fully in the browser. No data is sent to any server.
 

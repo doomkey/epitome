@@ -1,5 +1,14 @@
+---
+title: Templates
+---
 
-# Templates 
+<svelte:head>
+	<title>{title} - Epitome Documentation</title>
+</svelte:head>
+
+
+
+# { title }
 
 ## Usage
 

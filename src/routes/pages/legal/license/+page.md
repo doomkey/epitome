@@ -1,4 +1,16 @@
-# License
+---
+title: License
+---
+
+<svelte:head>
+	<title>{title} - Epitome Resume Builder</title>
+</svelte:head>
+
+
+
+# { title }
+
+
 
 **Epitome**
 

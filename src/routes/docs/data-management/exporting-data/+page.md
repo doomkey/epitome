@@ -1,4 +1,16 @@
-# Exporting
+---
+title: Exporting
+---
+
+<svelte:head>
+	<title>{title} - Epitome Documentation</title>
+</svelte:head>
+
+
+
+# { title }
+
+
 
 
 > Menu > File > Export Backup

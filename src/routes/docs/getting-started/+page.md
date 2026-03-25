@@ -1,3 +1,7 @@
+---
+title: Getting Started
+---
+
 <script>
 import def from "./def.png";
   import ed from "./ed.png";
@@ -5,7 +9,14 @@ import def from "./def.png";
 </script>
 
 
-# Getting Started
+<svelte:head>
+	<title>{title} - Epitome Documentation</title>
+</svelte:head>
+
+
+
+# { title }
+
 
 Upon opening the [generate](/epitome/generate) page, a new workspace will be created. It will be populated with some prefilled information (to enhance the preview). You can resize the information panel and preview panel by dragging the handle sideways (on large screen). On smaller screen, the preview is under the information panel.
 

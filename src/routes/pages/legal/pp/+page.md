@@ -1,4 +1,14 @@
-# Privacy Policy
+---
+title: Privacy Policy
+---
+
+<svelte:head>
+	<title>{title} - Epitome Resume Builder</title>
+</svelte:head>
+
+
+
+# { title }
 
 **Effective Date: March 2026**
 
