@@ -31,14 +31,9 @@
 	);
 	async function handleTabChange(val: string) {
 		await saveCurrentWorkspace();
-		console.log(val);
 
 		activeTab = val;
 	}
-
-	$effect(() => {
-		console.log(activeSection);
-	});
 </script>
 
 <div class="flex w-full flex-col gap-6">
