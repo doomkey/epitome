@@ -1,6 +1,6 @@
 import { pt } from '$lib/functions/helpers';
 import { basePageConfig, baseDefaultStyle, buildSections } from './base';
-import { formatPeriod, formatContact, toBullets, ifNotEmpty, flattenSkills } from './utils';
+import { formatPeriod, ifNotEmpty, flattenSkills, buildEntry } from './utils';
 import type { ResumeData } from '$lib/types';
 
 export const defaultTemplate = (data: ResumeData, font: string) => ({
@@ -23,7 +23,9 @@ export const defaultTemplate = (data: ResumeData, font: string) => ({
 		education: buildEducation,
 		projects: buildProjects,
 		skills: buildSkills,
-		certifications: buildCertifications
+		certifications: buildCertifications,
+		extcurricular: buildExtcurricular,
+		references: buildReferences
 	})
 });
 
@@ -100,38 +102,13 @@ function buildExperience(data: ResumeData) {
 }
 
 function buildExperienceEntry(exp: ResumeData['experience'][number]) {
-	return {
-		stack: [
-			{
-				columns: [
-					{ text: exp.jobTitle, style: 'entryTitle', width: '*' },
-					{
-						text: formatPeriod(exp.start, exp.end, exp.present),
-						style: 'period',
-						alignment: 'right',
-						width: 'auto'
-					}
-				]
-			},
-			{
-				columns: [
-					{ text: exp.company, style: 'entrySubtitle', width: '*' },
-					ifNotEmpty(exp.location, {
-						text: exp.location,
-						style: 'subtle',
-						alignment: 'right',
-						width: 'auto'
-					})
-				].filter(Boolean)
-			},
-			ifNotEmpty(exp.responsibilities, {
-				ul: toBullets(exp.responsibilities),
-				style: 'meta',
-				margin: [pt(4), pt(1), 0, 0]
-			})
-		].filter(Boolean),
-		margin: [0, 0, 0, pt(2)]
-	};
+	return buildEntry({
+		title: exp.jobTitle,
+		titleRight: formatPeriod(exp.start, exp.end, exp.present),
+		subtitle: exp.company,
+		subtitleRight: exp.location,
+		bullets: exp.responsibilities
+	});
 }
 
 function buildEducation(data: ResumeData) {
@@ -142,34 +119,13 @@ function buildEducation(data: ResumeData) {
 }
 
 function buildEducationEntry(edu: ResumeData['education'][number]) {
-	return {
-		stack: [
-			{
-				columns: [
-					{ text: edu.degree, style: 'entryTitle', width: '*' },
-					{
-						text: formatPeriod(edu.start, edu.end),
-						style: 'period',
-						alignment: 'right',
-						width: 'auto'
-					}
-				]
-			},
-			{
-				columns: [
-					{ text: edu.institution, style: 'entrySubtitle', width: '*' },
-					ifNotEmpty(edu.location, {
-						text: edu.location,
-						style: 'subtle',
-						alignment: 'right',
-						width: 'auto'
-					})
-				].filter(Boolean)
-			},
-			ifNotEmpty(edu.gpa, { text: `CGPA: ${edu.gpa}`, style: 'subtle', margin: [0, 2, 0, 0] })
-		].filter(Boolean),
-		margin: [0, 0, 0, pt(2)]
-	};
+	return buildEntry({
+		title: edu.degree,
+		titleRight: formatPeriod(edu.start, edu.end),
+		subtitle: edu.institution,
+		subtitleRight: edu.location,
+		subsubtitle: edu.gpa ? `CGPA: ${edu.gpa}` : undefined
+	});
 }
 
 function buildProjects(data: ResumeData) {
@@ -177,34 +133,16 @@ function buildProjects(data: ResumeData) {
 }
 
 function buildProjectEntry(proj: ResumeData['projects'][number]) {
-	return {
-		stack: [
-			{
-				columns: [
-					{ text: proj.name, style: 'entryTitle', width: '*' },
-					ifNotEmpty(proj.link, {
-						text: 'View Project',
-						link: proj.link,
-						style: 'subtle',
-						alignment: 'right',
-						width: 'auto',
-						decoration: 'underline'
-					})
-				].filter(Boolean)
-			},
-			ifNotEmpty(proj.technologies, {
-				text: proj.technologies,
-				style: 'entrySubtitle',
-				margin: [0, 1, 0, 0]
-			}),
-			ifNotEmpty(proj.description, {
-				ul: toBullets(proj.description),
-				style: 'meta',
-				margin: [0, pt(1), 0, 0]
-			})
-		].filter(Boolean),
-		margin: [0, 0, 0, pt(2)]
-	};
+	return buildEntry(
+		{
+			title: proj.name,
+			titleRight: proj.link ? 'View Project' : undefined,
+			titleRightLink: proj.link,
+			subtitle: proj.technologies,
+			bullets: proj.description
+		},
+		{ subtitleStyle: 'subtle' }
+	);
 }
 
 function buildSkills(data: ResumeData) {
@@ -235,28 +173,43 @@ function buildCertifications(data: ResumeData) {
 }
 
 function buildCertEntry(cert: ResumeData['certifications'][number]) {
-	return {
-		stack: [
-			{
-				columns: [
-					{
-						text: cert.name,
-						style: 'entryTitle',
-						link: cert.url || null,
-						width: '*'
-					},
-					ifNotEmpty(cert.url, {
-						text: 'Verify',
-						link: cert.url,
-						style: 'subtle',
-						alignment: 'right',
-						width: 'auto',
-						decoration: 'underline'
-					})
-				]
-			},
-			{ text: cert.organization, style: 'entrySubtitle' }
-		],
-		margin: [0, 0, 0, pt(4)]
-	};
+	return buildEntry({
+		title: cert.name,
+		titleLink: cert.url,
+		titleRight: cert.url ? 'Verify' : undefined,
+		titleRightLink: cert.url,
+		subtitle: cert.organization
+	});
+}
+
+function buildExtcurricular(data: ResumeData) {
+	return buildSectionWrapper(
+		data.sections.extcurricular.title,
+		data.extcurricular.map(buildExtcurricularEntry)
+	);
+}
+
+function buildExtcurricularEntry(ext: ResumeData['extcurricular'][number]) {
+	return buildEntry({
+		title: ext.role,
+		titleRight: formatPeriod(ext.start, ext.end, ext.present),
+		subtitle: [ext.org].filter(Boolean).join(', '),
+		bullets: ext.responsibilities
+	});
+}
+
+function buildReferences(data: ResumeData) {
+	return buildSectionWrapper(
+		data.sections.references.title,
+		data.references.map(buildReferencesEntry)
+	);
+}
+
+function buildReferencesEntry(ref: ResumeData['references'][number]) {
+	return buildEntry({
+		title: ref.name,
+		titleRight: ref.phone,
+		subtitle: [ref.designation, ref.dept, ref.org].filter(Boolean).join(', '),
+		subtitleRight: ref.email
+	});
 }

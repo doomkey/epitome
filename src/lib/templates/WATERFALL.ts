@@ -1,50 +1,45 @@
 import { pt } from '$lib/functions/helpers';
 import { basePageConfig, baseDefaultStyle, buildSections } from './base';
-import { formatPeriod, formatContact, toBullets, ifNotEmpty, flattenSkills } from './utils';
+import { formatPeriod, ifNotEmpty, flattenSkills, buildEntry } from './utils';
 import type { ResumeData } from '$lib/types';
 
 export const waterfallTemplate = (data: ResumeData, font: string) => ({
 	...basePageConfig,
 	defaultStyle: baseDefaultStyle(font),
 	styles: {
-		name: { fontSize: 24, bold: true, color: '#1a5f7a', margin: [0, 0, 0, pt(2)] },
-		jobTitle: {
-			fontSize: 12,
-			bold: true,
-			color: '#22a699',
-			letterSpacing: 1,
-			margin: [0, 0, 0, pt(4)]
-		},
+		name: { fontSize: 24, bold: true, color: '#000000', alignment: 'center' },
+		jobTitle: { fontSize: 11, color: '#333333', alignment: 'center' },
 		sectionHeader: {
-			fontSize: 12,
+			fontSize: 11,
 			bold: true,
-			color: '#1a5f7a',
-			margin: [0, pt(2), 0, pt(1)]
+			color: '#000000',
+			margin: [0, 6, 0, 2]
 		},
-		entryTitle: { fontSize: 11, bold: true, color: '#222222' },
-		entrySubtitle: { fontSize: 10, color: '#444444' },
-		period: { fontSize: 9, italics: true, color: '#666666', alignment: 'right' },
-		meta: { fontSize: 10, color: '#333333', lineHeight: 1.2 },
-		subtle: { fontSize: 9, color: '#777777' },
-		contact: { fontSize: 9, color: '#555555', margin: [0, 0, 0, pt(1)] }
+		entryTitle: { fontSize: 10, bold: true },
+		entrySubtitle: { fontSize: 10, bold: false, color: '#222222' },
+		period: { fontSize: 9, color: '#444444', bold: true },
+		meta: { fontSize: 9, color: '#333333', leadingLineHeight: 1.2 },
+		subtle: { fontSize: 9, color: '#666666' }
 	},
 	content: buildSections(data, {
-		personal: buildWaterfallHeader,
-		summary: buildWaterfallSummary,
-		experience: buildWaterfallExperience,
-		education: buildWaterfallEducation,
-		projects: buildWaterfallProjects,
-		skills: buildWaterfallSkills,
-		certifications: buildWaterfallCertifications
+		personal: buildHeader,
+		summary: buildSummary,
+		experience: buildExperience,
+		education: buildEducation,
+		projects: buildProjects,
+		skills: buildSkills,
+		certifications: buildCertifications,
+		extcurricular: buildExtcurricular,
+		references: buildReferences
 	})
 });
 
-function buildWaterfallHeader(data: ResumeData) {
+function buildHeader(data: ResumeData) {
 	const { fullName, title, email, phone, location, linkedin, github, website } = data.personal;
 
 	const links = [
 		email ? { text: email, link: `mailto:${email}` } : null,
-		phone ? { text: phone, link: `tel:${phone}` } : null,
+		phone ? { text: phone } : null,
 		location ? { text: location } : null,
 		linkedin ? { text: 'LinkedIn', link: linkedin } : null,
 		github ? { text: 'GitHub', link: github } : null,
@@ -54,188 +49,163 @@ function buildWaterfallHeader(data: ResumeData) {
 	const contactBar = [];
 	links.forEach((link, i) => {
 		contactBar.push(link);
-		if (i < links.length - 1) contactBar.push({ text: '  -  ', color: '#cccccc' });
+		if (i < links.length - 1) contactBar.push({ text: '  |  ', color: '#aaaaaa', link: null });
 	});
 
 	return {
 		stack: [
-			{ text: fullName || 'Your Name', style: 'name', alignment: 'left' },
-			ifNotEmpty(title, { text: title?.toUpperCase(), style: 'jobTitle', alignment: 'left' }),
+			{ text: fullName || 'Your Name', style: 'name' },
+			ifNotEmpty(title, { text: title.toUpperCase(), style: 'jobTitle', margin: [0, 2, 0, 4] }),
 			{
 				text: contactBar,
-				style: 'contact',
-				alignment: 'left'
+				style: 'meta',
+				alignment: 'center',
+				margin: [0, 2, 0, 0]
 			}
 		].filter(Boolean),
-		margin: [0, 0, 0, pt(6)]
+		margin: [0, 0, 0, pt(12)]
 	};
 }
 
-function buildWaterfallSection(title: string, entries: any[]) {
+function buildSectionWrapper(title: string, entries: any[]) {
 	if (!entries || entries.length === 0) return null;
 	return {
 		stack: [
-			{ text: title, style: 'sectionHeader' },
-			// {
-			// 	canvas: [
-			// 		{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 1, lineColor: '#e0e0e0' }
-			// 	],
-			// 	margin: [0, 0, 0, pt(4)]
-			// },
+			{ text: title.toUpperCase(), style: 'sectionHeader' },
+			{
+				canvas: [
+					{
+						type: 'line',
+						x1: 0,
+						y1: 0,
+						x2: pt(182),
+						y2: 0,
+						lineWidth: 1,
+						lineColor: '#111111'
+					}
+				],
+				margin: [0, 0, 0, pt(4)]
+			},
 			...entries
 		],
-		margin: [0, 0, 0, pt(2)]
+		margin: [0, 0, 0, pt(4)]
 	};
 }
 
-function buildWaterfallSummary(data: ResumeData) {
+function buildSummary(data: ResumeData) {
 	if (!data.personal.summary) return null;
-	return buildWaterfallSection('PROFESSIONAL SUMMARY', [
-		{ text: data.personal.summary, style: 'meta', alignment: 'left' }
+	return buildSectionWrapper('Professional Summary', [
+		{ text: data.personal.summary, style: 'meta', alignment: 'justify' }
 	]);
 }
 
-function buildWaterfallExperienceEntry(exp: ResumeData['experience'][number]) {
-	return {
-		stack: [
-			{
-				columns: [
-					{ text: exp.jobTitle, style: 'entryTitle', width: '*' },
-					{ text: formatPeriod(exp.start, exp.end, exp.present), style: 'period', width: 'auto' }
-				]
-			},
-			{ text: exp.company, style: 'entrySubtitle', margin: [0, pt(0), 0, pt(0)] },
-			ifNotEmpty(exp.responsibilities, {
-				ul: toBullets(exp.responsibilities),
-				style: 'meta',
-				margin: [pt(4), 0, 0, pt(1)]
-			})
-		].filter(Boolean),
-		margin: [0, 0, 0, pt(2)]
-	};
-}
-
-function buildWaterfallExperience(data: ResumeData) {
-	return buildWaterfallSection(
-		data.sections.experience.title.toUpperCase(),
-		data.experience.map(buildWaterfallExperienceEntry)
-	);
-}
-
-function buildWaterfallEducationEntry(edu: ResumeData['education'][number]) {
-	return {
-		stack: [
-			{
-				columns: [
-					{ text: edu.degree, style: 'entryTitle', width: '*' },
-					{
-						text: edu.end && !edu.start ? `Class of ${edu.end}` : formatPeriod(edu.start, edu.end),
-						style: 'period',
-						width: 'auto'
-					}
-				]
-			},
-			{
-				columns: [
-					{ text: edu.institution, style: 'entrySubtitle', width: '*' },
-					ifNotEmpty(edu.gpa, {
-						text: `CGPA: ${edu.gpa}`,
-						style: 'subtle',
-						alignment: 'right',
-						width: 'auto'
-					})
-				],
-				margin: [0, pt(1), 0, 0]
-			}
-		],
-		margin: [0, 0, 0, pt(2)]
-	};
-}
-
-function buildWaterfallEducation(data: ResumeData) {
-	return buildWaterfallSection(
-		data.sections.education.title.toUpperCase(),
-		data.education.map(buildWaterfallEducationEntry)
-	);
-}
-
-function buildWaterfallProjectEntry(proj: ResumeData['projects'][number]) {
-	return {
-		stack: [
-			{
-				columns: [
-					{ text: proj.name, style: 'entryTitle', width: '*' },
-					ifNotEmpty(proj.link, {
-						text: 'Link',
-						link: proj.link,
-						style: 'subtle',
-						width: 'auto'
-					})
-				]
-			},
-			ifNotEmpty(proj.technologies, {
-				text: proj.technologies,
-				style: 'entrySubtitle',
-				margin: [0, pt(0), 0, 0]
-			}),
-			ifNotEmpty(proj.description, {
-				ul: toBullets(proj.description),
-				style: 'meta',
-				margin: [pt(4), pt(2), 0, pt(0)]
-			})
-		].filter(Boolean),
-		margin: [0, 0, 0, pt(2)]
-	};
-}
-
-function buildWaterfallProjects(data: ResumeData) {
-	return buildWaterfallSection(
-		data.sections.projects.title.toUpperCase(),
-		data.projects.map(buildWaterfallProjectEntry)
-	);
-}
-
-function buildWaterfallSkills(data: ResumeData) {
-	const { skills } = data;
-	const title = data.sections.skills.title.toUpperCase();
-
-	const content = skills.merge
-		? [{ text: flattenSkills(skills.categories), style: 'meta' }]
-		: skills.categories.map((cat) => ({
-				text: [
-					{ text: `${cat.category}: `, style: 'entrySubtitle' },
-					{ text: cat.skills.join(' • '), style: 'meta' }
-				],
-				margin: [0, 0, 0, pt(2)]
-			}));
-
-	return buildWaterfallSection(title, content);
-}
-
-function buildWaterfallCertifications(data: ResumeData) {
-	return buildWaterfallSection(
-		data.sections.certifications.title.toUpperCase(),
-		data.certifications.map((cert) => ({
-			stack: [
+function buildExperience(data: ResumeData) {
+	return buildSectionWrapper(
+		data.sections.experience.title,
+		data.experience.map((exp) =>
+			buildEntry(
 				{
-					columns: [
-						{
-							text: cert.name,
-							style: 'entryTitle',
-							link: cert.url || null,
-							width: '*'
-						},
-						ifNotEmpty(cert.url, {
-							text: 'View Certificate',
-							link: cert.url,
-							style: 'subtle',
-							width: 'auto'
-						})
-					]
+					title: exp.jobTitle,
+					titleRight: formatPeriod(exp.start, exp.end, exp.present),
+					subtitle: exp.company,
+					subtitleRight: exp.location,
+					bullets: exp.responsibilities
 				},
-				{ text: cert.organization, style: 'entrySubtitle', margin: [0, pt(1), 0, 0] }
+				{
+					subtitleStyle: 'entrySubtitle'
+				}
+			)
+		)
+	);
+}
+
+function buildEducation(data: ResumeData) {
+	return buildSectionWrapper(
+		data.sections.education.title,
+		data.education.map((edu) =>
+			buildEntry({
+				title: edu.degree,
+				titleRight: formatPeriod(edu.start, edu.end),
+				subtitle: edu.institution,
+				subtitleRight: edu.location,
+				subsubtitle: edu.gpa ? `CGPA: ${edu.gpa}` : undefined
+			})
+		)
+	);
+}
+
+function buildSkills(data: ResumeData) {
+	const { skills } = data;
+	const title = data.sections.skills.title;
+
+	if (skills.merge) {
+		return buildSectionWrapper(title, [{ text: flattenSkills(skills.categories), style: 'meta' }]);
+	}
+
+	return buildSectionWrapper(
+		title,
+		skills.categories.map((cat) => ({
+			text: [
+				{ text: `${cat.category}: `, style: 'entryTitle' },
+				{ text: cat.skills.join(', '), style: 'meta' }
 			],
-			margin: [0, 0, 0, pt(4)]
+			margin: [0, 0, 0, pt(3)]
 		}))
 	);
 }
+
+const buildProjects = (data: ResumeData) =>
+	buildSectionWrapper(
+		data.sections.projects.title,
+		data.projects.map((p) =>
+			buildEntry(
+				{
+					title: p.name,
+					titleRight: p.link ? 'Link' : undefined,
+					titleRightLink: p.link,
+					subtitle: p.technologies,
+					bullets: p.description
+				},
+				{ subtitleStyle: 'subtle' }
+			)
+		)
+	);
+
+const buildCertifications = (data: ResumeData) =>
+	buildSectionWrapper(
+		data.sections.certifications.title,
+		data.certifications.map((c) =>
+			buildEntry({
+				title: c.name,
+				subtitle: c.organization,
+				titleRight: c.url ? 'Verify' : undefined,
+				titleRightLink: c.url
+			})
+		)
+	);
+
+const buildExtcurricular = (data: ResumeData) =>
+	buildSectionWrapper(
+		data.sections.extcurricular.title,
+		data.extcurricular.map((e) =>
+			buildEntry({
+				title: e.role,
+				subtitle: e.org,
+				titleRight: formatPeriod(e.start, e.end, e.present),
+				bullets: e.responsibilities
+			})
+		)
+	);
+
+const buildReferences = (data: ResumeData) =>
+	buildSectionWrapper(
+		data.sections.references.title,
+		data.references.map((r) =>
+			buildEntry({
+				title: r.name,
+				titleRight: r.phone,
+				subtitle: [r.designation, r.org].filter(Boolean).join(' at '),
+				subtitleRight: r.email
+			})
+		)
+	);

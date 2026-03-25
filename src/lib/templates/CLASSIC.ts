@@ -1,6 +1,6 @@
 import { pt } from '$lib/functions/helpers';
 import { basePageConfig, baseDefaultStyle, buildSections } from './base';
-import { formatPeriod, formatContact, toBullets, ifNotEmpty, flattenSkills } from './utils';
+import { formatPeriod, toBullets, ifNotEmpty, flattenSkills, buildEntry } from './utils';
 import type { ResumeData } from '$lib/types';
 
 export const classicTemplate = (data: ResumeData, font: string) => ({
@@ -29,9 +29,16 @@ export const classicTemplate = (data: ResumeData, font: string) => ({
 		education: buildClassicEducation,
 		projects: buildClassicProjects,
 		skills: buildClassicSkills,
-		certifications: buildClassicCertifications
+		certifications: buildClassicCertifications,
+		extcurricular: buildClassicExtcurricular,
+		references: buildClassicReferences
 	})
 });
+const classicStyles: EntryStyles = {
+	subtitleStyle: 'entrySubtitle',
+	subtitleRightStyle: 'subtle',
+	bulletsStyle: 'meta'
+};
 
 function buildClassicHeader(data: ResumeData) {
 	const { fullName, title, email, phone, location, linkedin, github, website } = data.personal;
@@ -44,7 +51,7 @@ function buildClassicHeader(data: ResumeData) {
 		website ? { text: 'Portfolio', link: website } : null
 	].filter(Boolean);
 
-	const contactBar = [];
+	const contactBar: any[] = [];
 	links.forEach((link, i) => {
 		contactBar.push(link);
 		if (i < links.length - 1) contactBar.push({ text: '  •  ', color: '#999999' });
@@ -60,12 +67,7 @@ function buildClassicHeader(data: ResumeData) {
 				],
 				margin: [0, 1, 0, 4]
 			},
-
-			{
-				text: contactBar,
-				style: 'contact',
-				margin: [0, 4, 0, 0]
-			}
+			{ text: contactBar, style: 'contact', margin: [0, 4, 0, 0] }
 		].filter(Boolean),
 		margin: [0, 0, 0, pt(4)]
 	};
@@ -74,7 +76,7 @@ function buildClassicHeader(data: ResumeData) {
 function buildClassicSection(title: string, entries: any[]) {
 	if (!entries || entries.length === 0) return null;
 	return {
-		stack: [{ text: title, style: 'sectionHeader' }, ...entries],
+		stack: [{ text: title.toUpperCase(), style: 'sectionHeader' }, ...entries],
 		margin: [0, 0, 0, pt(2)]
 	};
 }
@@ -85,100 +87,67 @@ function buildClassicSummary(data: ResumeData) {
 		{ text: data.personal.summary, style: 'meta', alignment: 'justify' }
 	]);
 }
-
 function buildClassicExperienceEntry(exp: ResumeData['experience'][number]) {
-	return {
-		stack: [
-			{
-				columns: [
-					{ text: exp.company, style: 'entryTitle', width: '*' },
-					{ text: formatPeriod(exp.start, exp.end, exp.present), style: 'period', width: 'auto' }
-				]
-			},
-			{ text: exp.jobTitle, style: 'entrySubtitle', margin: [0, 1, 0, 0] },
-			ifNotEmpty(exp.responsibilities, {
-				ul: toBullets(exp.responsibilities),
-				style: 'meta',
-				margin: [0, pt(0), 0, pt(2)]
-			})
-		].filter(Boolean)
-	};
-}
-
-function buildClassicExperience(data: ResumeData) {
-	return buildClassicSection(
-		data.sections.experience.title.toUpperCase(),
-		data.experience.map(buildClassicExperienceEntry)
+	return buildEntry(
+		{
+			title: exp.company,
+			titleRight: formatPeriod(exp.start, exp.end, exp.present),
+			subtitle: exp.jobTitle,
+			bullets: exp.responsibilities
+		},
+		classicStyles
 	);
 }
 
 function buildClassicEducationEntry(edu: ResumeData['education'][number]) {
-	return {
-		stack: [
-			{
-				columns: [
-					{ text: edu.institution, style: 'entryTitle', width: '*' },
-					{
-						text:
-							edu.end && !edu.start ? `Graduated: ${edu.end}` : formatPeriod(edu.start, edu.end),
-						style: 'period',
-						width: 'auto'
-					}
-				]
-			},
-			{
-				columns: [
-					{ text: edu.degree, style: 'meta', width: '*' },
-					ifNotEmpty(edu.gpa, { text: `CGPA: ${edu.gpa}`, style: 'meta', width: 'auto' })
-				]
-			}
-		],
-		margin: [0, 0, 0, pt(5)]
-	};
+	return buildEntry(
+		{
+			title: edu.institution,
+			titleRight:
+				edu.end && !edu.start ? `Graduated: ${edu.end}` : formatPeriod(edu.start, edu.end),
+			subtitle: edu.degree,
+			subtitleRight: edu.gpa ? `CGPA: ${edu.gpa}` : undefined
+		},
+		classicStyles
+	);
+}
+
+function buildClassicExperience(data: ResumeData) {
+	return buildClassicSection(
+		data.sections.experience.title,
+		data.experience.map(buildClassicExperienceEntry)
+	);
 }
 
 function buildClassicEducation(data: ResumeData) {
 	return buildClassicSection(
-		data.sections.education.title.toUpperCase(),
+		data.sections.education.title,
 		data.education.map(buildClassicEducationEntry)
 	);
-}
-
-function buildClassicProjectEntry(proj: ResumeData['projects'][number]) {
-	return {
-		stack: [
-			{
-				columns: [
-					{ text: proj.name, style: 'entryTitle', width: '*' },
-					ifNotEmpty(proj.link, {
-						text: 'View Project',
-						link: proj.link,
-						style: 'subtle',
-						decoration: 'underline',
-						width: 'auto'
-					})
-				]
-			},
-			ifNotEmpty(proj.technologies, { text: proj.technologies, style: 'entrySubtitle' }),
-			ifNotEmpty(proj.description, {
-				ul: toBullets(proj.description),
-				style: 'meta',
-				margin: [0, 2, 0, 4]
-			})
-		].filter(Boolean)
-	};
 }
 
 function buildClassicProjects(data: ResumeData) {
 	return buildClassicSection(
 		data.sections.projects.title.toUpperCase(),
-		data.projects.map(buildClassicProjectEntry)
+		data.projects.map((proj) =>
+			buildEntry(
+				{
+					title: proj.name,
+					titleRight: proj.link ? 'View Project' : undefined,
+					titleRightLink: proj.link,
+					subtitle: proj.technologies,
+					bullets: proj.description,
+					margin: [0, 0, 0, pt(4)]
+				},
+				{ ...classicStyles, subtitleStyle: 'subtle' }
+			)
+		)
 	);
 }
 
 function buildClassicSkills(data: ResumeData) {
 	const { skills } = data;
-	const title = data.sections.skills.title.toUpperCase();
+	const title = data.sections.skills.title;
 
 	const content = skills.merge
 		? [{ text: flattenSkills(skills.categories), style: 'meta' }]
@@ -195,28 +164,55 @@ function buildClassicSkills(data: ResumeData) {
 
 function buildClassicCertifications(data: ResumeData) {
 	return buildClassicSection(
-		data.sections.certifications.title.toUpperCase(),
-		data.certifications.map((cert) => ({
-			stack: [
+		data.sections.certifications.title,
+		data.certifications.map((cert) =>
+			buildEntry(
 				{
-					columns: [
-						{
-							text: cert.name,
-							style: 'entryTitle',
-							link: cert.url || null,
-							width: '*'
-						},
-						ifNotEmpty(cert.url, {
-							text: 'Verify',
-							link: cert.url,
-							style: 'subtle',
-							width: 'auto'
-						})
-					]
+					title: cert.name,
+					titleLink: cert.url,
+					titleRight: cert.url ? 'Verify' : undefined,
+					titleRightLink: cert.url,
+					subtitle: cert.organization,
+					margin: [0, 0, 0, pt(4)]
 				},
-				{ text: cert.organization, style: 'entrySubtitle' }
-			],
-			margin: [0, 0, 0, pt(4)]
-		}))
+				classicStyles
+			)
+		)
+	);
+}
+
+function buildClassicExtcurricular(data: ResumeData) {
+	return buildClassicSection(
+		data.sections.extcurricular.title,
+		data.extcurricular.map((ext) =>
+			buildEntry(
+				{
+					title: ext.org,
+					titleRight: formatPeriod(ext.start, ext.end, ext.present),
+					subtitle: ext.role,
+					bullets: ext.responsibilities,
+					margin: [0, 0, 0, pt(4)]
+				},
+				classicStyles
+			)
+		)
+	);
+}
+
+function buildClassicReferences(data: ResumeData) {
+	return buildClassicSection(
+		data.sections.references.title,
+		data.references.map((ref) =>
+			buildEntry(
+				{
+					title: ref.name,
+					titleRight: ref.phone,
+					subtitle: [ref.designation, ref.dept, ref.org].filter(Boolean).join(', '),
+					subtitleRight: ref.email,
+					margin: [0, 0, 0, pt(2)]
+				},
+				classicStyles
+			)
+		)
 	);
 }

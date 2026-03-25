@@ -43,4 +43,6 @@ export type SectionBuilders = {
 	projects?: (data: ResumeData) => object;
 	skills?: (data: ResumeData) => object;
 	certifications?: (data: ResumeData) => object;
+	extcurricular?: (data: ResumeData) => object;
+	references?: (data: ResumeData) => object;
 };
