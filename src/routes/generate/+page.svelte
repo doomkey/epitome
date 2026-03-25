@@ -167,9 +167,9 @@
 
 		<Dialog.Root bind:open={isFullscreen}>
 			<Dialog.Content
-				class="flex h-dvh max-w-[100vw] flex-col items-center justify-center bg-background/95 p-0 backdrop-blur-md"
+				class=" z-90 flex h-dvh max-w-[100vw] flex-col items-center justify-center bg-background/95 p-0 backdrop-blur-md"
 			>
-				<Dialog.Header class="sr-only">
+				<Dialog.Header class="sr-only ">
 					<Dialog.Title>Resume Preview</Dialog.Title>
 				</Dialog.Header>
 
