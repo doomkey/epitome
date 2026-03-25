@@ -18,9 +18,11 @@ Upon opening the [generate](/epitome/generate) page, a new workspace will be cre
 
 ## Adding Data
 
-Input the apporpriate data in appropriate sections by the navigating between tabs (large screen) or dropdown(smol screen).
+Input the apporpriate data in appropriate sections by the navigating between dropdown entries.
 
 <img src={def} />
+
+*Tabs are deprecated to allow many sections.*
 
 The preview will be updated as you type.
 
