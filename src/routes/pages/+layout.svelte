@@ -1,15 +1,9 @@
 <script lang="ts">
-	import NavbarDefault from '$lib/components/NavbarDefault.svelte';
-
-	let { children, title } = $props();
+	let { children } = $props();
 </script>
 
 <svelte:head>
-	{#if title}
-		<title>{title}</title>
-	{:else}
-		<title>Epitome Resume Builder</title>
-	{/if}
+	<title>Epitome Resume Builder</title>
 </svelte:head>
 <!-- <svelte:head><link rel="icon" href={favicon} /></svelte:head> -->
 <main class="container mx-auto max-w-5xl px-4 py-10 sm:flex sm:gap-10">
