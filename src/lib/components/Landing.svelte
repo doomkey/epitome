@@ -8,6 +8,7 @@
 	let visible = $state(false);
 	import { resolve } from '$app/paths';
 	import FAQ from './FAQ.svelte';
+	import SectionHeader from './SectionHeader.svelte';
 
 	onMount(() => {
 		setTimeout(() => (visible = true), 50);
@@ -98,18 +99,11 @@
 
 	<section class="border-t border-border px-6 py-24">
 		<div class="mx-auto max-w-5xl">
-			<div class="mb-16 flex flex-col gap-8">
-				<Separator />
-				<div class="flex flex-wrap items-baseline justify-between gap-6">
-					<h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold text-foreground" id="features">
-						Why Epitome?
-					</h2>
-					<p class="max-w-sm text-sm leading-relaxed font-light text-muted-foreground">
-						Built for people who've had enough of resume builders that cause distress.
-					</p>
-				</div>
-				<Separator />
-			</div>
+			<SectionHeader
+				title="Why Epitome?"
+				description="Built for people who've had enough of resume builders that cause distress."
+				id="features"
+			/>
 
 			<div class="grid grid-cols-1 border border-border sm:grid-cols-2 lg:grid-cols-3">
 				{#each features as feature, i (feature)}

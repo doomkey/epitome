@@ -11,7 +11,7 @@
 </script>
 
 <svelte:head>
-	<!-- <meta property="og:image" content={banner} /> -->
+	<meta name="description" content="Feature-packed, free, browser-only resume builder." />
 </svelte:head>
 <ModeWatcher />
 <Toaster position="top-center" />

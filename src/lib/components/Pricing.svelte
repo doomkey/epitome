@@ -5,6 +5,7 @@
 	import CheckIcon from '@lucide/svelte/icons/check';
 	import XIcon from '@lucide/svelte/icons/x';
 	import { resolve } from '$app/paths';
+	import SectionHeader from './SectionHeader.svelte';
 
 	const them = {
 		name: 'The Others',
@@ -56,16 +57,7 @@
 
 <section class="border-t border-border px-6 py-24" id="pricing">
 	<div class="mx-auto max-w-5xl">
-		<div class="mb-16 flex flex-col gap-8">
-			<Separator />
-			<div class="flex flex-wrap items-baseline justify-between gap-6">
-				<h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold text-foreground">Pricing</h2>
-				<p class="max-w-sm text-sm leading-relaxed font-light text-muted-foreground">
-					Whoa... what pricing?
-				</p>
-			</div>
-			<Separator />
-		</div>
+		<SectionHeader title="Pricing" />
 
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 			<div class="relative flex flex-col border border-border p-8 opacity-80">
