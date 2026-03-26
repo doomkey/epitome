@@ -24,24 +24,25 @@
 			a: 'Please visit the documentation on detailed guide.'
 		}
 	];
+	const faqSchema = JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: faqs.map((f) => ({
+			'@type': 'Question',
+			name: f.q,
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: f.a
+			}
+		}))
+	});
 </script>
 
 <svelte:head>
-	<script type="application/ld+json">
-    {JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": faqs.map(f => ({
-            "@type": "Question",
-            "name": f.q,
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": f.a
-            }
-        }))
-    })}
-	</script>
+	<!-- safe: no user input here -->
+	{@html `<script type="application/ld+json">${faqSchema}<\/script>`}
 </svelte:head>
+
 <section class="container my-4" id="faq">
 	<Card.Root>
 		<Card.Header>
