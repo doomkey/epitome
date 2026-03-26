@@ -10,7 +10,8 @@
 </script>
 
 <svelte:head>
-	<title>Epitome Resume Builder</title>
+	<title>Generate Resume</title>
+	<meta name="description" content="Build free resume with Epitome." />
 </svelte:head>
 
 <AppMenubar />
