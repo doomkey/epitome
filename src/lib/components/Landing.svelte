@@ -7,6 +7,7 @@
 	import NavbarDefault from './NavbarDefault.svelte';
 	let visible = $state(false);
 	import { resolve } from '$app/paths';
+	import FAQ from './FAQ.svelte';
 
 	onMount(() => {
 		setTimeout(() => (visible = true), 50);
@@ -130,6 +131,7 @@
 		</div>
 	</section>
 	<Pricing />
+	<FAQ />
 	<section class="border-t border-border px-6 py-24">
 		<div class="mx-auto max-w-5xl">
 			<div class="flex flex-col gap-10">
