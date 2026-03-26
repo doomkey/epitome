@@ -12,7 +12,8 @@
 			title: 'Home',
 			href: resolve('/')
 		},
-		{ title: 'Docs', href: resolve('/docs') }
+		{ title: 'Docs', href: resolve('/docs') },
+		{ title: 'Blog', href: resolve('/blog') }
 	];
 
 	function checkCurrentPage(a: string) {
