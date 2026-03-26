@@ -7,6 +7,7 @@
 	import NavbarDefault from '$lib/components/NavbarDefault.svelte';
 	import { base } from '$app/paths';
 	import { ModeWatcher } from 'mode-watcher';
+	import { ProgressBar } from '@prgm/sveltekit-progress-bar';
 	let { children } = $props();
 </script>
 
@@ -14,6 +15,7 @@
 	<meta name="description" content="Feature-packed, free, browser-only resume builder." />
 </svelte:head>
 <ModeWatcher />
+<ProgressBar class="text-pink-500" zIndex={999} />
 <Toaster position="top-center" />
 {#if page.url.pathname !== base + '/generate'}
 	<NavbarDefault />
