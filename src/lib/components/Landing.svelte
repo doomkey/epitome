@@ -43,13 +43,7 @@
 	];
 </script>
 
-<div
-	class="transition-all duration-700 ease-out"
-	class:opacity-0={!visible}
-	class:translate-y-3={!visible}
-	class:opacity-100={visible}
-	class:translate-y-0={visible}
->
+<div>
 	<section class="flex min-h-[90vh] items-center justify-center px-6 py-16">
 		<div class="mx-auto flex w-full max-w-3xl flex-col gap-6">
 			<Separator />
@@ -154,16 +148,3 @@
 		</div>
 	</section>
 </div>
-
-<style>
-	@keyframes fadeUp {
-		from {
-			opacity: 0;
-			transform: translateY(16px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-</style>
