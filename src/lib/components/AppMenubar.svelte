@@ -51,15 +51,32 @@
 				renamingName = name;
 			},
 			onDelete: async (id) => {
-				const name = workspaceStore.workspaces.find((w) => w.id === id)?.name;
-				await deleteWorkspace(id);
-				toast.success(`"${name}" deleted.`);
+				workspaceIdToBeDeleted = id;
+				showDeleteAWorkspace = true;
 			},
 			onResetCurrent: () => (showResetDialog = true),
 			onDeleteAll: () => (showDeleteAllDialog = true),
 			onConfigureSections: () => (showConfigureSections = true)
 		})
 	);
+	let showDeleteAWorkspace = $state(false);
+	let workspaceIdToBeDeleted = $state('');
+	function openDeleteAWorkspace(id: string) {
+		workspaceIdToBeDeleted = id;
+		showDeleteAWorkspace = true;
+	}
+	async function handleDeleteAWorkspace() {
+		if (workspaceIdToBeDeleted === '') {
+			toast.error('Workspace not found.');
+			showDeleteAWorkspace = false;
+			return;
+		}
+		const name = workspaceStore.workspaces.find((w) => w.id === workspaceIdToBeDeleted)?.name;
+		await deleteWorkspace(workspaceIdToBeDeleted);
+		toast.success(`"${name}" deleted.`);
+		workspaceIdToBeDeleted = '';
+		showDeleteAWorkspace = false;
+	}
 	async function handleResetCurrent() {
 		Object.assign(resumeData, JSON.parse(JSON.stringify(defaultResumeData)));
 		await saveCurrentWorkspace();
@@ -331,6 +348,7 @@
 		</button>
 	{/if}
 {/snippet}
+
 <AlertDialog.Root bind:open={showResetDialog}>
 	<AlertDialog.Content>
 		<AlertDialog.Header>
@@ -350,6 +368,7 @@
 		</AlertDialog.Footer>
 	</AlertDialog.Content>
 </AlertDialog.Root>
+
 <AlertDialog.Root bind:open={showDeleteAllDialog}>
 	<AlertDialog.Content>
 		<AlertDialog.Header>
@@ -366,6 +385,26 @@
 				onclick={handleDeleteAll}
 			>
 				Delete All
+			</AlertDialog.Action>
+		</AlertDialog.Footer>
+	</AlertDialog.Content>
+</AlertDialog.Root>
+
+<AlertDialog.Root bind:open={showDeleteAWorkspace}>
+	<AlertDialog.Content>
+		<AlertDialog.Header>
+			<AlertDialog.Title>Delete this workspace?</AlertDialog.Title>
+			<AlertDialog.Description>
+				This will permanently delete this workspace and its data. This cannot be undone.
+			</AlertDialog.Description>
+		</AlertDialog.Header>
+		<AlertDialog.Footer>
+			<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+			<AlertDialog.Action
+				class="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+				onclick={handleDeleteAWorkspace}
+			>
+				Delete
 			</AlertDialog.Action>
 		</AlertDialog.Footer>
 	</AlertDialog.Content>
