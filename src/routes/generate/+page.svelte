@@ -91,7 +91,7 @@
 	};
 </script>
 
-<main class="container mx-auto mt-4">
+<main class="-z-10 container mx-auto mt-4">
 	<div class="hidden md:block">
 		<Resizable.PaneGroup direction="horizontal">
 			<Resizable.Pane defaultSize={55}>
@@ -99,10 +99,10 @@
 					<SectionsTab />
 				</div>
 			</Resizable.Pane>
-			<Resizable.Handle withHandle />
+			<Resizable.Handle withHandle class="-z-10" />
 			<Resizable.Pane defaultSize={45}>
 				<div>
-					<section class=" flex min-h-dvh items-start justify-center p-0">
+					<section class="-z-1 flex min-h-dvh items-start justify-center p-0">
 						<div
 							class=" flex h-full w-full flex-col items-center justify-center overflow-hidden p-2"
 						>
@@ -114,7 +114,7 @@
 		</Resizable.PaneGroup>
 	</div>
 
-	<section class="space-y-6 py-6 md:hidden">
+	<section class="-z-1 space-y-6 py-6 md:hidden">
 		<SectionsTab />
 		<section class="flex h-screen items-start justify-center p-0">
 			<Card.Root
@@ -130,7 +130,7 @@
 </main>
 {#snippet preview()}
 	{#if previewUrls.length > 0}
-		<div class="relative flex h-full w-full flex-col items-center justify-center gap-4">
+		<div class="relative -z-1 flex h-full w-full flex-col items-center justify-center gap-4">
 			{#if totalPages > 1}
 				<div class="flex items-center gap-4">
 					<Button variant="outline" size="icon" onclick={prevPage} disabled={currentPage === 0}>
@@ -155,7 +155,7 @@
 				<img
 					src={previewUrls[currentPage]}
 					alt="Preview Page {currentPage + 1}"
-					class="max-h-full max-w-full rounded-sm border object-contain shadow-sm"
+					class=" max-h-full max-w-full rounded-sm border object-contain shadow-sm"
 				/>
 				<div
 					class="absolute right-2 bottom-2 rounded bg-black/50 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100"

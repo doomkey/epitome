@@ -27,6 +27,7 @@
 		];
 		await saveCurrentWorkspace();
 	}
+	console.log(resumeData.sections_order);
 </script>
 
 {#if workspaceStore.ready}
