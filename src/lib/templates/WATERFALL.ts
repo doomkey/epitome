@@ -2,9 +2,12 @@ import { pt } from '$lib/functions/helpers';
 import { basePageConfig, baseDefaultStyle, buildSections } from './base';
 import { formatPeriod, ifNotEmpty, flattenSkills, buildEntry } from './utils';
 import type { ResumeData } from '$lib/types';
+import { settingsStore } from '$lib/stores/settings.svelte';
 
 export const waterfallTemplate = (data: ResumeData, font: string) => ({
 	...basePageConfig,
+	pageSize: settingsStore.current.paperSize,
+
 	defaultStyle: baseDefaultStyle(font),
 	styles: {
 		name: { fontSize: 24, bold: true, color: '#000000', alignment: 'center' },

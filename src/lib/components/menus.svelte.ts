@@ -72,9 +72,7 @@ async function handleGenerate() {
 async function handleJson() {
 	toast.error('Not yet implemented');
 }
-async function handleOpenSettings() {
-	toast.error('Not yet implemented');
-}
+
 async function handleExport() {
 	try {
 		await exportBackup();
@@ -102,6 +100,7 @@ export function getMenus(opts: {
 	onResetCurrent: () => void;
 	onDeleteAll: () => void;
 	onConfigureSections: () => void;
+	onOpenSettings: () => void;
 }): Menu[] {
 	return [
 		{
@@ -135,7 +134,7 @@ export function getMenus(opts: {
 						}
 					]
 				},
-				{ label: 'Settings', onSelect: handleOpenSettings }
+				{ label: 'Settings', onSelect: opts.onOpenSettings }
 			]
 		},
 		{

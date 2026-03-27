@@ -2,6 +2,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import * as vfs from '$lib/assets/fonts/vfs_fonts';
 import type { ResumeData } from '$lib/types';
 import type { PdfTemplateFunction } from './helpers';
+import { settingsStore } from '$lib/stores/settings.svelte';
 
 (pdfMake as any).vfs = vfs;
 pdfMake.addFonts({
@@ -42,5 +43,6 @@ export function generatePdf(data: ResumeData) {
 	if (!template) throw new Error(`Template not found.`);
 
 	const docDefinition = template(data, data.config.font);
+
 	return pdfMake.createPdf(docDefinition as any);
 }

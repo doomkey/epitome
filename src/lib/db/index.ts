@@ -8,10 +8,7 @@ export type Workspace = {
 	createdAt: number;
 	updatedAt: number;
 };
-export type SettingsData = {
-	paper: 'a4' | 'letter';
-	new_workspace: 'copy' | 'fresh';
-};
+
 export type Setting = {
 	key: string;
 	value: unknown;

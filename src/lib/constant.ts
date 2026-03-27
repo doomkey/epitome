@@ -51,3 +51,27 @@ export const sections = {
 
 export type SectionKey = keyof typeof sections;
 export type Section = (typeof sections)[SectionKey];
+
+export const paperSizes = {
+	a4: { label: 'A4', value: 'A4' },
+	letter: { label: 'Letter', value: 'LETTER' },
+	legal: { label: 'Legal', value: 'LEGAL' },
+	a3: { label: 'A3', value: 'A3' }
+} as const;
+
+export const workspaceBehaviors = {
+	COPY: { label: 'Copy existing workspace', value: 'copy' },
+	FRESH: { label: 'Start fresh', value: 'fresh' }
+} as const;
+
+export const margins = {
+	narrow: { label: 'Narrow', value: [20, 20, 20, 20] },
+	normal: { label: 'Normal', value: [40, 40, 40, 40] },
+	wide: { label: 'Wide', value: [60, 60, 60, 60] },
+	custom: { label: 'Custom', value: [0, 0, 0, 0] }
+} as const;
+
+export type PaperSizeOption = (typeof paperSizes)[keyof typeof paperSizes];
+
+export type WorkspaceBehaviorOption = (typeof workspaceBehaviors)[keyof typeof workspaceBehaviors];
+export type MarginOption = (typeof margins)[keyof typeof margins];

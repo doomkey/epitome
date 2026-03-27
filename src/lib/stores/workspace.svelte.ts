@@ -9,13 +9,17 @@ import {
 } from '$lib/db/workspaces';
 import type { Workspace } from '$lib/db/index';
 import type { ResumeData } from '$lib/types';
+import { settingsStore } from './settings.svelte';
+import { workspaceBehaviors } from '$lib/constant';
 
 const ACTIVE_KEY = 'epitome_active_workspace';
 
 function cloneResumeData(): ResumeData {
 	return JSON.parse(JSON.stringify(resumeData));
 }
-
+function cloneDefaultResumeData(): ResumeData {
+	return JSON.parse(JSON.stringify(defaultResumeData));
+}
 function deepMerge<T extends object>(defaults: T, saved: Partial<T>): T {
 	const result = { ...defaults };
 	for (const key in defaults) {
@@ -93,7 +97,13 @@ export async function saveCurrentWorkspace() {
 
 export async function newWorkspace() {
 	await saveCurrentWorkspace();
-	const id = await createWorkspace('New Workspace', cloneResumeData());
+	const behav = settingsStore.current.newWorkspaceBehavior;
+	let id = '';
+	if (behav === workspaceBehaviors.COPY.value) {
+		id = await createWorkspace('New Workspace', cloneResumeData());
+	} else {
+		id = await createWorkspace('Default Workspace', cloneDefaultResumeData());
+	}
 	workspaceStore.workspaces = await getAllWorkspaces();
 	await switchWorkspace(id);
 }

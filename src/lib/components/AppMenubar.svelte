@@ -36,6 +36,7 @@
 	import DarkModeToggle from './DarkModeToggle.svelte';
 	import { invalidateAll } from '$app/navigation';
 	import Separator from './ui/separator/separator.svelte';
+	import Settings from './Settings.svelte';
 
 	$effect(() => {
 		if (fileInput) setFileInput(fileInput);
@@ -56,15 +57,14 @@
 			},
 			onResetCurrent: () => (showResetDialog = true),
 			onDeleteAll: () => (showDeleteAllDialog = true),
-			onConfigureSections: () => (showConfigureSections = true)
+			onConfigureSections: () => (showConfigureSections = true),
+			onOpenSettings: () => (showSettings = true)
 		})
 	);
+	let showSettings = $state(false);
 	let showDeleteAWorkspace = $state(false);
 	let workspaceIdToBeDeleted = $state('');
-	function openDeleteAWorkspace(id: string) {
-		workspaceIdToBeDeleted = id;
-		showDeleteAWorkspace = true;
-	}
+
 	async function handleDeleteAWorkspace() {
 		if (workspaceIdToBeDeleted === '') {
 			toast.error('Workspace not found.');
@@ -254,6 +254,17 @@
 			>
 		</Dialog.Header>
 		<SectionsRearrange />
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- settings -->
+
+<Dialog.Root bind:open={showSettings}>
+	<Dialog.Content class="overflow-y-auto">
+		<Dialog.Header>
+			<Dialog.Title>Settings</Dialog.Title>
+		</Dialog.Header>
+		<Settings />
 	</Dialog.Content>
 </Dialog.Root>
 
