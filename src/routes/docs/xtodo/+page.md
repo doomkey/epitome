@@ -5,14 +5,14 @@
 - [x] SEO
 - [x] Licensing
 - [x] Rearrange and renaming section (is renaming section necessary? may be nice to have.)
-- [ ] _droppped (shortcuts wil be dealt later)_ Change generate pdf shortcut (ALT G?)
 - [x] More fonts
 - [x] Templates
 - [x] Prefill more data to make the default preview full.
 - [x] Use the resizable component in the generation page
-- [ ] Some Questions that might Arise in Your Mind section (SQAYM)
-- [ ] Reason behind the naming (who cares?)
+- [x] Some Questions that might Arise in Your Mind section (SQAYM)
 - [x] Show all the pages in preview
 - [x] show full preview image in popup when clicked
 - [x] references section
-- [ ] add contribution, running locally etc guide
+- [x] add contribution, running locally etc guide
+- [ ] Reason behind the naming (who cares?)
+- [ ] shortcuts
