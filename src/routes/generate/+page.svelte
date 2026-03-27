@@ -7,7 +7,7 @@
 	import { createPDFDocument } from '$lib/functions/pdfGenerator';
 	import { Button } from '$lib/components/ui/button';
 	import * as Dialog from '$lib/components/ui/dialog';
-
+	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
 	let previewUrls = $state<string[]>([]);
 	let currentPage = $state(0);
 	let totalPages = $state(0);
@@ -187,8 +187,43 @@
 			</Dialog.Content>
 		</Dialog.Root>
 	{:else}
-		<div class="flex h-full items-center justify-center text-muted-foreground italic">
-			<span class="animate-pulse">Generating preview...</span>
+		<div class="-z-1 h-full w-full">
+			<div class="space-y-2">
+				<p class="text-lg">Preview Loading...</p>
+
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+				<Skeleton class="h-4 w-full" />
+			</div>
 		</div>
 	{/if}
 {/snippet}
