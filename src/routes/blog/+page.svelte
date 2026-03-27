@@ -3,7 +3,7 @@
 	import SectionHeader from '$lib/components/SectionHeader.svelte';
 
 	let { data } = $props();
-	const { posts } = data;
+	const { posts } = $derived(data);
 </script>
 
 <svelte:head>

@@ -14,7 +14,7 @@
 	} = $props();
 
 	let editing = $state(false);
-	let editingValue = $state(value);
+	let editingValue = $derived(value);
 
 	function startEdit() {
 		editingValue = value;
