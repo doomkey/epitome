@@ -1,5 +1,5 @@
 import { db } from './index';
-import type { Workspace } from './index';
+import type { Setting, Settings, Workspace } from './index';
 
 const BACKUP_VERSION = 1;
 
@@ -7,6 +7,7 @@ type BackupPayload = {
 	version: number;
 	exportedAt: number;
 	workspaces: Workspace[];
+	settings: Setting[];
 };
 
 async function compress(data: string): Promise<string> {
@@ -68,11 +69,12 @@ async function decompress(base64: string): Promise<string> {
 
 export async function exportBackup(): Promise<void> {
 	const workspaces = await db.workspaces.toArray();
-
+	const settings = await db.settings.toArray();
 	const payload: BackupPayload = {
 		version: BACKUP_VERSION,
 		exportedAt: Date.now(),
-		workspaces
+		workspaces,
+		settings
 	};
 
 	const compressed = await compress(JSON.stringify(payload));
@@ -109,9 +111,8 @@ export async function importBackup(file: File): Promise<ImportResult> {
 			result.errors.push(`Backup was made with a newer version of Epitome. Please update the app.`);
 			return result;
 		}
-
-		for (const workspace of payload.workspaces) {
-			try {
+		await db.transaction('rw', [db.workspaces, db.settings], async () => {
+			for (const workspace of payload.workspaces) {
 				const existing = await db.workspaces.get(workspace.id);
 				if (existing) {
 					await db.workspaces.put(workspace);
@@ -120,10 +121,13 @@ export async function importBackup(file: File): Promise<ImportResult> {
 					await db.workspaces.add(workspace);
 					result.added++;
 				}
-			} catch (e) {
-				result.errors.push(`Failed to import workspace "${workspace.name}".`);
 			}
-		}
+
+			for (const setting of payload.settings) {
+				await db.settings.put(setting);
+			}
+			window.location.reload();
+		});
 	} catch (e) {
 		result.errors.push('Failed to read or decompress backup file. It may be corrupted.');
 	}

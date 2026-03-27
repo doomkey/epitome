@@ -99,7 +99,7 @@
 					<SectionsTab />
 				</div>
 			</Resizable.Pane>
-			<Resizable.Handle withHandle class="-z-10" />
+			<Resizable.Handle withHandle />
 			<Resizable.Pane defaultSize={45}>
 				<div>
 					<section class="flex min-h-dvh items-start justify-center p-0">

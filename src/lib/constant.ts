@@ -58,20 +58,21 @@ export const paperSizes = {
 	legal: { label: 'Legal', value: 'LEGAL' },
 	a3: { label: 'A3', value: 'A3' }
 } as const;
+export type PaperSizeOption = (typeof paperSizes)[keyof typeof paperSizes];
 
 export const workspaceBehaviors = {
 	COPY: { label: 'Copy existing workspace', value: 'copy' },
 	FRESH: { label: 'Start fresh', value: 'fresh' }
 } as const;
+export type WorkspaceBehaviorOption = (typeof workspaceBehaviors)[keyof typeof workspaceBehaviors];
 
 export const margins = {
-	narrow: { label: 'Narrow', value: [20, 20, 20, 20] },
-	normal: { label: 'Normal', value: [40, 40, 40, 40] },
-	wide: { label: 'Wide', value: [60, 60, 60, 60] },
-	custom: { label: 'Custom', value: [0, 0, 0, 0] }
+	narrow: { label: 'Narrow', value: [36, 36, 36, 36] as const }, // ~20mm
+	normal: { label: 'Normal', value: [72, 72, 72, 72] as const }, // ~40mm
+	wide: { label: 'Wide', value: [120, 120, 120, 120] as const }, // ~60mm
+	custom: { label: 'Custom', value: [0, 0, 0, 0] as const }
 } as const;
-
-export type PaperSizeOption = (typeof paperSizes)[keyof typeof paperSizes];
-
-export type WorkspaceBehaviorOption = (typeof workspaceBehaviors)[keyof typeof workspaceBehaviors];
 export type MarginOption = (typeof margins)[keyof typeof margins];
+
+export const marginUnits = ['mm', 'inch'] as const;
+export type MarginUnit = (typeof marginUnits)[number];

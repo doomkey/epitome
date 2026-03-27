@@ -7,6 +7,7 @@ import { settingsStore } from '$lib/stores/settings.svelte';
 export const classicTemplate = (data: ResumeData, font: string) => ({
 	...basePageConfig,
 	pageSize: settingsStore.current.paperSize,
+	pageMargins: settingsStore.current.marginValue,
 	defaultStyle: baseDefaultStyle(font),
 	styles: {
 		name: { fontSize: 16, bold: true, color: '#000000' },

@@ -1,24 +1,13 @@
-import { db } from '$lib/db';
-import {
-	margins,
-	paperSizes,
-	workspaceBehaviors,
-	type MarginOption,
-	type PaperSizeOption,
-	type WorkspaceBehaviorOption
-} from '$lib/constant';
+import { db, type Settings } from '$lib/db';
+import { margins, marginUnits, paperSizes, workspaceBehaviors } from '$lib/constant';
 import { initWorkspaces } from './workspace.svelte';
-
-export type Settings = {
-	paperSize: PaperSizeOption['value'];
-	newWorkspaceBehavior: WorkspaceBehaviorOption['value'];
-	margin: MarginOption['value'];
-};
 
 const defaultSettings: Settings = {
 	paperSize: paperSizes.a4.value,
 	newWorkspaceBehavior: workspaceBehaviors.COPY.value,
-	margin: margins.normal.value
+	marginLabel: margins.normal.label,
+	marginValue: margins.normal.value,
+	marginUnit: 'mm'
 };
 
 let settings = $state<Settings>({ ...defaultSettings });

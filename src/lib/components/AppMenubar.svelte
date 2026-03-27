@@ -109,6 +109,7 @@
 		if (!file) return;
 		try {
 			const result = await importBackup(file);
+			console.log(result);
 			workspaceStore.workspaces = await getAllWorkspaces();
 			if (result.errors.length > 0) result.errors.forEach((err) => toast.error(err));
 			else toast.success(`Imported — ${result.added} added, ${result.overwritten} overwritten.`);

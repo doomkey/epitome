@@ -1,6 +1,11 @@
 import Dexie, { type EntityTable } from 'dexie';
 import type { ResumeData } from '$lib/types';
-
+import {
+	type MarginOption,
+	type MarginUnit,
+	type PaperSizeOption,
+	type WorkspaceBehaviorOption
+} from '$lib/constant';
 export type Workspace = {
 	id: string;
 	name: string;
@@ -8,7 +13,13 @@ export type Workspace = {
 	createdAt: number;
 	updatedAt: number;
 };
-
+export type Settings = {
+	paperSize: PaperSizeOption['value'];
+	newWorkspaceBehavior: WorkspaceBehaviorOption['value'];
+	marginLabel: MarginOption['label'];
+	marginValue: MarginOption['value'];
+	marginUnit: MarginUnit;
+};
 export type Setting = {
 	key: string;
 	value: unknown;

@@ -1,6 +1,7 @@
 import type { ResumeData } from '$lib/types';
-
-export const pt = (mm: number) => mm * 2.83465;
+export const MM_TO_PT = 2.83464567;
+export const IN_TO_PT = 72;
+export const pt = (mm: number) => mm * MM_TO_PT;
 export const ptY = (mm: number, fontSize: number = 12) => pt(mm - fontSize * 0.25);
 
 export const getVal = (field: { value: string; placeholder: string }) =>
