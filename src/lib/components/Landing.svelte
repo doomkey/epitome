@@ -43,6 +43,7 @@
 			description: 'No "export to PDF for $n/month". Generate as many resumes as you want.'
 		}
 	];
+	let isLoading = $state(false);
 </script>
 
 <div>
@@ -72,9 +73,16 @@
 			</p>
 
 			<div class="flex flex-wrap items-center gap-3">
-				<Button href={resolve('/generate')} size="lg" class="group gap-2 font-medium">
-					Generate Resume
-					<span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
+				<Button
+					href={resolve('/generate')}
+					size="lg"
+					class="group gap-2 font-medium"
+					onclick={() => (isLoading = true)}
+				>
+					{isLoading ? 'Loading...' : 'Generate Resume'}
+					{#if !isLoading}
+						<span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
+					{/if}
 				</Button>
 				<Button href={resolve('/docs')} variant="outline" size="lg" class="font-medium"
 					>Documentation</Button
