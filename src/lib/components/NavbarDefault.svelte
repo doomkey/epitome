@@ -1,11 +1,6 @@
 <script lang="ts">
-	import MoonIcon from '@lucide/svelte/icons/moon';
-	import SunIcon from '@lucide/svelte/icons/sun';
-
-	import { Button } from '$lib/components/ui/button/index.js';
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
-	import { toggleMode } from 'mode-watcher';
 	import DarkModeToggle from './DarkModeToggle.svelte';
 	const links = [
 		{
@@ -36,12 +31,10 @@
 		</div>
 
 		<nav class="hidden items-center gap-6 text-sm font-medium md:flex">
-			{#each links as { title, href, rel, target } (title)}
+			{#each links as { title, href } (title)}
 				<a
 					{href}
 					class="text-foreground/60 transition-colors hover:text-primary"
-					{rel}
-					{target}
 					class:text-primary={checkCurrentPage(href)}>{title}</a
 				>
 			{/each}

@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import SectionHeader from '$lib/components/SectionHeader.svelte';
-	import { Badge } from '$lib/components/ui/badge';
-	import { Separator } from '$lib/components/ui/separator';
 
 	let { data } = $props();
 	const { posts } = data;
