@@ -20,6 +20,18 @@ It has many exciting features like:
 Visit the [documentation](https://doomkey.github.io/epitome/docs) to know about all the features and usage.
 
 
+## Features to Add
+
+- [ ] Paper size
+- [ ] JSON export of a single workspace
+- [ ] Read-only link for sharing
+- [ ] Automatic page-break
+- [ ] Shortcuts
+- [ ] Inline rich text (bold-italics-underline)
+- [ ] Settings
+  - [ ] New workspace: Copy/Start from fresh 
+- [ ] Import from linkedin
+
 ## Running Locally
 
 It is a SvelteKit project, so node and any package manager is required.
