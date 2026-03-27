@@ -69,7 +69,12 @@ async function handleGenerate() {
 	doc.download(`${resumeData.personal.fullName || 'resume'}.pdf`);
 	toast.success('Resume downloaded!');
 }
-
+async function handleJson() {
+	toast.error('Not yet implemented');
+}
+async function handleOpenSettings() {
+	toast.error('Not yet implemented');
+}
 async function handleExport() {
 	try {
 		await exportBackup();
@@ -103,42 +108,58 @@ export function getMenus(opts: {
 			label: 'File',
 			items: [
 				{
-					label: 'Generate PDF',
+					label: 'Download PDF',
 					// shortcut: 'ALT G',
 					onSelect: handleGenerate
 				},
-				{ type: 'separator' },
-				{ label: 'Export Backup', onSelect: handleExport },
 				{
-					label: 'Import Backup',
-					onSelect: () => _fileInput?.click()
+					label: 'Download JSON',
+					onSelect: handleJson
 				},
 				{ type: 'separator' },
+
 				{
-					label: 'Delete All Workspaces',
-					destructive: true,
-					onSelect: () => opts.onDeleteAll()
-				}
+					label: 'Data Management',
+					type: 'sub',
+					children: [
+						{ label: 'Export Backup', onSelect: handleExport },
+						{
+							label: 'Import Backup',
+							onSelect: () => _fileInput?.click()
+						},
+						{ type: 'separator' },
+						{
+							label: 'Delete All Workspaces',
+							destructive: true,
+							onSelect: () => opts.onDeleteAll()
+						}
+					]
+				},
+				{ label: 'Settings', onSelect: handleOpenSettings }
 			]
 		},
 		{
 			label: 'Workspace',
 			items: [
 				{
-					type: 'radio',
-					heading: 'Switch Workspace',
-					getValue: () => workspaceStore.activeId,
-					onChange: handleSwitch,
-					options: workspaceStore.workspaces.map((w) => ({
-						label: w.name,
-						value: w.id,
-						onDelete: () => opts.onDelete(w.id),
-						deleteDisabled: w.id === workspaceStore.activeId
-					}))
+					label: 'Switch Workspace',
+					type: 'sub',
+					children: [
+						{
+							type: 'radio',
+							heading: 'Switch Workspace',
+							getValue: () => workspaceStore.activeId,
+							onChange: handleSwitch,
+							options: workspaceStore.workspaces.map((w) => ({
+								label: w.name,
+								value: w.id,
+								onDelete: () => opts.onDelete(w.id),
+								deleteDisabled: w.id === workspaceStore.activeId
+							}))
+						}
+					]
 				},
-				{ type: 'separator' },
 				{ label: 'New Workspace', onSelect: handleNew },
-				{ type: 'separator' },
 				{
 					label: 'Reset Current Workspace',
 					destructive: true,
@@ -150,27 +171,37 @@ export function getMenus(opts: {
 			label: 'Customize',
 			items: [
 				{
-					type: 'radio',
-					heading: 'Template',
-					getValue: () => resumeData.config.template,
-					onChange: (v) => (resumeData.config.template = v),
-					options: Object.values(templates).map((t) => ({
-						label: t.name,
-						value: t.value
-					}))
+					type: 'sub',
+					label: 'Template',
+					children: [
+						{
+							type: 'radio',
+							heading: 'Template',
+							getValue: () => resumeData.config.template,
+							onChange: (v) => (resumeData.config.template = v),
+							options: Object.values(templates).map((t) => ({
+								label: t.name,
+								value: t.value
+							}))
+						}
+					]
 				},
-				{ type: 'separator' },
 				{
-					type: 'radio',
-					heading: 'Font',
-					getValue: () => resumeData.config.font,
-					onChange: (v) => (resumeData.config.font = v),
-					options: Object.values(fonts).map((f) => ({
-						label: f.name,
-						value: f.value
-					}))
+					type: 'sub',
+					label: 'Font',
+					children: [
+						{
+							type: 'radio',
+							heading: 'Font',
+							getValue: () => resumeData.config.font,
+							onChange: (v) => (resumeData.config.font = v),
+							options: Object.values(fonts).map((f) => ({
+								label: f.name,
+								value: f.value
+							}))
+						}
+					]
 				},
-				{ type: 'separator' },
 				{
 					label: 'Configure Sections',
 					onSelect: () => opts.onConfigureSections()

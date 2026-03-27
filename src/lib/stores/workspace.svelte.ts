@@ -1,4 +1,4 @@
-import { resumeData } from './resumeStore.svelte';
+import { defaultResumeData, resumeData } from './resumeStore.svelte';
 import {
 	getAllWorkspaces,
 	getWorkspace,
@@ -16,8 +16,38 @@ function cloneResumeData(): ResumeData {
 	return JSON.parse(JSON.stringify(resumeData));
 }
 
+function deepMerge<T extends object>(defaults: T, saved: Partial<T>): T {
+	const result = { ...defaults };
+	for (const key in defaults) {
+		if (!(key in saved)) continue;
+		const savedVal = saved[key];
+		const defaultVal = defaults[key];
+		if (
+			savedVal !== null &&
+			typeof savedVal === 'object' &&
+			!Array.isArray(savedVal) &&
+			typeof defaultVal === 'object' &&
+			!Array.isArray(defaultVal)
+		) {
+			result[key] = deepMerge(defaultVal as object, savedVal as object) as T[typeof key];
+		} else {
+			result[key] = savedVal as T[typeof key];
+		}
+	}
+	return result;
+}
+
 function hydrateResumeData(data: ResumeData) {
-	Object.assign(resumeData, JSON.parse(JSON.stringify(data)));
+	const defaults = JSON.parse(JSON.stringify(defaultResumeData));
+	const saved = JSON.parse(JSON.stringify(data));
+	const merged = deepMerge(defaults, saved);
+	merged.sections_order = [
+		...merged.sections_order.filter((k) => k in merged.sections),
+		...Object.keys(merged.sections).filter((k) => !merged.sections_order.includes(k))
+	];
+	for (const key in defaults) {
+		(resumeData as any)[key] = merged[key as keyof ResumeData];
+	}
 }
 export const workspaceStore = $state({
 	activeId: '' as string,
