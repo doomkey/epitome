@@ -25,7 +25,7 @@ Visit the [documentation](https://doomkey.github.io/epitome/docs) to know about 
 - [x] Paper size and margin
 - [x] Settings
   - [x] New workspace: Copy/Start from fresh 
-- [ ] JSON export of a single workspace
+- [x] JSON export of a single workspace
 - [ ] Read-only link for sharing
 - [ ] Automatic page-break
 - [ ] Shortcuts
