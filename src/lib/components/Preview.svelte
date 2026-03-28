@@ -30,6 +30,7 @@
 		}
 		return pdfjsLib;
 	}
+	const scale = $derived(isShared ? 2 : 1);
 
 	$effect(() => {
 		if (!browser) return;
@@ -59,7 +60,6 @@
 				for (let i = 1; i <= pdf.numPages; i++) {
 					if (cancelled) return;
 					const page = await pdf.getPage(i);
-					const scale = isShared ? 2 : 1;
 					const viewport = page.getViewport({ scale: scale });
 					const context = canvas.getContext('2d');
 					if (!context) continue;
@@ -150,7 +150,7 @@
 		<img
 			src={previewUrls[currentPage]}
 			alt="Preview Page {currentPage + 1}"
-			class="-z-1 max-h-full max-w-full rounded-sm border object-contain shadow-sm"
+			class=" max-w-full rounded-sm border object-contain shadow-sm"
 		/>
 		<!-- <div
 				class="absolute right-2 bottom-2 rounded bg-black/50 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100"
