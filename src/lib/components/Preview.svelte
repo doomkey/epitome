@@ -26,8 +26,8 @@
 		if (pdfjsLib) return pdfjsLib;
 		pdfjsLib = await import('pdfjs-dist');
 		if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
-			const worker = await import('pdfjs-dist/legacy/build/pdf.worker.min.mjs?url');
-			pdfjsLib.GlobalWorkerOptions.workerSrc = worker.default;
+			// const worker = await import('pdfjs-dist/legacy/build/pdf.worker.min.mjs?url');
+			pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
 		}
 		return pdfjsLib;
 	}
