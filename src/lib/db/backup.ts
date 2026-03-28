@@ -1,3 +1,4 @@
+import { saveCurrentWorkspace } from '$lib/stores/workspace.svelte';
 import { db } from './index';
 import type { Setting, Settings, Workspace } from './index';
 
@@ -68,6 +69,7 @@ async function decompress(base64: string): Promise<string> {
 }
 
 export async function exportBackup(): Promise<void> {
+	await saveCurrentWorkspace();
 	const workspaces = await db.workspaces.toArray();
 	const settings = await db.settings.toArray();
 	const payload: BackupPayload = {
