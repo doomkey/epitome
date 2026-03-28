@@ -86,14 +86,6 @@ async function handleJson() {
 	URL.revokeObjectURL(url);
 }
 
-async function handleShareLink() {
-	if (!browser) return;
-	await saveCurrentWorkspace();
-	const currentState = $state.snapshot(resumeData);
-	const c = await compressResume(currentState);
-	toast.error('Not yet implemented.');
-}
-
 async function handleExport() {
 	try {
 		await exportBackup();
@@ -122,6 +114,7 @@ export function getMenus(opts: {
 	onDeleteAll: () => void;
 	onConfigureSections: () => void;
 	onOpenSettings: () => void;
+	onShareLink: () => void;
 }): Menu[] {
 	return [
 		{
@@ -134,7 +127,11 @@ export function getMenus(opts: {
 				},
 				{
 					label: 'Download JSON',
-					onSelect: handleShareLink
+					onSelect: handleJson
+				},
+				{
+					label: 'Get Shareable Link',
+					onSelect: () => opts.onShareLink()
 				},
 				{ type: 'separator' },
 

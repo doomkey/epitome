@@ -6,7 +6,6 @@ const Resume = root.lookupType('Resume');
 
 export async function compressResume(data: object): Promise<string> {
 	const buffer = Resume.encode(Resume.create(data)).finish();
-	console.log(buffer);
 	const stream = new Blob([buffer]).stream().pipeThrough(new CompressionStream('deflate-raw'));
 	const compressedBuffer = await new Response(stream).arrayBuffer();
 

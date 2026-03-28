@@ -1,3 +1,4 @@
+import { defaultResumeData } from '$lib/stores/resumeStore.svelte';
 import type { ResumeData } from '$lib/types';
 
 export const baseStyles = {
@@ -26,7 +27,10 @@ export function buildSections(
 ) {
 	// summary is not on the sections order so this shenanigan is needed
 	// maybe just adding summary to the sections would do
-	const order = [...data.sections_order];
+	//
+	// handle sections_order if not found
+
+	const order = [...(data.sections_order ?? defaultResumeData.sections_order)];
 	if (!order.includes('summary')) {
 		order.splice(1, 0, 'summary');
 	}

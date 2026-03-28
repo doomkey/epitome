@@ -5,6 +5,7 @@
 	import { toast } from 'svelte-sonner';
 	import CheckIcon from '@lucide/svelte/icons/check';
 	import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
+	import CopyIcon from '@lucide/svelte/icons/copy';
 	import { getMenus, setFileInput, type MenuItem } from './menus.svelte';
 	import {
 		renameWorkspace,
@@ -37,6 +38,9 @@
 	import { invalidateAll } from '$app/navigation';
 	import Separator from './ui/separator/separator.svelte';
 	import Settings from './Settings.svelte';
+	import { browser } from '$app/environment';
+	import { compressResume } from '$lib/db/sharelink';
+	import { Input } from './ui/input';
 
 	$effect(() => {
 		if (fileInput) setFileInput(fileInput);
@@ -58,9 +62,14 @@
 			onResetCurrent: () => (showResetDialog = true),
 			onDeleteAll: () => (showDeleteAllDialog = true),
 			onConfigureSections: () => (showConfigureSections = true),
-			onOpenSettings: () => (showSettings = true)
+			onOpenSettings: () => (showSettings = true),
+			onShareLink: () => {
+				showShareLink = true;
+				handleShareLink();
+			}
 		})
 	);
+	let showShareLink = $state(false);
 	let showSettings = $state(false);
 	let showDeleteAWorkspace = $state(false);
 	let workspaceIdToBeDeleted = $state('');
@@ -118,6 +127,28 @@
 		} finally {
 			fileInput.value = '';
 			initWorkspaces(); // to refresh the data
+		}
+	}
+
+	let shareLink = $state('');
+	async function handleShareLink() {
+		if (!browser) return;
+		await saveCurrentWorkspace();
+		const currentState = $state.snapshot(resumeData);
+		const c = await compressResume(currentState);
+		shareLink = 'https://doomkey.gitub.io/epitome/prev?q=' + c;
+	}
+	let status = $state('Copy');
+	async function copyToClipboard() {
+		try {
+			await navigator.clipboard.writeText(shareLink);
+			status = 'Copied!';
+
+			setTimeout(() => {
+				status = 'Copy';
+			}, 2000);
+		} catch (err) {
+			status = 'Error!';
 		}
 	}
 </script>
@@ -421,3 +452,26 @@
 		</AlertDialog.Footer>
 	</AlertDialog.Content>
 </AlertDialog.Root>
+
+<Dialog.Root bind:open={showShareLink}>
+	<Dialog.Content>
+		<Dialog.Header>
+			<Dialog.Title>Share this resume.</Dialog.Title>
+			<Dialog.Description>
+				This link contains all the information on this specific resume. You should only share it
+				with who you trust.
+			</Dialog.Description>
+		</Dialog.Header>
+		<Input value={shareLink} />
+		<Dialog.Footer>
+			<p class="text-xs">
+				Due to the url being very long, some browser may not parse it properly, leading to a faulty
+				resume. So please test it yourself before sharing.
+			</p>
+			<Button onclick={copyToClipboard}>
+				<CopyIcon />
+				<span>{status}</span>
+			</Button>
+		</Dialog.Footer>
+	</Dialog.Content>
+</Dialog.Root>
