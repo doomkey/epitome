@@ -35,7 +35,7 @@
 			<Resizable.Handle withHandle />
 			<Resizable.Pane defaultSize={45}>
 				<section class="flex min-h-dvh items-start justify-center p-2">
-					<Preview data={resumeData} isShared={false} />
+					<Preview isShared={false} />
 				</section>
 			</Resizable.Pane>
 		</Resizable.PaneGroup>
@@ -45,7 +45,7 @@
 			<Card.Root
 				class="flex h-screen w-full flex-col items-center justify-center overflow-hidden border-2 bg-muted/20 p-6"
 			>
-				<Preview data={resumeData} isShared={false} />
+				<Preview isShared={false} />
 			</Card.Root>
 			<Button class="w-full" onclick={download}>Download PDF</Button>
 		</div>

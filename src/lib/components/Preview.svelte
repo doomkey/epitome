@@ -6,14 +6,15 @@
 	import PaperSelect from '$lib/components/settings/PaperSelect.svelte';
 	import { createPDFDocument } from '$lib/functions/pdfGenerator';
 	import type { ResumeData } from '$lib/types';
+	import { resumeData } from '$lib/stores/resumeStore.svelte';
 
 	interface Props {
-		data: ResumeData;
+		data?: ResumeData;
 		isShared?: boolean;
 	}
 
 	let { data, isShared = false }: Props = $props();
-
+	const source = $derived(data ?? resumeData);
 	let previewUrls = $state<string[]>([]);
 	let currentPage = $state(0);
 	let totalPages = $state(0);
@@ -31,70 +32,67 @@
 		return pdfjsLib;
 	}
 	const scale = $derived(isShared ? 2 : 1);
+	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+	let cancelled = false;
+
+	async function updatePreview(snapshot: ResumeData) {
+		cancelled = false;
+		try {
+			const pdfjs = await getPdfjs();
+			if (cancelled) return;
+
+			const pdfDocGenerator = createPDFDocument(snapshot);
+			const pdfData = await pdfDocGenerator.getBuffer();
+			if (cancelled) return;
+
+			const pdf = await pdfjs.getDocument({ data: pdfData, isEvalSupported: false }).promise;
+			if (cancelled) return;
+
+			const urls: string[] = [];
+			totalPages = pdf.numPages;
+
+			const canvas = document.createElement('canvas');
+			for (let i = 1; i <= pdf.numPages; i++) {
+				if (cancelled) return;
+				const page = await pdf.getPage(i);
+				const viewport = page.getViewport({ scale });
+				const context = canvas.getContext('2d');
+				if (!context) continue;
+				canvas.height = viewport.height;
+				canvas.width = viewport.width;
+				await page.render({ canvasContext: context, viewport }).promise;
+				const blob = await new Promise<Blob>((res) => canvas.toBlob(res, 'image/png'));
+				urls.push(URL.createObjectURL(blob));
+				canvas.width = 0;
+				canvas.height = 0;
+			}
+
+			previewUrls.forEach((url) => URL.revokeObjectURL(url));
+			previewUrls = urls;
+			if (currentPage >= totalPages) currentPage = 0;
+		} catch (err) {
+			if (!cancelled) console.error('Preview Error:', err);
+		}
+	}
 
 	$effect(() => {
 		if (!browser) return;
 
-		const snapshot = $state.snapshot(data);
-		let cancelled = false;
+		const snapshot = $state.snapshot(source);
+		if (debounceTimer) clearTimeout(debounceTimer);
+		debounceTimer = setTimeout(() => updatePreview(snapshot), 500);
 
-		const updatePreview = async () => {
-			try {
-				const pdfjs = await getPdfjs();
-				if (cancelled) return;
-
-				const pdfDocGenerator = createPDFDocument(snapshot);
-				const pdfData = await pdfDocGenerator.getBuffer();
-				if (cancelled) return;
-
-				const pdf = await pdfjs.getDocument({
-					data: pdfData,
-					isEvalSupported: false
-				}).promise;
-				if (cancelled) return;
-
-				const urls: string[] = [];
-				totalPages = pdf.numPages;
-
-				const canvas = document.createElement('canvas');
-				for (let i = 1; i <= pdf.numPages; i++) {
-					if (cancelled) return;
-					const page = await pdf.getPage(i);
-					const viewport = page.getViewport({ scale: scale });
-					const context = canvas.getContext('2d');
-					if (!context) continue;
-
-					canvas.height = viewport.height;
-					canvas.width = viewport.width;
-					await page.render({ canvasContext: context, viewport }).promise;
-					const blob = await new Promise<Blob>((res) => canvas.toBlob(res, 'image/png'));
-					urls.push(URL.createObjectURL(blob));
-
-					canvas.width = 0;
-					canvas.height = 0;
-				}
-
-				previewUrls.forEach((url) => URL.revokeObjectURL(url));
-				previewUrls = urls;
-
-				if (currentPage >= totalPages) currentPage = 0;
-			} catch (err) {
-				if (!cancelled) console.error('Preview Error:', err);
-			}
-		};
-
-		const timer = setTimeout(updatePreview, 500);
 		return () => {
 			cancelled = true;
-			clearTimeout(timer);
+			if (debounceTimer) clearTimeout(debounceTimer);
 			previewUrls.forEach((url) => URL.revokeObjectURL(url));
 		};
 	});
 
 	function download() {
 		if (!browser) return;
-		const doc = createPDFDocument($state.snapshot(data));
-		doc.download(`${data.personal.fullName || 'resume'}.pdf`);
+		const doc = createPDFDocument($state.snapshot(source));
+		doc.download(`${source.personal.fullName || 'resume'}.pdf`);
 	}
 
 	const nextPage = () => {
