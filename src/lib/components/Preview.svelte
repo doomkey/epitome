@@ -59,7 +59,8 @@
 				for (let i = 1; i <= pdf.numPages; i++) {
 					if (cancelled) return;
 					const page = await pdf.getPage(i);
-					const viewport = page.getViewport({ scale: isShared ? 3 : 1.5 });
+					const scale = isShared ? 2 : 1;
+					const viewport = page.getViewport({ scale: scale });
 					const context = canvas.getContext('2d');
 					if (!context) continue;
 
