@@ -7,6 +7,7 @@
 	import { margins, paperSizes, workspaceBehaviors, marginUnits } from '$lib/constant';
 	import { Input } from './ui/input';
 	import { IN_TO_PT, MM_TO_PT } from '$lib/functions/helpers';
+	import PaperSelect from './settings/PaperSelect.svelte';
 
 	const PAPERS = Object.values(paperSizes);
 	const BEHAVIORS = Object.values(workspaceBehaviors);
@@ -45,20 +46,7 @@
 				<Label class="text-sm font-medium">Paper Size</Label>
 				<p class="text-xs text-muted-foreground">Used when generating the PDF.</p>
 			</div>
-			<Select.Root
-				type="single"
-				value={settingsStore.current.paperSize}
-				onValueChange={(v) => settingsStore.update('paperSize', v)}
-			>
-				<Select.Trigger class="w-52">
-					{PAPERS.find((p) => p.value === settingsStore.current.paperSize)?.label}
-				</Select.Trigger>
-				<Select.Content>
-					{#each PAPERS as size (size.value)}
-						<Select.Item value={size.value}>{size.label}</Select.Item>
-					{/each}
-				</Select.Content>
-			</Select.Root>
+			<PaperSelect />
 		</div>
 	</div>
 	<div class="flex flex-col gap-4">

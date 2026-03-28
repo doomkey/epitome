@@ -8,6 +8,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
+	import PaperSelect from '$lib/components/settings/PaperSelect.svelte';
 	let previewUrls = $state<string[]>([]);
 	let currentPage = $state(0);
 	let totalPages = $state(0);
@@ -132,19 +133,30 @@
 	{#if previewUrls.length > 0}
 		<div class="relative flex h-full w-full flex-col items-center justify-center gap-4">
 			{#if totalPages > 1}
-				<div class="flex items-center gap-4">
-					<Button variant="outline" size="icon" onclick={prevPage} disabled={currentPage === 0}>
-						&larr;
-					</Button>
-					<span class="text-sm font-medium">Page {currentPage + 1} of {totalPages}</span>
-					<Button
-						variant="outline"
-						size="icon"
-						onclick={nextPage}
-						disabled={currentPage === totalPages - 1}
-					>
-						&rarr;
-					</Button>
+				<div
+					class="flex w-full flex-col-reverse items-center justify-between gap-2 md:flex-row md:items-baseline"
+				>
+					<div class="flex items-center gap-4">
+						<Button variant="outline" size="icon" onclick={prevPage} disabled={currentPage === 0}>
+							&larr;
+						</Button>
+						<span class="text-sm font-medium">Page {currentPage + 1} of {totalPages}</span>
+						<Button
+							variant="outline"
+							size="icon"
+							onclick={nextPage}
+							disabled={currentPage === totalPages - 1}
+						>
+							&rarr;
+						</Button>
+					</div>
+					<div class="space-y-2">
+						<div class="flex items-center gap-2">
+							<p class="w-full">Paper Size</p>
+							<PaperSelect />
+						</div>
+						<p class="text-xs">Margin can be edited in File > Settings</p>
+					</div>
 				</div>
 			{/if}
 			<button
