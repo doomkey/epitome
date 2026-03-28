@@ -34,7 +34,7 @@
 						<div
 							class=" flex h-full w-full flex-col items-center justify-center overflow-hidden p-2"
 						>
-							<Preview data={resumeData} />
+							<Preview data={resumeData} isShared={false} />
 						</div>
 					</section>
 				</div>
@@ -48,7 +48,7 @@
 			<Card.Root
 				class="flex h-full w-full flex-col items-center justify-center overflow-hidden border-2 bg-muted/20 p-6"
 			>
-				<Preview data={resumeData} />
+				<Preview data={resumeData} isShared={false} />
 			</Card.Root>
 		</section>
 		<div class="lg:col-span-2">
