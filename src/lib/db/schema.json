@@ -1,0 +1,369 @@
+{
+  "nested": {
+    "Resume": {
+      "fields": {
+        "personal": {
+          "type": "Personal",
+          "id": 1
+        },
+        "education": {
+          "rule": "repeated",
+          "type": "Education",
+          "id": 2
+        },
+        "experience": {
+          "rule": "repeated",
+          "type": "Experience",
+          "id": 3
+        },
+        "projects": {
+          "rule": "repeated",
+          "type": "Project",
+          "id": 4
+        },
+        "certifications": {
+          "rule": "repeated",
+          "type": "Certification",
+          "id": 5
+        },
+        "skills": {
+          "type": "Skills",
+          "id": 6
+        },
+        "extcurricular": {
+          "rule": "repeated",
+          "type": "Extracurricular",
+          "id": 7
+        },
+        "references": {
+          "rule": "repeated",
+          "type": "Reference",
+          "id": 8
+        },
+        "config": {
+          "type": "Config",
+          "id": 9
+        },
+        "sections": {
+          "type": "Sections",
+          "id": 10
+        },
+        "sectionsOrder": {
+          "rule": "repeated",
+          "type": "string",
+          "id": 11
+        }
+      },
+      "nested": {
+        "Personal": {
+          "fields": {
+            "fullName": {
+              "type": "string",
+              "id": 1
+            },
+            "title": {
+              "type": "string",
+              "id": 2
+            },
+            "email": {
+              "type": "string",
+              "id": 3
+            },
+            "phone": {
+              "type": "string",
+              "id": 4
+            },
+            "location": {
+              "type": "string",
+              "id": 5
+            },
+            "linkedin": {
+              "type": "string",
+              "id": 6
+            },
+            "github": {
+              "type": "string",
+              "id": 7
+            },
+            "website": {
+              "type": "string",
+              "id": 8
+            },
+            "summary": {
+              "type": "string",
+              "id": 9
+            }
+          }
+        },
+        "Education": {
+          "fields": {
+            "id": {
+              "type": "int32",
+              "id": 1
+            },
+            "degree": {
+              "type": "string",
+              "id": 2
+            },
+            "institution": {
+              "type": "string",
+              "id": 3
+            },
+            "start": {
+              "type": "string",
+              "id": 4
+            },
+            "end": {
+              "type": "string",
+              "id": 5
+            },
+            "location": {
+              "type": "string",
+              "id": 6
+            },
+            "gpa": {
+              "type": "string",
+              "id": 7
+            }
+          }
+        },
+        "Experience": {
+          "fields": {
+            "id": {
+              "type": "int32",
+              "id": 1
+            },
+            "jobTitle": {
+              "type": "string",
+              "id": 2
+            },
+            "company": {
+              "type": "string",
+              "id": 3
+            },
+            "location": {
+              "type": "string",
+              "id": 4
+            },
+            "start": {
+              "type": "string",
+              "id": 5
+            },
+            "end": {
+              "type": "string",
+              "id": 6
+            },
+            "present": {
+              "type": "bool",
+              "id": 7
+            },
+            "responsibilities": {
+              "type": "string",
+              "id": 8
+            }
+          }
+        },
+        "Project": {
+          "fields": {
+            "id": {
+              "type": "int32",
+              "id": 1
+            },
+            "name": {
+              "type": "string",
+              "id": 2
+            },
+            "technologies": {
+              "type": "string",
+              "id": 3
+            },
+            "link": {
+              "type": "string",
+              "id": 4
+            },
+            "description": {
+              "type": "string",
+              "id": 5
+            }
+          }
+        },
+        "Certification": {
+          "fields": {
+            "id": {
+              "type": "int32",
+              "id": 1
+            },
+            "name": {
+              "type": "string",
+              "id": 2
+            },
+            "organization": {
+              "type": "string",
+              "id": 3
+            },
+            "url": {
+              "type": "string",
+              "id": 4
+            }
+          }
+        },
+        "Skills": {
+          "fields": {
+            "categories": {
+              "rule": "repeated",
+              "type": "Category",
+              "id": 1
+            },
+            "merge": {
+              "type": "bool",
+              "id": 2
+            }
+          },
+          "nested": {
+            "Category": {
+              "fields": {
+                "id": {
+                  "type": "int32",
+                  "id": 1
+                },
+                "category": {
+                  "type": "string",
+                  "id": 2
+                },
+                "skills": {
+                  "rule": "repeated",
+                  "type": "string",
+                  "id": 3
+                }
+              }
+            }
+          }
+        },
+        "Extracurricular": {
+          "fields": {
+            "id": {
+              "type": "int32",
+              "id": 1
+            },
+            "role": {
+              "type": "string",
+              "id": 2
+            },
+            "org": {
+              "type": "string",
+              "id": 3
+            },
+            "start": {
+              "type": "string",
+              "id": 4
+            },
+            "end": {
+              "type": "string",
+              "id": 5
+            },
+            "present": {
+              "type": "bool",
+              "id": 6
+            },
+            "responsibilities": {
+              "type": "string",
+              "id": 7
+            }
+          }
+        },
+        "Reference": {
+          "fields": {
+            "id": {
+              "type": "int32",
+              "id": 1
+            },
+            "name": {
+              "type": "string",
+              "id": 2
+            },
+            "designation": {
+              "type": "string",
+              "id": 3
+            },
+            "dept": {
+              "type": "string",
+              "id": 4
+            },
+            "org": {
+              "type": "string",
+              "id": 5
+            },
+            "phone": {
+              "type": "string",
+              "id": 6
+            },
+            "email": {
+              "type": "string",
+              "id": 7
+            }
+          }
+        },
+        "Config": {
+          "fields": {
+            "font": {
+              "type": "string",
+              "id": 1
+            },
+            "template": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "SectionDetail": {
+          "fields": {
+            "title": {
+              "type": "string",
+              "id": 1
+            },
+            "hidden": {
+              "type": "bool",
+              "id": 2
+            }
+          }
+        },
+        "Sections": {
+          "fields": {
+            "personal": {
+              "type": "SectionDetail",
+              "id": 1
+            },
+            "certifications": {
+              "type": "SectionDetail",
+              "id": 2
+            },
+            "education": {
+              "type": "SectionDetail",
+              "id": 3
+            },
+            "experience": {
+              "type": "SectionDetail",
+              "id": 4
+            },
+            "projects": {
+              "type": "SectionDetail",
+              "id": 5
+            },
+            "skills": {
+              "type": "SectionDetail",
+              "id": 6
+            },
+            "extcurricular": {
+              "type": "SectionDetail",
+              "id": 7
+            },
+            "references": {
+              "type": "SectionDetail",
+              "id": 8
+            }
+          }
+        }
+      }
+    }
+  }
+}

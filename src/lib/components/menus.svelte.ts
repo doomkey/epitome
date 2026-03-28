@@ -7,12 +7,13 @@ import {
 	renameWorkspace,
 	deleteWorkspace
 } from '$lib/stores/workspace.svelte';
-import { exportBackup, importBackup } from '$lib/db/backup';
+import { compress, exportBackup, importBackup } from '$lib/db/backup';
 import { getAllWorkspaces } from '$lib/db/workspaces';
 import { templates, fonts, createPDFDocument } from '$lib/functions/pdfGenerator';
 import { toast } from 'svelte-sonner';
 import { browser } from '$app/environment';
 import { resolve } from '$app/paths';
+import { compressResume } from '$lib/db/sharelink';
 
 export type MenuAction = {
 	type?: undefined;
@@ -74,7 +75,7 @@ async function handleJson() {
 	await saveCurrentWorkspace();
 	const currentState = $state.snapshot(resumeData);
 	const { sections, sections_order, config, ...restData } = currentState;
-	const s = JSON.stringify(restData);
+	const s = JSON.stringify(currentState);
 
 	const blob = new Blob([s], { type: 'text/plain' });
 	const url = URL.createObjectURL(blob);
@@ -83,6 +84,14 @@ async function handleJson() {
 	a.download = `resume-${new Date().toISOString().split('T')[0]}.json`;
 	a.click();
 	URL.revokeObjectURL(url);
+}
+
+async function handleShareLink() {
+	if (!browser) return;
+	await saveCurrentWorkspace();
+	const currentState = $state.snapshot(resumeData);
+	const c = await compressResume(currentState);
+	toast.error('Not yet implemented.');
 }
 
 async function handleExport() {
@@ -125,7 +134,7 @@ export function getMenus(opts: {
 				},
 				{
 					label: 'Download JSON',
-					onSelect: handleJson
+					onSelect: handleShareLink
 				},
 				{ type: 'separator' },
 

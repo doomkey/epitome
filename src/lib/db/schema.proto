@@ -1,0 +1,115 @@
+syntax = "proto3";
+
+message Resume {
+  Personal personal = 1;
+  repeated Education education = 2;
+  repeated Experience experience = 3;
+  repeated Project projects = 4;
+  repeated Certification certifications = 5;
+  Skills skills = 6;
+  repeated Extracurricular extcurricular = 7;
+  repeated Reference references = 8;
+
+  Config config = 9;
+  Sections sections = 10;
+  repeated string sections_order = 11;
+
+  message Personal {
+    string fullName = 1;
+    string title = 2;
+    string email = 3;
+    string phone = 4;
+    string location = 5;
+    string linkedin = 6;
+    string github = 7;
+    string website = 8;
+    string summary = 9;
+  }
+
+  message Education {
+    int32 id = 1;
+    string degree = 2;
+    string institution = 3;
+    string start = 4;
+    string end = 5;
+    string location = 6;
+    string gpa = 7;
+  }
+
+  message Experience {
+    int32 id = 1;
+    string jobTitle = 2;
+    string company = 3;
+    string location = 4;
+    string start = 5;
+    string end = 6;
+    bool present = 7;
+    string responsibilities = 8;
+  }
+
+  message Project {
+    int32 id = 1;
+    string name = 2;
+    string technologies = 3;
+    string link = 4;
+    string description = 5;
+  }
+
+  message Certification {
+    int32 id = 1;
+    string name = 2;
+    string organization = 3;
+    string url = 4;
+  }
+
+  message Skills {
+    message Category {
+      int32 id = 1;
+      string category = 2;
+      repeated string skills = 3;
+    }
+    repeated Category categories = 1;
+    bool merge = 2;
+  }
+
+  message Extracurricular {
+    int32 id = 1;
+    string role = 2;
+    string org = 3;
+    string start = 4;
+    string end = 5;
+    bool present = 6;
+    string responsibilities = 7;
+  }
+
+  message Reference {
+    int32 id = 1;
+    string name = 2;
+    string designation = 3;
+    string dept = 4;
+    string org = 5;
+    string phone = 6;
+    string email = 7;
+  }
+
+  message Config {
+    string font = 1;
+    string template = 2;
+  }
+
+  message SectionDetail {
+    string title = 1;
+    bool hidden = 2;
+  }
+
+  message Sections {
+    SectionDetail personal = 1;
+    SectionDetail certifications = 2;
+    SectionDetail education = 3;
+    SectionDetail experience = 4;
+    SectionDetail projects = 5;
+    SectionDetail skills = 6;
+    SectionDetail extcurricular = 7;
+    SectionDetail references = 8;
+  }
+}

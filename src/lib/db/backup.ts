@@ -11,33 +11,17 @@ type BackupPayload = {
 	settings: Setting[];
 };
 
-async function compress(data: string): Promise<string> {
-	const stream = new CompressionStream('gzip');
-	const writer = stream.writable.getWriter();
+export async function compress(data: string): Promise<string> {
 	const encoder = new TextEncoder();
-	writer.write(encoder.encode(data));
-	writer.close();
+	const input = encoder.encode(data);
 
-	const chunks: Uint8Array[] = [];
-	const reader = stream.readable.getReader();
-	while (true) {
-		const { done, value } = await reader.read();
-		if (done) break;
-		chunks.push(value);
-	}
+	const stream = new Blob([input]).stream().pipeThrough(new CompressionStream('gzip'));
+	const compressedBuffer = await new Response(stream).arrayBuffer();
 
-	const total = chunks.reduce((acc, c) => acc + c.length, 0);
-	const result = new Uint8Array(total);
-	let offset = 0;
-	for (const chunk of chunks) {
-		result.set(chunk, offset);
-		offset += chunk.length;
-	}
-
-	return btoa(String.fromCharCode(...result));
+	return btoa(String.fromCharCode(...new Uint8Array(compressedBuffer)));
 }
 
-async function decompress(base64: string): Promise<string> {
+export async function decompress(base64: string): Promise<string> {
 	const binary = atob(base64);
 	const bytes = new Uint8Array(binary.length);
 	for (let i = 0; i < binary.length; i++) {
