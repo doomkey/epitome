@@ -20,13 +20,13 @@
 	let totalPages = $state(0);
 	let isFullscreen = $state(false);
 
-	let pdfjsLib: typeof import('pdfjs-dist/legacy/build/pdf.mjs') | null = null;
+	let pdfjsLib: typeof import('pdfjs-dist') | null = null;
 
 	async function getPdfjs() {
 		if (pdfjsLib) return pdfjsLib;
-		pdfjsLib = await import('pdfjs-dist/legacy/build/pdf.mjs');
+		pdfjsLib = await import('pdfjs-dist');
 		if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
-			const worker = await import('pdfjs-dist/legacy/build/pdf.worker.mjs?url');
+			const worker = await import('pdfjs-dist/legacy/build/pdf.worker.min.mjs?url');
 			pdfjsLib.GlobalWorkerOptions.workerSrc = worker.default;
 		}
 		return pdfjsLib;
