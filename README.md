@@ -22,14 +22,14 @@ Visit the [documentation](https://doomkey.github.io/epitome/docs) to know about 
 
 ## Features to Add
 
-- [ ] Paper size
+- [x] Paper size and margin
+- [x] Settings
+  - [x] New workspace: Copy/Start from fresh 
 - [ ] JSON export of a single workspace
 - [ ] Read-only link for sharing
 - [ ] Automatic page-break
 - [ ] Shortcuts
 - [ ] Inline rich text (bold-italics-underline)
-- [ ] Settings
-  - [ ] New workspace: Copy/Start from fresh 
 - [ ] Import from linkedin
 
 ## Running Locally
