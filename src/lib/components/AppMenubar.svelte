@@ -136,7 +136,7 @@
 		await saveCurrentWorkspace();
 		const currentState = $state.snapshot(resumeData);
 		const c = await compressResume(currentState);
-		shareLink = 'https://doomkey.gitub.io/epitome/prev?q=' + c;
+		shareLink = 'https://doomkey.github.io/epitome/prev?q=' + c;
 	}
 	let status = $state('Copy');
 	async function copyToClipboard() {

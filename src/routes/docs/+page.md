@@ -17,6 +17,7 @@ It has many useful features like:
 - Customize resume sections
 - It is browser-only, there is no server. Eveything runs on your browser
 - Backup and restore all of your data
+- Shareable link.
 - It is open source. You can check the code, fork it, contribute to the project etc.
 - Everything is totally free.
 - No ads.
