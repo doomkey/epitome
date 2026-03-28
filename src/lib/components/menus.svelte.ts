@@ -70,7 +70,19 @@ async function handleGenerate() {
 	toast.success('Resume downloaded!');
 }
 async function handleJson() {
-	toast.error('Not yet implemented');
+	if (!browser) return;
+	await saveCurrentWorkspace();
+	const currentState = $state.snapshot(resumeData);
+	const { sections, sections_order, config, ...restData } = currentState;
+	const s = JSON.stringify(restData);
+
+	const blob = new Blob([s], { type: 'text/plain' });
+	const url = URL.createObjectURL(blob);
+	const a = document.createElement('a');
+	a.href = url;
+	a.download = `resume-${new Date().toISOString().split('T')[0]}.json`;
+	a.click();
+	URL.revokeObjectURL(url);
 }
 
 async function handleExport() {
