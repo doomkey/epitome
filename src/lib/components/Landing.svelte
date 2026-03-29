@@ -35,8 +35,8 @@
 				'Export all your workspaces and import them in other devices to continue your work.'
 		},
 		{
-			title: 'Open Source',
-			description: 'Licensed under AGPL v3.'
+			title: 'Shareable Link',
+			description: 'Just send the link instead of pdf.'
 		},
 		{
 			title: 'Free Forever',
