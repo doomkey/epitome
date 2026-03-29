@@ -20,6 +20,7 @@
 	let totalPages = $state(0);
 	let isFullscreen = $state(false);
 	import { getPdfjs } from '$lib/functions/pdfjs';
+	import { pdfEngineState } from '$lib/functions/pdfEngine.svelte';
 
 	const scale = $derived(isShared ? 2 : 1);
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
@@ -67,7 +68,8 @@
 
 	$effect(() => {
 		if (!browser) return;
-
+		const ready = pdfEngineState.ready;
+		if (!ready) return;
 		const snapshot = $state.snapshot(source);
 		if (debounceTimer) clearTimeout(debounceTimer);
 		debounceTimer = setTimeout(() => updatePreview(snapshot), 500);

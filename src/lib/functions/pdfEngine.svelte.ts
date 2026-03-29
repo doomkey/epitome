@@ -4,6 +4,7 @@ import type { PdfTemplateFunction } from './helpers';
 const templates: Record<string, PdfTemplateFunction> = {};
 import type pdfMakeType from 'pdfmake/build/pdfmake';
 
+export const pdfEngineState = $state({ ready: false });
 // let pdfMake: typeof pdfMakeType | null = null;
 let pdfMakePromise: Promise<typeof pdfMakeType> | null = null;
 export async function getPdfMake() {
@@ -22,6 +23,7 @@ export async function getPdfMake() {
 					bolditalics: 'Tinos-BoldItalic.ttf'
 				}
 			});
+			pdfEngineState.ready = true;
 			return pm;
 		})();
 	}

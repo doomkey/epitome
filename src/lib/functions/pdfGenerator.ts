@@ -1,4 +1,4 @@
-import { registerTemplate, generatePdf } from '$lib/functions/pdfEngine';
+import { registerTemplate, generatePdf } from '$lib/functions/pdfEngine.svelte';
 import type { ResumeData } from '$lib/types';
 import { defaultTemplate } from '$lib/templates/DEFAULT';
 import { classicTemplate } from '$lib/templates/CLASSIC';
