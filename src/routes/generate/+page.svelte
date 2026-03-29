@@ -43,7 +43,7 @@
 		<div class="space-y-6 py-6">
 			<SectionsTab />
 			<Card.Root
-				class="flex h-screen w-full flex-col items-center justify-center overflow-hidden border-2 bg-muted/20 p-6"
+				class="flex w-full flex-col items-center justify-center overflow-hidden border-2 bg-muted/20 p-6"
 			>
 				<Preview isShared={false} />
 			</Card.Root>
