@@ -31,7 +31,7 @@
 	let renamingId = $state<string | null>(null);
 	let renamingName = $state('');
 	let fileInput: HTMLInputElement;
-	import { resumeData, defaultResumeData } from '$lib/stores/resumeStore.svelte';
+	import { resumeData, defaultResumeData, createResumeData } from '$lib/stores/resumeStore.svelte';
 	import { saveCurrentWorkspace } from '$lib/stores/workspace.svelte';
 	import { db } from '$lib/db';
 	import { Button } from '$lib/components/ui/button';
@@ -89,7 +89,7 @@
 		showDeleteAWorkspace = false;
 	}
 	async function handleResetCurrent() {
-		Object.assign(resumeData, JSON.parse(JSON.stringify(defaultResumeData)));
+		Object.assign(resumeData, createResumeData());
 		await saveCurrentWorkspace();
 		toast.success('Workspace reset.');
 		showResetDialog = false;
