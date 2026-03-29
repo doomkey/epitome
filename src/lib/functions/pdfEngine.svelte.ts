@@ -10,6 +10,18 @@ pdfMake.addFonts({
 		bold: 'Tinos-Bold.ttf',
 		italics: 'Tinos-Italic.ttf',
 		bolditalics: 'Tinos-BoldItalic.ttf'
+	},
+	EBGARAMOND: {
+		normal: 'EBGaramond-Regular.ttf',
+		bold: 'EBGaramond-Bold.ttf',
+		italics: 'EBGaramond-Italic.ttf',
+		bolditalics: 'EBGaramond-BoldItalic.ttf'
+	},
+	UBUNTU: {
+		normal: 'Ubuntu-Regular.ttf',
+		bold: 'Ubuntu-Bold.ttf',
+		italics: 'Ubuntu-Italic.ttf',
+		bolditalics: 'Ubuntu-BoldItalic.ttf'
 	}
 });
 

@@ -13,19 +13,19 @@ export const fonts = {
 	TINOS: {
 		name: 'Tinos',
 		value: 'TINOS'
-	}
+	},
 	// ROBOTO: {
 	// 	name: 'Roboto',
 	// 	value: 'ROBOTO'
 	// },
-	// EB_GARAMOND: {
-	// 	name: 'EB Garamond',
-	// 	value: 'EBGARAMOND'
-	// },
-	// UBUNTU: {
-	// 	name: 'Ubuntu',
-	// 	value: 'UBUNTU'
-	// }
+	EB_GARAMOND: {
+		name: 'EB Garamond',
+		value: 'EBGARAMOND'
+	},
+	UBUNTU: {
+		name: 'Ubuntu',
+		value: 'UBUNTU'
+	}
 };
 
 registerTemplate(templates.DEFAULT.value, defaultTemplate);
