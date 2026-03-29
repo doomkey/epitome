@@ -2,3 +2,4 @@
 User-agent: *
 Disallow:
 Allow: /sitemap.xml
+Sitemap: https://doomkey.github.io/epitome
