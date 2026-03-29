@@ -20,7 +20,7 @@
 	let totalPages = $state(0);
 	let isFullscreen = $state(false);
 	import { getPdfjs } from '$lib/functions/pdfjs';
-	import { pdfEngineState } from '$lib/functions/pdfEngine.svelte';
+	import { getPdfMake, pdfEngineState } from '$lib/functions/pdfEngine.svelte';
 
 	const scale = $derived(isShared ? 2 : 1);
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
@@ -29,7 +29,7 @@
 	async function updatePreview(snapshot: ResumeData) {
 		cancelled = false;
 		try {
-			const pdfjs = await getPdfjs();
+			const [pdfjs] = await Promise.all([getPdfjs(), getPdfMake()]);
 			if (cancelled) return;
 
 			const pdfDocGenerator = await createPDFDocument(snapshot);
