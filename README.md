@@ -27,10 +27,38 @@ Visit the [documentation](https://doomkey.github.io/epitome/docs) to know about 
   - [x] New workspace: Copy/Start from fresh 
 - [x] JSON export of a single workspace
 - [x] Read-only link for sharing
+- [ ] Fallback preview on unsupported browsers
 - [ ] Automatic page-break
 - [ ] Shortcuts
 - [ ] Inline rich text (bold-italics-underline)
 - [ ] Import from linkedin
+
+## Supported Browsers
+
+Due to the preview being rendered via canvas, any browser with non-presence of canvas/ blocked canvas, are not supported. 
+
+### Not working
+
+1. Via (Mobile)
+2. Samsung Internet (Mobile)
+3. UC Browser (Mobile): Preview works in generators, but not in shared page.
+3. Duckduckgo (Mobile)
+
+Any desktop browser, and mainstream mobile browsers are supported.
+
+1. Firefox and its derivatives
+  1. Zen
+  2. Waterfox
+  3. Librewolf (canvas enabled)
+  4. etc.
+2. Chromium and its derivatives
+  1. Chrome
+  2. Vivaldi
+  3. Brave
+  4. Opera
+  5. etc.
+
+Webkit-based browsers are not tested, but should work.  
 
 ## Running Locally
 
