@@ -26,7 +26,7 @@
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 	let cancelled = false;
 
-	async function updatePreview(snapshot: ResumeData) {
+	async function updatePreview(snapshot: ResumeData, retries = 3) {
 		cancelled = false;
 		try {
 			const [pdfjs] = await Promise.all([getPdfjs(), getPdfMake()]);
@@ -62,6 +62,10 @@
 			previewUrls = urls;
 			if (currentPage >= totalPages) currentPage = 0;
 		} catch (err) {
+			if (retries > 0 && String(err).includes('not found in virtual file system')) {
+				await new Promise((res) => setTimeout(res, 300));
+				return updatePreview(snapshot, retries - 1);
+			}
 			if (!cancelled) console.error('Preview Error:', err);
 		}
 	}

@@ -38,15 +38,23 @@ export function registerTemplate(name: string, templateFn: PdfTemplateFunction) 
 	templates[name] = templateFn;
 }
 
-export async function generatePdf(data: ResumeData) {
-	const pm = await getPdfMake();
+export async function generatePdf(data: ResumeData, retries = 3) {
+	try {
+		const pm = await getPdfMake();
 
-	// for prod env
-	const vfs = await import('$lib/assets/fonts/vfs_fonts');
-	(pm as any).vfs = vfs;
+		// for prod env
+		const vfs = await import('$lib/assets/fonts/vfs_fonts');
+		(pm as any).vfs = vfs;
 
-	const template = templates[data.config.template];
-	if (!template) throw new Error('Template not found.');
-	const docDefinition = template(data, data.config.font);
-	return pm.createPdf(docDefinition as any);
+		const template = templates[data.config.template];
+		if (!template) throw new Error('Template not found.');
+		const docDefinition = template(data, data.config.font);
+		return pm.createPdf(docDefinition as any);
+	} catch (err) {
+		if (retries > 0 && String(err).includes('not found in virtual file system')) {
+			await new Promise((res) => setTimeout(res, 200));
+			return generatePdf(data, retries - 1);
+		}
+		throw err;
+	}
 }
