@@ -1,18 +1,11 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { Separator } from '$lib/components/ui/separator';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import Pricing from './Pricing.svelte';
-	import NavbarDefault from './NavbarDefault.svelte';
-	let visible = $state(false);
 	import { resolve } from '$app/paths';
 	import FAQ from './FAQ.svelte';
 	import SectionHeader from './SectionHeader.svelte';
-
-	onMount(() => {
-		setTimeout(() => (visible = true), 50);
-	});
 
 	const features = [
 		{
