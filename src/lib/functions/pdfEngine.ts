@@ -4,28 +4,28 @@ import type { PdfTemplateFunction } from './helpers';
 const templates: Record<string, PdfTemplateFunction> = {};
 import type pdfMakeType from 'pdfmake/build/pdfmake';
 
-let pdfMake: typeof pdfMakeType | null = null;
-
+// let pdfMake: typeof pdfMakeType | null = null;
+let pdfMakePromise: Promise<typeof pdfMakeType> | null = null;
 export async function getPdfMake() {
-	if (pdfMake) return pdfMake;
-
-	const [{ default: pm }, vfs] = await Promise.all([
-		import('pdfmake/build/pdfmake'),
-		import('$lib/assets/fonts/vfs_fonts')
-	]);
-
-	pdfMake = pm;
-	(pdfMake as any).vfs = vfs;
-	pdfMake.addFonts({
-		TINOS: {
-			normal: 'Tinos-Regular.ttf',
-			bold: 'Tinos-Bold.ttf',
-			italics: 'Tinos-Italic.ttf',
-			bolditalics: 'Tinos-BoldItalic.ttf'
-		}
-	});
-
-	return pdfMake;
+	if (!pdfMakePromise) {
+		pdfMakePromise = (async () => {
+			const [{ default: pm }, vfs] = await Promise.all([
+				import('pdfmake/build/pdfmake'),
+				import('$lib/assets/fonts/vfs_fonts')
+			]);
+			(pm as any).vfs = vfs;
+			pm.addFonts({
+				TINOS: {
+					normal: 'Tinos-Regular.ttf',
+					bold: 'Tinos-Bold.ttf',
+					italics: 'Tinos-Italic.ttf',
+					bolditalics: 'Tinos-BoldItalic.ttf'
+				}
+			});
+			return pm;
+		})();
+	}
+	return pdfMakePromise;
 }
 
 export function preloadPdfMake() {
