@@ -9,6 +9,14 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import { ProgressBar } from '@prgm/sveltekit-progress-bar';
 	let { children } = $props();
+	import { onMount } from 'svelte';
+	import { preloadPdfjs } from '$lib/functions/pdfjs';
+	import { preloadPdfMake } from '$lib/functions/pdfEngine';
+
+	onMount(() => {
+		preloadPdfjs();
+		preloadPdfMake();
+	});
 </script>
 
 <svelte:head>

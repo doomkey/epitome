@@ -8,9 +8,9 @@
 	import { Button } from '$lib/components/ui/button';
 	import Preview from '$lib/components/Preview.svelte';
 
-	function download() {
+	async function download() {
 		if (!browser) return;
-		const doc = createPDFDocument($state.snapshot(resumeData));
+		const doc = await createPDFDocument($state.snapshot(resumeData));
 		doc.download(`${resumeData.personal.fullName || 'resume'}.pdf`);
 	}
 

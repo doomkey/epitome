@@ -19,18 +19,8 @@
 	let currentPage = $state(0);
 	let totalPages = $state(0);
 	let isFullscreen = $state(false);
+	import { getPdfjs } from '$lib/functions/pdfjs';
 
-	let pdfjsLib: typeof import('pdfjs-dist') | null = null;
-
-	async function getPdfjs() {
-		if (pdfjsLib) return pdfjsLib;
-		pdfjsLib = await import('pdfjs-dist');
-		if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
-			const worker = await import('pdfjs-dist/legacy/build/pdf.worker.min.mjs?url');
-			pdfjsLib.GlobalWorkerOptions.workerSrc = worker.default;
-		}
-		return pdfjsLib;
-	}
 	const scale = $derived(isShared ? 2 : 1);
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 	let cancelled = false;
@@ -41,7 +31,7 @@
 			const pdfjs = await getPdfjs();
 			if (cancelled) return;
 
-			const pdfDocGenerator = createPDFDocument(snapshot);
+			const pdfDocGenerator = await createPDFDocument(snapshot);
 			const pdfData = await pdfDocGenerator.getBuffer();
 			if (cancelled) return;
 
@@ -89,9 +79,9 @@
 		};
 	});
 
-	function download() {
+	async function download() {
 		if (!browser) return;
-		const doc = createPDFDocument($state.snapshot(source));
+		const doc = await createPDFDocument($state.snapshot(source));
 		doc.download(`${source.personal.fullName || 'resume'}.pdf`);
 	}
 

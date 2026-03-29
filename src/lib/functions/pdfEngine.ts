@@ -1,48 +1,45 @@
-import pdfMake from 'pdfmake/build/pdfmake';
-import * as vfs from '$lib/assets/fonts/vfs_fonts';
 import type { ResumeData } from '$lib/types';
 import type { PdfTemplateFunction } from './helpers';
-import { settingsStore } from '$lib/stores/settings.svelte';
-
-(pdfMake as any).vfs = vfs;
-pdfMake.addFonts({
-	TINOS: {
-		normal: 'Tinos-Regular.ttf',
-		bold: 'Tinos-Bold.ttf',
-		italics: 'Tinos-Italic.ttf',
-		bolditalics: 'Tinos-BoldItalic.ttf'
-	}
-	// EBGARAMOND: {
-	// 	normal: 'EBGaramond-Regular.ttf',
-	// 	bold: 'EBGaramond-Bold.ttf',
-	// 	italics: 'EBGaramond-Italic.ttf',
-	// 	bolditalics: 'EBGaramond-BoldItalic.ttf'
-	// },
-	// ROBOTO: {
-	// 	normal: 'Roboto-Regular.ttf',
-	// 	bold: 'Roboto-Bold.ttf',
-	// 	italics: 'Roboto-Italic.ttf',
-	// 	bolditalics: 'Roboto-BoldItalic.ttf'
-	// },
-	// UBUNTU: {
-	// 	normal: 'Ubuntu-Regular.ttf',
-	// 	bold: 'Ubuntu-Bold.ttf',
-	// 	italics: 'Ubuntu-Italic.ttf',
-	// 	bolditalics: 'Ubuntu-BoldItalic.ttf'
-	// }
-});
 
 const templates: Record<string, PdfTemplateFunction> = {};
+import type pdfMakeType from 'pdfmake/build/pdfmake';
+
+let pdfMake: typeof pdfMakeType | null = null;
+
+export async function getPdfMake() {
+	if (pdfMake) return pdfMake;
+
+	const [{ default: pm }, vfs] = await Promise.all([
+		import('pdfmake/build/pdfmake'),
+		import('$lib/assets/fonts/vfs_fonts')
+	]);
+
+	pdfMake = pm;
+	(pdfMake as any).vfs = vfs;
+	pdfMake.addFonts({
+		TINOS: {
+			normal: 'Tinos-Regular.ttf',
+			bold: 'Tinos-Bold.ttf',
+			italics: 'Tinos-Italic.ttf',
+			bolditalics: 'Tinos-BoldItalic.ttf'
+		}
+	});
+
+	return pdfMake;
+}
+
+export function preloadPdfMake() {
+	getPdfMake();
+}
 
 export function registerTemplate(name: string, templateFn: PdfTemplateFunction) {
 	templates[name] = templateFn;
 }
 
-export function generatePdf(data: ResumeData) {
+export async function generatePdf(data: ResumeData) {
+	const pm = await getPdfMake();
 	const template = templates[data.config.template];
-	if (!template) throw new Error(`Template not found.`);
-
+	if (!template) throw new Error('Template not found.');
 	const docDefinition = template(data, data.config.font);
-
-	return pdfMake.createPdf(docDefinition as any);
+	return pm.createPdf(docDefinition as any);
 }
