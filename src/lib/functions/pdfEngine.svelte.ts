@@ -1,60 +1,29 @@
+import pdfMake from 'pdfmake/build/pdfmake';
+import * as vfs from '$lib/assets/fonts/vfs_fonts';
 import type { ResumeData } from '$lib/types';
 import type { PdfTemplateFunction } from './helpers';
 
-const templates: Record<string, PdfTemplateFunction> = {};
-import type pdfMakeType from 'pdfmake/build/pdfmake';
-
-export const pdfEngineState = $state({ ready: false });
-// let pdfMake: typeof pdfMakeType | null = null;
-let pdfMakePromise: Promise<typeof pdfMakeType> | null = null;
-export async function getPdfMake() {
-	if (!pdfMakePromise) {
-		pdfMakePromise = (async () => {
-			const [{ default: pm }, vfs] = await Promise.all([
-				import('pdfmake/build/pdfmake'),
-				import('$lib/assets/fonts/vfs_fonts')
-			]);
-			(pm as any).vfs = vfs;
-			pm.addFonts({
-				TINOS: {
-					normal: 'Tinos-Regular.ttf',
-					bold: 'Tinos-Bold.ttf',
-					italics: 'Tinos-Italic.ttf',
-					bolditalics: 'Tinos-BoldItalic.ttf'
-				}
-			});
-			pdfEngineState.ready = true;
-			return pm;
-		})();
+(pdfMake as any).vfs = vfs;
+pdfMake.addFonts({
+	TINOS: {
+		normal: 'Tinos-Regular.ttf',
+		bold: 'Tinos-Bold.ttf',
+		italics: 'Tinos-Italic.ttf',
+		bolditalics: 'Tinos-BoldItalic.ttf'
 	}
-	return pdfMakePromise;
-}
+});
 
-export function preloadPdfMake() {
-	getPdfMake();
-}
+const templates: Record<string, PdfTemplateFunction> = {};
 
 export function registerTemplate(name: string, templateFn: PdfTemplateFunction) {
 	templates[name] = templateFn;
 }
 
-export async function generatePdf(data: ResumeData, retries = 3) {
-	try {
-		const pm = await getPdfMake();
+export function generatePdf(data: ResumeData) {
+	const template = templates[data.config.template];
+	if (!template) throw new Error(`Template not found.`);
 
-		// for prod env
-		const vfs = await import('$lib/assets/fonts/vfs_fonts');
-		(pm as any).vfs = vfs;
+	const docDefinition = template(data, data.config.font);
 
-		const template = templates[data.config.template];
-		if (!template) throw new Error('Template not found.');
-		const docDefinition = template(data, data.config.font);
-		return pm.createPdf(docDefinition as any);
-	} catch (err) {
-		if (retries > 0 && String(err).includes('not found in virtual file system')) {
-			await new Promise((res) => setTimeout(res, 200));
-			return generatePdf(data, retries - 1);
-		}
-		throw err;
-	}
+	return pdfMake.createPdf(docDefinition as any);
 }

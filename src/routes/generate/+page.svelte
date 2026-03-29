@@ -10,7 +10,7 @@
 
 	async function download() {
 		if (!browser) return;
-		const doc = await createPDFDocument($state.snapshot(resumeData));
+		const doc = createPDFDocument($state.snapshot(resumeData));
 		doc.download(`${resumeData.personal.fullName || 'resume'}.pdf`);
 	}
 

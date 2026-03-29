@@ -11,11 +11,9 @@
 	let { children } = $props();
 	import { onMount } from 'svelte';
 	import { preloadPdfjs } from '$lib/functions/pdfjs';
-	import { preloadPdfMake } from '$lib/functions/pdfEngine.svelte';
 
 	onMount(() => {
 		preloadPdfjs();
-		preloadPdfMake();
 	});
 </script>
 

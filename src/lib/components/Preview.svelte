@@ -7,6 +7,7 @@
 	import { createPDFDocument } from '$lib/functions/pdfGenerator';
 	import type { ResumeData } from '$lib/types';
 	import { resumeData } from '$lib/stores/resumeStore.svelte';
+	import { getPdfjs } from '$lib/functions/pdfjs';
 
 	interface Props {
 		data?: ResumeData;
@@ -19,20 +20,18 @@
 	let currentPage = $state(0);
 	let totalPages = $state(0);
 	let isFullscreen = $state(false);
-	import { getPdfjs } from '$lib/functions/pdfjs';
-	import { getPdfMake, pdfEngineState } from '$lib/functions/pdfEngine.svelte';
 
 	const scale = $derived(isShared ? 2 : 1);
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 	let cancelled = false;
 
-	async function updatePreview(snapshot: ResumeData, retries = 3) {
+	async function updatePreview(snapshot: ResumeData) {
 		cancelled = false;
 		try {
-			const [pdfjs] = await Promise.all([getPdfjs(), getPdfMake()]);
+			const pdfjs = await getPdfjs();
 			if (cancelled) return;
 
-			const pdfDocGenerator = await createPDFDocument(snapshot);
+			const pdfDocGenerator = createPDFDocument(snapshot);
 			const pdfData = await pdfDocGenerator.getBuffer();
 			if (cancelled) return;
 
@@ -62,18 +61,13 @@
 			previewUrls = urls;
 			if (currentPage >= totalPages) currentPage = 0;
 		} catch (err) {
-			if (retries > 0 && String(err).includes('not found in virtual file system')) {
-				await new Promise((res) => setTimeout(res, 300));
-				return updatePreview(snapshot, retries - 1);
-			}
 			if (!cancelled) console.error('Preview Error:', err);
 		}
 	}
 
 	$effect(() => {
 		if (!browser) return;
-		const ready = pdfEngineState.ready;
-		if (!ready) return;
+
 		const snapshot = $state.snapshot(source);
 		if (debounceTimer) clearTimeout(debounceTimer);
 		debounceTimer = setTimeout(() => updatePreview(snapshot), 500);
@@ -85,9 +79,9 @@
 		};
 	});
 
-	async function download() {
+	function download() {
 		if (!browser) return;
-		const doc = await createPDFDocument($state.snapshot(source));
+		const doc = createPDFDocument($state.snapshot(source));
 		doc.download(`${source.personal.fullName || 'resume'}.pdf`);
 	}
 
@@ -144,7 +138,7 @@
 		<img
 			src={previewUrls[currentPage]}
 			alt="Preview Page {currentPage + 1}"
-			class="w-full rounded-sm border object-contain shadow-sm"
+			class=" max-w-full rounded-sm border object-contain shadow-sm"
 		/>
 		<!-- <div
 				class="absolute right-2 bottom-2 rounded bg-black/50 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100"
@@ -154,7 +148,7 @@
 		</button> -->
 	</div>
 
-	<!-- <Dialog.Root bind:open={isFullscreen}>
+	<Dialog.Root bind:open={isFullscreen}>
 		<Dialog.Content
 			class="z-90 flex h-dvh max-w-[100vw] flex-col items-center justify-center bg-background/95 p-0 backdrop-blur-md"
 		>
@@ -170,9 +164,9 @@
 				/>
 			</div>
 		</Dialog.Content>
-	</Dialog.Root> -->
+	</Dialog.Root>
 {:else}
-	<div class="h-full w-full">
+	<div class="-z-1 h-full w-full">
 		<div class="space-y-2">
 			<p class="text-lg">Preview Loading...</p>
 			{#each { length: 32 } as _}

@@ -32,6 +32,6 @@ registerTemplate(templates.DEFAULT.value, defaultTemplate);
 registerTemplate(templates.CLASSIC.value, classicTemplate);
 registerTemplate(templates.WATERFALL.value, waterfallTemplate);
 
-export async function createPDFDocument(data: ResumeData) {
+export function createPDFDocument(data: ResumeData) {
 	return generatePdf(data);
 }
