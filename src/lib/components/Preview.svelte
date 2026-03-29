@@ -98,7 +98,7 @@
 		class="relative flex h-full w-full flex-col items-center justify-center gap-4"
 		class:p-4={isShared}
 	>
-		{#if totalPages > 1}
+		{#if totalPages > 0}
 			<div
 				class="flex w-md max-w-full flex-col-reverse items-center justify-between gap-2 md:flex-row md:items-baseline"
 			>
