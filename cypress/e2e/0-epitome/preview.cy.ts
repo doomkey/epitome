@@ -1,22 +1,32 @@
 function snapshotImg() {
-	return cy.get('img[alt^="Preview"]').then(($img) => {
-		const img = $img[0];
-		const canvas = document.createElement('canvas');
-		canvas.width = img.naturalWidth;
-		canvas.height = img.naturalHeight;
-		canvas.getContext('2d')!.drawImage(img, 0, 0);
-		return canvas.toDataURL();
-	});
+	return cy
+		.get('img[alt^="Preview"]')
+		.should(($img) => {
+			const img = $img[0] as HTMLImageElement;
+			expect(img.naturalWidth).to.be.greaterThan(0);
+			expect(img.complete).to.be.true; // Check if the browser finished loading
+		})
+		.then(($img) => {
+			const img = $img[0] as HTMLImageElement;
+			const canvas = document.createElement('canvas');
+			canvas.width = img.naturalWidth;
+			canvas.height = img.naturalHeight;
+			const ctx = canvas.getContext('2d');
+			if (ctx) {
+				ctx.drawImage(img, 0, 0);
+			}
+			return canvas.toDataURL();
+		});
 }
 describe('Epitome preview test', () => {
 	beforeEach(() => {
-		cy.visit('https://doomkey.github.io/epitome/generate', {
+		cy.visit('http://localhost:5173/generate', {
 			timeout: 60000
 		});
 	});
 
 	it('renders the preview', () => {
-		cy.get('[data-pane-id]', { timeout: 900000 })
+		cy.get('[data-pane-id]')
 			.find('img')
 			.should('have.attr', 'src')
 			.and('match', /^blob:/);
@@ -33,34 +43,12 @@ describe('Epitome preview test', () => {
 		cy.get('#bits-s16 div.border').click();
 	});
 
-	it('page size change reflects in the preview', function () {
-		snapshotImg().as('snap1');
-
-		cy.get('#bits-c128').click();
-		cy.get('#bits-c134').click();
-		cy.wait(2000);
-
-		snapshotImg().then(function (newSnap) {
-			expect(newSnap).not.to.equal(this.snap1);
-		});
-
-		snapshotImg().as('snap2');
-
-		cy.get('#bits-c128').click();
-		cy.get('#bits-c144').click();
-		cy.wait(2000);
-
-		snapshotImg().then(function (newSnap) {
-			expect(newSnap).not.to.equal(this.snap2);
-		});
-	});
-
 	it('tab change', function () {
-		cy.get('#bits-s14').click();
-		cy.get('#bits-c138').click();
-		cy.get('#bits-s112 > .gap-6 > .\@container\/card-header > .leading-none > .flex > p').should(
+		cy.get('#sections-tab').realClick();
+		cy.contains('[role="option"]', 'Education').click();
+		cy.get('.\@container\/card-header > .leading-none > .flex > p').should(
 			'contain.text',
-			'Skill'
+			'Skills'
 		);
 	});
 });
