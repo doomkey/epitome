@@ -1,4 +1,4 @@
-import { defaultResumeData, resumeData } from './resumeStore.svelte';
+import { createResumeData, defaultResumeData, resumeData } from './resumeStore.svelte';
 import {
 	getAllWorkspaces,
 	getWorkspace,
@@ -17,9 +17,7 @@ const ACTIVE_KEY = 'epitome_active_workspace';
 function cloneResumeData(): ResumeData {
 	return JSON.parse(JSON.stringify(resumeData));
 }
-function cloneDefaultResumeData(): ResumeData {
-	return JSON.parse(JSON.stringify(defaultResumeData));
-}
+
 function deepMerge<T extends object>(defaults: T, saved: Partial<T>): T {
 	const result = { ...defaults };
 	for (const key in defaults) {
@@ -102,7 +100,7 @@ export async function newWorkspace() {
 	if (behav === workspaceBehaviors.COPY.value) {
 		id = await createWorkspace('New Workspace', cloneResumeData());
 	} else {
-		id = await createWorkspace('Default Workspace', cloneDefaultResumeData());
+		id = await createWorkspace('Default Workspace', createResumeData(false));
 	}
 	workspaceStore.workspaces = await getAllWorkspaces();
 	await switchWorkspace(id);

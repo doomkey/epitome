@@ -22,7 +22,7 @@ export interface CoverState {
 
 export interface Section {
 	title: string;
-	value: string;
+	value?: string;
 	hidden?: boolean;
 }
 
