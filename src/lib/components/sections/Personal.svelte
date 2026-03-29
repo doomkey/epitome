@@ -7,7 +7,7 @@
 	import { resumeData } from '$lib/stores/resumeStore.svelte';
 	import * as Card from '$lib/components/ui/card/index.js';
 
-	let summaryLength = $state(0);
+	let summaryLength = $state(resumeData.personal.summary.length);
 	const RECOMMENDED_LENGTH = 400;
 	const isRecommendedExceeded = $derived(summaryLength > RECOMMENDED_LENGTH);
 	// @ts-ignore
