@@ -150,7 +150,7 @@
 		</button> -->
 	</div>
 
-	<Dialog.Root bind:open={isFullscreen}>
+	<!-- <Dialog.Root bind:open={isFullscreen}>
 		<Dialog.Content
 			class="z-90 flex h-dvh max-w-[100vw] flex-col items-center justify-center bg-background/95 p-0 backdrop-blur-md"
 		>
@@ -166,9 +166,9 @@
 				/>
 			</div>
 		</Dialog.Content>
-	</Dialog.Root>
+	</Dialog.Root> -->
 {:else}
-	<div class="-z-1 h-full w-full">
+	<div class="h-full w-full">
 		<div class="space-y-2">
 			<p class="text-lg">Preview Loading...</p>
 			{#each { length: 32 } as _}
