@@ -58,7 +58,7 @@
 		<div class="mb-4">
 			<Label for="section-select" class="mb-1.5 block text-sm font-medium">Section</Label>
 			<Select.Root type="single" value={activeTab} onValueChange={handleTabChange}>
-				<Select.Trigger class="w-full">
+				<Select.Trigger class="w-full" id="sections-tab">
 					{sectionList.find((s) => s.value === activeTab)?.title ?? 'Select section'}
 				</Select.Trigger>
 				<Select.Content>
