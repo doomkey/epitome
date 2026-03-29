@@ -40,6 +40,11 @@ export function registerTemplate(name: string, templateFn: PdfTemplateFunction) 
 
 export async function generatePdf(data: ResumeData) {
 	const pm = await getPdfMake();
+
+	// for prod env
+	const vfs = await import('$lib/assets/fonts/vfs_fonts');
+	(pm as any).vfs = vfs;
+
 	const template = templates[data.config.template];
 	if (!template) throw new Error('Template not found.');
 	const docDefinition = template(data, data.config.font);
