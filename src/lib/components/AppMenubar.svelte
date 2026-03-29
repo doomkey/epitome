@@ -20,6 +20,8 @@
 	import * as AlertDialog from '$lib/components/ui/alert-dialog/index.js';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
+	import { importBackup } from '$lib/db/backup';
+
 	const item =
 		'flex h-9 select-none items-center gap-2 rounded-sm px-3 text-sm font-medium data-highlighted:bg-muted data-disabled:opacity-50 data-disabled:pointer-events-none cursor-default';
 	const separator = 'my-1 -mx-1 block h-px bg-border';
@@ -113,7 +115,6 @@
 	}
 
 	async function handleImport(e: Event) {
-		const { importBackup } = await import('$lib/db/backup');
 		const file = (e.target as HTMLInputElement).files?.[0];
 		if (!file) return;
 		try {
