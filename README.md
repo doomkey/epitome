@@ -27,7 +27,7 @@ Visit the [documentation](https://doomkey.github.io/epitome/docs) to know about 
   - [x] New workspace: Copy/Start from fresh 
 - [x] JSON export of a single workspace
 - [x] Read-only link for sharing
-- [ ] Fallback preview on unsupported browsers
+- [x] Fallback preview on unsupported browsers
 - [ ] Automatic page-break
 - [ ] Shortcuts
 - [ ] Inline rich text (bold-italics-underline)
