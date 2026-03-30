@@ -22,7 +22,7 @@ const findBrave = (): Cypress.Browser => {
 export default defineConfig({
 	allowCypressEnv: false,
 	pageLoadTimeout: 60000,
-	defaultCommandTimeout: 90000,
+	defaultCommandTimeout: 9000,
 	e2e: {
 		setupNodeEvents(on, config) {
 			config.browsers = config.browsers.concat(findBrave());
