@@ -28,10 +28,10 @@ Visit the [documentation](https://doomkey.github.io/epitome/docs) to know about 
 - [x] JSON export of a single workspace
 - [x] Read-only link for sharing
 - [x] Fallback preview on unsupported browsers
-- [ ] Automatic page-break
-- [ ] Shortcuts
-- [ ] Inline rich text (bold-italics-underline)
 - [ ] Import from linkedin
+- [ ] ~~Shortcuts~~
+- [ ] ~~Inline rich text (bold-italics-underline)~~
+- [ ] ~~Automatic page-break~~
 
 ## Supported Browsers
 
