@@ -9,6 +9,8 @@
 	import { resolve } from '$app/paths';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { Skeleton } from '$lib/components/ui/skeleton';
+	import PreviewLoader from '$lib/components/PreviewLoader.svelte';
+	import { globalStore } from '$lib/stores/global.svelte';
 
 	let { data, form }: PageProps = $props();
 	let d = $state<ResumeData | null>(null);
@@ -16,7 +18,7 @@
 	let errorMessage = $state<string | null>(null);
 	onMount(async () => {
 		if (!browser) return;
-		isLoading = true;
+		globalStore.renderMode = 'loading';
 		errorMessage = null;
 		try {
 			const query = page.url.searchParams.get('q');
@@ -26,24 +28,13 @@
 		} catch (e) {
 			console.error(e);
 			errorMessage = 'Failed to load resume. The link might be invalid.';
-		} finally {
-			isLoading = false;
 		}
 	});
 </script>
 
-{#if isLoading}
-	<main class="container h-dvh">
-		<div class="-z-1 h-full w-full">
-			<div class="space-y-2">
-				<p class="text-lg">Preview Loading...</p>
-				{#each { length: 32 } as _}
-					<Skeleton class="h-4 w-full" />
-				{/each}
-			</div>
-		</div>
-	</main>
-{:else if errorMessage}
+<PreviewLoader />
+
+{#if errorMessage}
 	<main class="container h-dvh">
 		<div class="mx-auto flex h-full max-w-md flex-col justify-center space-y-4">
 			<h2 class="text-4xl">Oops! Something went wrong</h2>
