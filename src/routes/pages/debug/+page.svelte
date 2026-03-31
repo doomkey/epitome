@@ -8,7 +8,23 @@
 	const nd = 'Not defined';
 </script>
 
-<h1>Debug Page</h1>
+<svelte:head>
+	<title>Report a Bug - Epitome Resume Builder</title>
+</svelte:head>
+
+<h1>Report a Bug</h1>
+<div>
+	<p>
+		Please <a href="https://github.com/doomkey/epitome/issues/new" target="_blank">open an issue</a> in
+		the github repo stating the bug along with a screenshot/copied text of this page.
+	</p>
+	<p class="text-sm text-muted-foreground">
+		Browser info is detected locally and never sent anywhere. <a
+			href="https://github.com/doomkey/epitome/blob/main/src/routes/pages/debug/%2Bpage.svelte"
+			target="_blank">View page source</a
+		>
+	</p>
+</div>
 <div class="grid grid-cols-1 md:grid-cols-2">
 	<div>
 		<h3>Browser</h3>
@@ -40,6 +56,3 @@
 		<p>Version: {engine.version ?? nd}</p>
 	</div>
 </div>
-<p class="text-sm text-muted-foreground">
-	Browser info is detected locally and never sent anywhere. You can share it when reporting a bug.
-</p>
