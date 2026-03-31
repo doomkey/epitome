@@ -9,6 +9,13 @@
 	import { resumeData } from '$lib/stores/resumeStore.svelte';
 	import { getPdfjs } from '$lib/functions/pdfjs';
 	import { globalStore } from '$lib/stores/global.svelte';
+	import { onMount } from 'svelte';
+	import {
+		getBrowserName,
+		getPrettyBrowserName,
+		isUnsupportedBrowser
+	} from '$lib/functions/helpers';
+	import type { BrokenType } from '$lib/constant';
 
 	interface Props {
 		data?: ResumeData;
@@ -26,7 +33,8 @@
 	const scale = $derived(isShared ? 2 : 1);
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 	let cancelled = false;
-
+	let isUnsupported = $state(false);
+	let browserName = $state('');
 	function isCanvasAvailable(): boolean {
 		try {
 			const c = document.createElement('canvas');
@@ -43,7 +51,10 @@
 			return false;
 		}
 	}
-
+	onMount(() => {
+		browserName = getPrettyBrowserName();
+		isUnsupported = isUnsupportedBrowser(getBrowserName(), isShared ? 'shared_preview' : 'preview');
+	});
 	function isBrowserPdfSupported(): boolean {
 		if ('pdfViewerEnabled' in navigator) return navigator.pdfViewerEnabled;
 		// older browser
@@ -55,6 +66,8 @@
 	}
 
 	async function updatePreview(snapshot: ResumeData) {
+		if (isUnsupported) return;
+
 		cancelled = false;
 		try {
 			const pdfDocGenerator = createPDFDocument(snapshot);
@@ -246,15 +259,15 @@
 				}}
 			></iframe>
 		</div>
-	{:else if globalStore.renderMode === 'unsupported'}
+	{:else if globalStore.renderMode === 'unsupported' || isUnsupported}
 		<div class="flex h-dvh w-full flex-col items-center justify-center gap-4 text-center">
 			<p class="text-4xl">Uh-oh</p>
-			<p class="text-lg font-semibold">Your browser isn't supported</p>
+			<p class="text-lg font-semibold">This browser does not support live preview.</p>
 			<p class="max-w-xs text-sm text-muted-foreground">
 				PDF preview requires canvas or a built-in PDF viewer. Try Chrome, Firefox, or Safari, or use
 				the download button below.
 			</p>
-			<Button onclick={download}>Download PDF</Button>
+			<Button onclick={download}>Download PDF Instead</Button>
 		</div>
 	{:else}
 		<div class="h-full w-full">

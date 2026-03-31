@@ -32,7 +32,7 @@
 	});
 </script>
 
-<PreviewLoader />
+<PreviewLoader mode="shared_preview" />
 
 {#if errorMessage}
 	<main class="container h-dvh">

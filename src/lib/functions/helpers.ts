@@ -1,3 +1,5 @@
+import { unsupportedBrowsers, type BrokenType } from '$lib/constant';
+import { UAParser } from 'ua-parser-js';
 import type { ResumeData } from '$lib/types';
 export const MM_TO_PT = 2.83464567;
 export const IN_TO_PT = 72;
@@ -111,4 +113,30 @@ export function getPlaceholder(src: string) {
 	const placeholderFilename = filename.replace('.' + extension, '_placeholder.' + extension);
 	parts.push(placeholderFilename);
 	return parts.join('/');
+}
+
+export function getBrowserName() {
+	return UAParser(navigator.userAgent).browser.name ?? '';
+}
+export function getPrettyBrowserName() {
+	const b = UAParser(navigator.userAgent).browser.name ?? '';
+	const version = parseInt(getBrowserVersion());
+	const match = unsupportedBrowsers.find(
+		(browser) =>
+			browser.name === b &&
+			browser.customName &&
+			browser.minVersion &&
+			version < parseInt(browser.minVersion)
+	);
+	return match?.customName ?? b; // shenanignas for via browser
+}
+export function getBrowserVersion() {
+	return UAParser(navigator.userAgent).browser.major ?? '';
+}
+export function isUnsupportedBrowser(browserName: string, mode: BrokenType = 'preview') {
+	const browser = unsupportedBrowsers.find((b) => b.name === browserName);
+	if (!browser) return false;
+	if (browser.minVersion && parseInt(getBrowserVersion()) >= parseInt(browser.minVersion))
+		return false;
+	return browser.broken === 'both' || browser.broken === mode;
 }

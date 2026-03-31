@@ -76,3 +76,33 @@ export type MarginOption = (typeof margins)[keyof typeof margins];
 
 export const marginUnits = ['mm', 'inch'] as const;
 export type MarginUnit = (typeof marginUnits)[number];
+
+export type BrokenType = 'preview' | 'shared_preview' | 'both';
+
+export type UnsupportedBrowser = {
+	name: string;
+	broken: BrokenType;
+	minVersion?: string;
+	customName?: string;
+};
+
+export const unsupportedBrowsers: UnsupportedBrowser[] = [
+	{
+		name: 'UCBrowser',
+		broken: 'shared_preview'
+	},
+	{
+		name: 'Facebook',
+		broken: 'both'
+	},
+	{
+		name: 'Mobile Chrome', //via browser,
+		broken: 'both',
+		minVersion: '130', // via says 116, so real chrome with 130 will probably be fine ig.
+		customName: 'Via'
+	},
+	{
+		name: 'Samsung Internet',
+		broken: 'both'
+	}
+];
