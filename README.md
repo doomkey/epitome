@@ -47,16 +47,17 @@ Due to the preview being rendered via canvas, any browser with non-presence of c
 Any desktop browser, and mainstream mobile browsers are supported.
 
 1. Firefox and its derivatives
-  1. Zen
-  2. Waterfox
-  3. Librewolf (canvas enabled)
-  4. etc.
+	- Zen
+	- Waterfox
+    - Librewolf (canvas enabled)
+    - etc.
+
 2. Chromium and its derivatives
-  1. Chrome
-  2. Vivaldi
-  3. Brave
-  4. Opera
-  5. etc.
+   - Chrome
+   - Vivaldi
+   - Brave
+   - Opera
+   - etc.
 
 Webkit-based browsers are not tested, but should work.  
 
