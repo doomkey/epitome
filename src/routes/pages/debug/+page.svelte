@@ -40,6 +40,6 @@
 		<p>Version: {engine.version ?? nd}</p>
 	</div>
 </div>
-<p class="text-sm text-muted">
+<p class="text-sm text-muted-foreground">
 	Browser info is detected locally and never sent anywhere. You can share it when reporting a bug.
 </p>
