@@ -42,8 +42,6 @@
 <div>
 	<section class="flex min-h-[90vh] items-center justify-center px-6 py-16">
 		<div class="mx-auto flex w-full max-w-3xl flex-col gap-6">
-			<Separator />
-
 			<div class="flex flex-wrap items-center gap-2">
 				<Badge variant="secondary">Resume Generator</Badge>
 				<Badge variant="secondary">Free & Open Source</Badge>
@@ -82,10 +80,8 @@
 				>
 			</div>
 
-			<Separator />
-
 			<p class="text-xs text-muted-foreground">
-				Licensed under AGPL v3 &nbsp;·&nbsp;
+				AGPL v3 &nbsp;·&nbsp;
 				<a
 					href="https://github.com/doomkey/epitome"
 					target="_blank"
@@ -98,7 +94,7 @@
 		</div>
 	</section>
 
-	<section class="border-t border-border px-6 py-24">
+	<section class="px-6 py-24">
 		<div class="mx-auto max-w-5xl">
 			<SectionHeader
 				title="Why Epitome?"
@@ -127,7 +123,7 @@
 	</section>
 	<Pricing />
 	<FAQ />
-	<section class="border-t border-border px-6 py-24">
+	<section class="px-6 py-24">
 		<div class="mx-auto max-w-5xl">
 			<div class="flex flex-col gap-10">
 				<Separator />
