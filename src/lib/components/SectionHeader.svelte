@@ -1,7 +1,7 @@
 <script>
 	import Separator from '$lib/components/ui/separator/separator.svelte';
 
-	let { title, description, id = '' } = $props();
+	let { title, description = '', id = '' } = $props();
 </script>
 
 <div class="mb-16 flex flex-col gap-6" {id}>

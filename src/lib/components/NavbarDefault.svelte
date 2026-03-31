@@ -24,7 +24,7 @@
 		<div class="flex items-center gap-2">
 			<a
 				href={resolve('/')}
-				class="text-xl font-bold tracking-tight transition-opacity hover:opacity-80"
+				class="font-serif text-xl font-bold tracking-tight transition-opacity hover:opacity-80"
 			>
 				Epitome
 			</a>

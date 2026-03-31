@@ -55,7 +55,7 @@
 	};
 </script>
 
-<section class="border-t border-border px-6 py-24" id="pricing">
+<section class=" px-6 py-24" id="pricing">
 	<div class="mx-auto max-w-5xl">
 		<SectionHeader title="Pricing" />
 
@@ -69,7 +69,7 @@
 				<div class="mb-6 flex items-start justify-between gap-4">
 					<div>
 						<p
-							class="font-[Playfair_Display,serif] text-xl font-bold text-foreground line-through decoration-muted-foreground/50"
+							class="font-serif text-xl font-bold text-foreground line-through decoration-muted-foreground/50"
 						>
 							{them.name}
 						</p>
@@ -119,7 +119,7 @@
 			<div class="relative flex flex-col border-2 border-foreground p-8">
 				<div class="mb-6 flex items-start justify-between gap-4">
 					<div>
-						<p class="font-[Playfair_Display,serif] text-xl font-bold text-foreground">
+						<p class="font-serif text-xl font-bold text-foreground italic">
 							{us.name}
 						</p>
 						<p class="mt-1 text-sm font-light text-muted-foreground">{us.description}</p>

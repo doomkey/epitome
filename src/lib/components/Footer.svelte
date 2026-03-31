@@ -9,6 +9,7 @@
 
 	const resources = [
 		{ label: 'Documentation', href: '/docs' },
+		{ label: 'Report a Bug', href: '/pages/debug' },
 		{ label: 'Open Source Licenses', href: '/pages/res/osl' },
 		{ label: 'GitHub', href: 'https://github.com/doomkey/epitome' }
 	];
@@ -30,7 +31,7 @@
 			<div class="col-span-2 sm:col-span-2 lg:col-span-1">
 				<a
 					href={resolve('/')}
-					class="text-lg font-bold tracking-tight transition-colors hover:text-primary"
+					class=" font-serif text-lg font-bold tracking-tight transition-colors hover:text-primary"
 				>
 					Epitome
 				</a>
@@ -100,7 +101,8 @@
 
 		<div class="mt-10 flex flex-col items-center justify-between gap-3 border-t pt-6 sm:flex-row">
 			<p class="text-xs text-muted-foreground">
-				© {new Date().getFullYear()} Epitome. Open source and free forever.
+				© {new Date().getFullYear()} <span class="font-serif">Epitome</span>. Open source and free
+				forever.
 			</p>
 
 			<a
