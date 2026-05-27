@@ -52,8 +52,8 @@
 				class="flex flex-col gap-1 text-[clamp(3rem,8vw,6.5rem)] leading-[1.05] font-black tracking-tight text-foreground"
 			>
 				<span>Resume </span>
-				<span> should be</span>
-				<span class="font-[Playfair_Display,serif] font-bold text-primary italic">Free.</span>
+				<span> building is</span>
+				<span class="font-[Playfair_Display,serif] font-bold text-primary italic">Effortless.</span>
 			</h1>
 
 			<Separator />
@@ -126,17 +126,15 @@
 	<section class="px-6 py-24">
 		<div class="mx-auto max-w-5xl">
 			<div class="flex flex-col gap-10">
-				<Separator />
 				<div class="flex flex-wrap items-center justify-between gap-6">
 					<h2 class="text-[clamp(1.5rem,3vw,2.2rem)] font-bold text-foreground">
 						Ready to build your resume?
 					</h2>
 					<Button href={resolve('/generate')} size="lg" class="group gap-2 font-medium">
-						Free forever
+						Build For Free
 						<span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
 					</Button>
 				</div>
-				<Separator />
 			</div>
 		</div>
 	</section>
