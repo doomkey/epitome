@@ -29,7 +29,8 @@ export function createEdu(prefill = false) {
 		start: prefill ? 'Jan 1984' : '',
 		end: prefill ? 'Dec 2000' : '',
 		location: prefill ? '000 Street, City, Country' : '',
-		gpa: prefill ? 'GPA' : ''
+		gpa: prefill ? 'GPA' : '',
+		description: ''
 	};
 }
 

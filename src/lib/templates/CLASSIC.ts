@@ -109,7 +109,8 @@ function buildClassicEducationEntry(edu: ResumeData['education'][number]) {
 			titleRight:
 				edu.end && !edu.start ? `Graduated: ${edu.end}` : formatPeriod(edu.start, edu.end),
 			subtitle: edu.degree,
-			subtitleRight: edu.gpa ? `CGPA: ${edu.gpa}` : undefined
+			subtitleRight: edu.gpa ? `CGPA: ${edu.gpa}` : undefined,
+			bullets: edu.description
 		},
 		classicStyles
 	);

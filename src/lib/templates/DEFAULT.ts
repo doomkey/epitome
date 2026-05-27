@@ -128,7 +128,8 @@ function buildEducationEntry(edu: ResumeData['education'][number]) {
 		titleRight: formatPeriod(edu.start, edu.end),
 		subtitle: edu.institution,
 		subtitleRight: edu.location,
-		subsubtitle: edu.gpa ? `CGPA: ${edu.gpa}` : undefined
+		subsubtitle: edu.gpa ? `CGPA: ${edu.gpa}` : undefined,
+		bullets: edu.description
 	});
 }
 

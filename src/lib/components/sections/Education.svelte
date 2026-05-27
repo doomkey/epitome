@@ -10,6 +10,7 @@
 	import EmptySection from '../EmptySection.svelte';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import InlineEdit from '$lib/components/InlineEdit.svelte';
+	import { Textarea } from '$lib/components/ui/textarea';
 </script>
 
 <Tabs.Content value={sections.education.value}>
@@ -59,6 +60,14 @@
 							<Field.Field>
 								<Field.Label>GPA</Field.Label>
 								<Input placeholder="3.84/4.00" bind:value={e.gpa} />
+							</Field.Field>
+							<Field.Field class="col-span-full">
+								<Field.Label>Description</Field.Label>
+								<Textarea
+									placeholder="Describe what you learned, your courses and stuff..."
+									bind:value={e.description}
+									class="min-h-28 resize-y"
+								/>
 							</Field.Field>
 						</div>
 					</SectionEntry>

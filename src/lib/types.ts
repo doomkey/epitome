@@ -46,6 +46,7 @@ export type EducationEntry = {
 	end: string;
 	location: string;
 	gpa: string;
+	description: string;
 };
 
 export type ExperienceEntry = {

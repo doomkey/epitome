@@ -77,6 +77,7 @@
 					globalStore.renderMode = 'unsupported';
 					return;
 				}
+
 				// iframe fallback
 				const pdfData = await pdfDocGenerator.getBuffer();
 				if (cancelled) return;
