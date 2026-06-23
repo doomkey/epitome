@@ -159,7 +159,7 @@
 <Menubar.Root
 	class="sticky top-0 z-50 flex h-14 items-center gap-0 rounded-none border-x-0 border-t-0 border-b bg-background px-1 shadow-md md:gap-0.5 md:px-2"
 >
-	<span class="px-2 font-serif text-sm font-semibold text-muted-foreground select-none"
+	<span class="px-2 font-secondary text-sm font-semibold text-muted-foreground select-none"
 		>Epitome</span
 	>
 	<div class="mx-1 hidden h-4 w-px bg-border md:block"></div>

@@ -69,7 +69,7 @@
 				<div class="mb-6 flex items-start justify-between gap-4">
 					<div>
 						<p
-							class="font-serif text-xl font-bold text-foreground line-through decoration-muted-foreground/50"
+							class="font-secondary text-xl font-bold text-foreground line-through decoration-muted-foreground/50"
 						>
 							{them.name}
 						</p>
@@ -79,7 +79,7 @@
 				</div>
 
 				<div class="mb-6">
-					<span class="font-[Playfair_Display,serif] text-5xl font-black text-foreground">
+					<span class="font-primary text-5xl font-black text-foreground">
 						{them.price}
 					</span>
 					<span class="text-sm text-muted-foreground">{them.period}</span>
@@ -119,7 +119,7 @@
 			<div class="relative flex flex-col border-2 border-foreground p-8">
 				<div class="mb-6 flex items-start justify-between gap-4">
 					<div>
-						<p class="font-serif text-xl font-bold text-foreground italic">
+						<p class="font-secondary text-xl font-bold text-foreground italic">
 							{us.name}
 						</p>
 						<p class="mt-1 text-sm font-light text-muted-foreground">{us.description}</p>
@@ -128,7 +128,7 @@
 				</div>
 
 				<div class="mb-6">
-					<span class="font-[Playfair_Display,serif] text-5xl font-black text-foreground">
+					<span class="font-primary text-5xl font-black text-foreground">
 						{us.price}
 					</span>
 					<span class="text-sm text-muted-foreground">{us.period}</span>

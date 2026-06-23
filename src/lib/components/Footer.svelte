@@ -1,6 +1,7 @@
 <script lang="ts">
 	import StarIcon from '@lucide/svelte/icons/star';
 	import { resolve } from '$app/paths';
+	import { parentInfo } from '$lib/constant';
 	const product = [
 		{ label: 'Generate Resume', href: '/generate' },
 		{ label: 'Features', href: '/#features' },
@@ -31,10 +32,16 @@
 			<div class="col-span-2 sm:col-span-2 lg:col-span-1">
 				<a
 					href={resolve('/')}
-					class=" font-serif text-lg font-bold tracking-tight transition-colors hover:text-primary"
+					class=" font-secondary text-lg font-bold tracking-tight transition-colors hover:text-primary"
 				>
 					Epitome
 				</a>
+				<span class="font-base text-sm">
+					by <a class=" text-primary" href={parentInfo.link}>
+						{parentInfo.name}
+					</a></span
+				>
+
 				<p class="mt-2 max-w-xs text-sm text-muted-foreground">
 					A free, browser-only resume generator. Your data never leaves your device.
 				</p>
@@ -101,8 +108,8 @@
 
 		<div class="mt-10 flex flex-col items-center justify-between gap-3 border-t pt-6 sm:flex-row">
 			<p class="text-xs text-muted-foreground">
-				© {new Date().getFullYear()} <span class="font-serif">Epitome</span>. Open source and free
-				forever.
+				© {new Date().getFullYear()} <span class="font-secondary">Epitome</span>. Open source and
+				free forever.
 			</p>
 
 			<a

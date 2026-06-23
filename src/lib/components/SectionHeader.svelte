@@ -8,13 +8,13 @@
 	<!-- <Separator /> -->
 	<div class="flex flex-wrap items-center justify-between gap-4">
 		<h1
-			class="font-[Playfair_Display,serif] text-[clamp(2rem,5vw,3.5rem)] leading-tight font-black text-foreground"
+			class="font-secondary text-[clamp(2rem,5vw,3.5rem)] leading-tight font-black text-foreground"
 		>
 			{title}
 		</h1>
-		<p class="max-w-sm text-sm leading-relaxed font-light text-muted-foreground">
+		<!-- <p class="max-w-sm text-sm leading-relaxed font-light text-muted-foreground">
 			{description ? description : ''}
-		</p>
+		</p> -->
 	</div>
 	<!-- <Separator /> -->
 </div>

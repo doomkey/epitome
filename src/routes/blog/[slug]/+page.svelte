@@ -29,7 +29,7 @@
 			</div>
 
 			<h1
-				class="border-b border-stone-950/10 pb-2 font-serif text-5xl leading-[0.95] font-extrabold
+				class="border-b border-stone-950/10 pb-2 font-secondary text-5xl leading-[0.95] font-extrabold
                    tracking-tight md:text-6xl"
 			>
 				{title}
@@ -51,7 +51,7 @@
 	<div
 		class="order-2 flex aspect-video items-center justify-center rounded-xl bg-black/5 p-8 md:order-1 md:aspect-auto"
 	>
-		<span class="font-serif text-[180px] leading-none font-black text-stone-950/10">E</span>
+		<span class="font-secondary text-[180px] leading-none font-black text-stone-950/10">E</span>
 	</div>
 </header>
 <main class="container mt-4 mb-12">

@@ -42,21 +42,12 @@
 <div>
 	<section class="flex min-h-[90vh] items-center justify-center px-6 py-16">
 		<div class="mx-auto flex w-full max-w-3xl flex-col gap-6">
-			<div class="flex flex-wrap items-center gap-2">
-				<Badge variant="secondary">Resume Generator</Badge>
-				<Badge variant="secondary">Free & Open Source</Badge>
-				<Badge variant="secondary">Fully Local</Badge>
-			</div>
-
 			<h1
-				class="flex flex-col gap-1 text-[clamp(3rem,8vw,6.5rem)] leading-[1.05] font-black tracking-tight text-foreground"
+				class="flex flex-col gap-1 text-[clamp(3rem,8vw,6.5rem)] leading-[1.05] font-black tracking-tight wrap-anywhere hyphens-auto text-foreground"
 			>
-				<span>Resume </span>
-				<span> building is</span>
-				<span class="font-[Playfair_Display,serif] font-bold text-primary italic">Effortless.</span>
+				<span>CV Making is</span>
+				<span class="font-primary font-bold text-primary italic">Effortless.</span>
 			</h1>
-
-			<Separator />
 
 			<p class="max-w-lg text-lg leading-relaxed font-light text-muted-foreground">
 				Epitome generates beautiful, ATS-friendly resumes entirely in your browser. No more filling
@@ -104,12 +95,7 @@
 
 			<div class="grid grid-cols-1 border border-border sm:grid-cols-2 lg:grid-cols-3">
 				{#each features as feature, i (feature)}
-					<div
-						class="flex flex-col gap-4 border-r border-b border-border p-8 transition-colors duration-200 hover:bg-muted"
-					>
-						<span class="text-xs font-bold tracking-wider text-muted-foreground">
-							0{i + 1}
-						</span>
+					<div class="flex flex-col gap-4 border-r border-b border-border p-8">
 						<div class="flex flex-col gap-2">
 							<h3 class="text-sm font-medium text-foreground">{feature.title}</h3>
 							<p class="text-sm leading-relaxed font-light text-muted-foreground">

@@ -2,6 +2,7 @@
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
 	import DarkModeToggle from './DarkModeToggle.svelte';
+	import { parentInfo } from '$lib/constant';
 	const links = [
 		{
 			title: 'Home',
@@ -24,10 +25,15 @@
 		<div class="flex items-center gap-2">
 			<a
 				href={resolve('/')}
-				class="font-serif text-xl font-bold tracking-tight transition-opacity hover:opacity-80"
+				class=" font-secondary text-lg font-bold tracking-tight transition-colors hover:text-primary"
 			>
 				Epitome
 			</a>
+			<span class="font-base text-sm">
+				by <a class=" text-primary" href={parentInfo.link}>
+					{parentInfo.name}
+				</a></span
+			>
 		</div>
 
 		<nav class="hidden items-center gap-6 text-sm font-medium md:flex">

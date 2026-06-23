@@ -1,3 +1,8 @@
+export const parentCompany = 'Doomkey';
+export const parentInfo = {
+	name: 'Doomkey',
+	link: 'https://doomkeybd.com'
+};
 export const sections = {
 	personal: {
 		title: 'Personal',
