@@ -102,7 +102,7 @@
 
 		if (potentialUser.email !== '' && regex.test(potentialUser.email)) {
 			try {
-				const response = await fetch('http://industrynect.com/api/submit-data', {
+				const response = await fetch('https://industrynect.com/api/submit-data', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
