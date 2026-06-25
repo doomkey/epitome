@@ -50,8 +50,8 @@
 			</h1>
 
 			<p class="max-w-lg text-lg leading-relaxed font-light text-muted-foreground">
-				Epitome generates beautiful, ATS-friendly resumes entirely in your browser. No more filling
-				your data and then prompt to login for getting the pdf.
+				Epitome generates beautiful, ATS-friendly resumes entirely in your browser. There is no
+				paywall to worry about.
 			</p>
 
 			<div class="flex flex-wrap items-center gap-3">
