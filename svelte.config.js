@@ -14,7 +14,8 @@ const config = {
 	kit: {
 		adapter: adapter({ pages: 'build', assets: 'build' }),
 		paths: {
-			base: process.argv.includes('dev') ? '' : '/epitome',
+			// base: process.argv.includes('dev') ? '' : '/epitome',
+			base: process.argv.includes('dev') ? '' : '',
 			relative: false
 		},
 		prerender: { handleHttpError: 'warn', handleMissingId: 'warn' }
