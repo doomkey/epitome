@@ -119,7 +119,6 @@
 				}
 			} catch (error) {}
 		}
-		return;
 		await saveCurrentWorkspace();
 		const currentState = $state.snapshot(resumeData);
 		const doc = createPDFDocument(currentState);
