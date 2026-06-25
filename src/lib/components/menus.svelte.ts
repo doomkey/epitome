@@ -108,6 +108,7 @@ async function handleNew() {
 }
 
 export function getMenus(opts: {
+	onDownload: () => void;
 	onRename: (id: string, name: string) => void;
 	onDelete: (id: string) => void;
 	onResetCurrent: () => void;
@@ -123,7 +124,7 @@ export function getMenus(opts: {
 				{
 					label: 'Download PDF',
 					// shortcut: 'ALT G',
-					onSelect: handleGenerate
+					onSelect: opts.onDownload
 				},
 				{
 					label: 'Download JSON',

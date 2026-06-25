@@ -30,7 +30,7 @@
 				Epitome
 			</a>
 			<span class="font-base text-sm">
-				by <a class=" text-primary" href={parentInfo.link}>
+				by <a class="font-secondary text-primary" href={parentInfo.link}>
 					{parentInfo.name}
 				</a></span
 			>

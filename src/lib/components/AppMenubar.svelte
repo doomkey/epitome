@@ -34,7 +34,7 @@
 	import { resumeData, defaultResumeData, createResumeData } from '$lib/stores/resumeStore.svelte';
 	import { saveCurrentWorkspace } from '$lib/stores/workspace.svelte';
 	import { db } from '$lib/db';
-	import { Button } from '$lib/components/ui/button';
+	import { Button, buttonVariants } from '$lib/components/ui/button';
 	import SectionsRearrange from './SectionsRearrange.svelte';
 	import DarkModeToggle from './DarkModeToggle.svelte';
 	import { invalidateAll } from '$app/navigation';
@@ -43,6 +43,8 @@
 	import { browser } from '$app/environment';
 	import { compressResume } from '$lib/db/sharelink';
 	import { Input } from './ui/input';
+	import { createPDFDocument } from '$lib/functions/pdfGenerator';
+	import Label from './ui/label/label.svelte';
 
 	$effect(() => {
 		if (fileInput) setFileInput(fileInput);
@@ -53,6 +55,9 @@
 	let showConfigureSections = $state(false);
 	const menus = $derived(
 		getMenus({
+			onDownload: () => {
+				showDownloadPopup = true;
+			},
 			onRename: (id, name) => {
 				renamingId = id;
 				renamingName = name;
@@ -74,8 +79,53 @@
 	let showShareLink = $state(false);
 	let showSettings = $state(false);
 	let showDeleteAWorkspace = $state(false);
+	let showDownloadPopup = $state(false);
 	let workspaceIdToBeDeleted = $state('');
+	let potentialUser = $state({
+		email: '',
+		firstname: ''
+	});
+	let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	let err = $state('');
 
+	$effect(() => {
+		if (potentialUser.email === '') {
+			err = '';
+			return;
+		}
+		err = regex.test(potentialUser.email) ? '' : 'Please enter a valid mail.';
+	});
+
+	async function handleGenerate() {
+		if (!browser) return;
+		// validate email
+
+		if (potentialUser.email !== '' && regex.test(potentialUser.email)) {
+			try {
+				const response = await fetch('http://industrynect.com/api/submit-data', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Accept: 'application/json'
+					},
+					body: JSON.stringify(potentialUser)
+				});
+
+				const result = await response.json();
+
+				if (response.ok) {
+					toast.success('Thank you!');
+				} else {
+				}
+			} catch (error) {}
+		}
+		return;
+		await saveCurrentWorkspace();
+		const currentState = $state.snapshot(resumeData);
+		const doc = createPDFDocument(currentState);
+		doc.download(`${resumeData.personal.fullName || 'resume'}.pdf`);
+		toast.success('Resume downloaded!');
+	}
 	async function handleDeleteAWorkspace() {
 		if (workspaceIdToBeDeleted === '') {
 			toast.error('Workspace not found.');
@@ -300,6 +350,46 @@
 			<Dialog.Title>Settings</Dialog.Title>
 		</Dialog.Header>
 		<Settings />
+	</Dialog.Content>
+</Dialog.Root>
+
+<Dialog.Root bind:open={showDownloadPopup}>
+	<Dialog.Content class="overflow-y-auto">
+		<Dialog.Header>
+			<Dialog.Title>Your CV is ready!</Dialog.Title>
+		</Dialog.Header>
+		<div class="grid grid-cols-1 gap-4">
+			<div class="space-y-4">
+				<p>
+					We occasionally offer services like expert resume reviews to help you stand out even more.
+					If you're interested in hearing about them, pop in your email below.
+				</p>
+				<div class="grid gap-3">
+					<Label for="firstname">First Name (optional)</Label>
+					<Input
+						id="firstname"
+						name="firstname"
+						placeholder="Your Name"
+						bind:value={potentialUser.firstname}
+					/>
+				</div>
+				<div class="grid gap-3">
+					<Label for="email">Email (optional)</Label>
+					<Input
+						id="email"
+						name="email"
+						placeholder="mail@m.com"
+						bind:value={potentialUser.email}
+					/>
+					{#if err !== ''}
+						<p class="text-xs text-destructive">{err}</p>
+					{/if}
+				</div>
+			</div>
+		</div>
+		<Dialog.Footer>
+			<Button onclick={handleGenerate}>Download CV</Button>
+		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>
 

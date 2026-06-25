@@ -2,6 +2,7 @@
 	import StarIcon from '@lucide/svelte/icons/star';
 	import { resolve } from '$app/paths';
 	import { parentInfo } from '$lib/constant';
+	import type { ResolvedPathname } from '$app/types';
 	const product = [
 		{ label: 'Generate Resume', href: '/generate' },
 		{ label: 'Features', href: '/#features' },
@@ -20,7 +21,7 @@
 		{ label: 'Privacy Policy', href: '/pages/legal/pp' },
 		{ label: 'License', href: 'https://github.com/doomkey/epitome/blob/main/LICENSE' }
 	];
-	function res(href) {
+	function res(href): ResolvedPathname {
 		if (href.startsWith('http')) return href;
 		else return resolve(href);
 	}
@@ -36,8 +37,8 @@
 				>
 					Epitome
 				</a>
-				<span class="font-base text-sm">
-					by <a class=" text-primary" href={parentInfo.link}>
+				<span class="text-md font-base">
+					by <a class=" font-secondary text-primary" href={parentInfo.link}>
 						{parentInfo.name}
 					</a></span
 				>

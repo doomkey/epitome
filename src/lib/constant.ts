@@ -1,7 +1,7 @@
-export const parentCompany = 'Doomkey';
+export const parentCompany = 'Industrynect';
 export const parentInfo = {
-	name: 'Doomkey',
-	link: 'https://doomkeybd.com'
+	name: 'Industrynect',
+	link: 'https://Industrynect.com'
 };
 export const sections = {
 	personal: {
