@@ -24,7 +24,7 @@
 			</Card.Title>
 			<Card.Description>{sections.education.subtitle}</Card.Description>
 		</Card.Header>
-		<Card.Content>
+		<Card.Content class="@container/card">
 			{#if resumeData.education.length > 0}
 				{#each resumeData.education as e, index (e.id)}
 					<SectionEntry
@@ -36,28 +36,28 @@
 							(resumeData.education = moveItem(resumeData.education, index, 'down'))}
 						onRemove={() => (resumeData.education = removeItem(resumeData.education, e.id))}
 					>
-						<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-							<Field.Field>
+						<div class="grid grid-cols-1 gap-4 @md/card:grid-cols-2 @2xl/card:grid-cols-3">
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Degree/Field of Study</Field.Label>
 								<Input placeholder="Name of the degree" bind:value={e.degree} required />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-2">
 								<Field.Label>Name of the Institute</Field.Label>
 								<Input placeholder="University of A" bind:value={e.institution} required />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Start</Field.Label>
 								<Input placeholder="Dec 1984" bind:value={e.start} />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>End</Field.Label>
 								<Input placeholder="Dec 2000" bind:value={e.end} />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Location of the Institute</Field.Label>
 								<Input placeholder="Location" bind:value={e.location} />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>GPA</Field.Label>
 								<Input placeholder="3.84/4.00" bind:value={e.gpa} />
 							</Field.Field>

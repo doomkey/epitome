@@ -24,7 +24,7 @@
 			</Card.Title>
 			<Card.Description>{sections.projects.subtitle}</Card.Description>
 		</Card.Header>
-		<Card.Content>
+		<Card.Content class="@container/card">
 			{#if resumeData.projects.length > 0}
 				{#each resumeData.projects as p, i (p.id)}
 					<SectionEntry
@@ -35,16 +35,16 @@
 						onMoveDown={() => (resumeData.projects = moveItem(resumeData.projects, i, 'down'))}
 						onRemove={() => (resumeData.projects = removeItem(resumeData.projects, p.id))}
 					>
-						<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-							<Field.Field>
+						<div class="grid grid-cols-1 gap-4 @md/card:grid-cols-2 @2xl/card:grid-cols-3">
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Project Name</Field.Label>
 								<Input placeholder="My Awesome Project" bind:value={p.name} required />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Technologies Used</Field.Label>
 								<Input placeholder="React, Node.js, PostgreSQL" bind:value={p.technologies} />
 							</Field.Field>
-							<Field.Field class="md:col-span-2">
+							<Field.Field class="col-span-full @2xl/card:col-span-1">
 								<Field.Label>Project Link</Field.Label>
 								<Input
 									placeholder="https://github.com/you/project"
@@ -52,7 +52,7 @@
 									bind:value={p.link}
 								/>
 							</Field.Field>
-							<Field.Field class="md:col-span-2">
+							<Field.Field class="col-span-full">
 								<Field.Label>Description</Field.Label>
 								<Textarea
 									placeholder="What does the project do? What problem does it solve?"

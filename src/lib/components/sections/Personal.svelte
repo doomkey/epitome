@@ -22,7 +22,7 @@
 			<Card.Title>{resumeData.sections.personal.title}</Card.Title>
 			<Card.Description>{sections.personal.subtitle}</Card.Description>
 		</Card.Header>
-		<Card.Content>
+		<Card.Content class="@container/card">
 			<Field.Group>
 				<Field.Set>
 					<Field.Group>
@@ -32,8 +32,8 @@
 						</Field.Field>
 					</Field.Group>
 					<Field.Group>
-						<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-							<Field.Field>
+						<div class="grid grid-cols-1 gap-4 @md/card:grid-cols-2 @2xl/card:grid-cols-3">
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Professional Title</Field.Label>
 								<Input
 									placeholder="Software Developer"
@@ -41,7 +41,7 @@
 									required
 								/>
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Email</Field.Label>
 								<Input
 									placeholder="mail@mail.org"
@@ -50,7 +50,7 @@
 									required
 								/>
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-2 @2xl/card:col-span-1">
 								<Field.Label>Phone</Field.Label>
 								<Input
 									placeholder="+000 000 00000"
@@ -58,14 +58,14 @@
 									bind:value={resumeData.personal.phone}
 								/>
 							</Field.Field>
-							<Field.Field class="lg:col-span-2">
+							<Field.Field class="col-span-3 @md/card:col-span-2 @2xl/card:col-span-2">
 								<Field.Label>Location</Field.Label>
 								<Input
 									placeholder="000 Street, City, Country"
 									bind:value={resumeData.personal.location}
 								/>
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>LinkedIn</Field.Label>
 								<Input
 									placeholder="https://linkedin.com/in/user"
@@ -73,7 +73,7 @@
 									bind:value={resumeData.personal.linkedin}
 								/>
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>GitHub</Field.Label>
 								<Input
 									placeholder="https://github.com/user"
@@ -81,7 +81,7 @@
 									bind:value={resumeData.personal.github}
 								/>
 							</Field.Field>
-							<Field.Field class="md:col-span-2">
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Website</Field.Label>
 								<Input
 									placeholder="https://user.portfolio"

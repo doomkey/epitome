@@ -23,7 +23,7 @@
 			</Card.Title>
 			<Card.Description>{sections.certifications.subtitle}</Card.Description>
 		</Card.Header>
-		<Card.Content>
+		<Card.Content class="@container/card">
 			{#if resumeData.certifications.length > 0}
 				{#each resumeData.certifications as c, i (c.id)}
 					<SectionEntry
@@ -37,8 +37,8 @@
 						onRemove={() =>
 							(resumeData.certifications = removeItem(resumeData.certifications, c.id))}
 					>
-						<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-							<Field.Field>
+						<div class="grid grid-cols-1 gap-4 @md/card:grid-cols-2 @2xl/card:grid-cols-3">
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Certification Name</Field.Label>
 								<Input
 									placeholder="AWS Certified Solutions Architect"
@@ -46,11 +46,11 @@
 									required
 								/>
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Issuing Organization</Field.Label>
 								<Input placeholder="Amazon Web Services" bind:value={c.organization} required />
 							</Field.Field>
-							<Field.Field class="md:col-span-2">
+							<Field.Field class="col-span-full">
 								<Field.Label>Certificate URL</Field.Label>
 								<Input placeholder="https://credential.net/..." type="url" bind:value={c.url} />
 							</Field.Field>

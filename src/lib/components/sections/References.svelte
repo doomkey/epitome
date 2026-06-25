@@ -26,7 +26,7 @@
 			</Card.Title>
 			<Card.Description>{sections.references.subtitle}</Card.Description>
 		</Card.Header>
-		<Card.Content>
+		<Card.Content class="@container/card">
 			{#if resumeData.references && resumeData.references.length > 0}
 				{#each resumeData.references as e, index (e.id)}
 					<SectionEntry
@@ -38,28 +38,28 @@
 							(resumeData.references = moveItem(resumeData.references, index, 'down'))}
 						onRemove={() => (resumeData.references = removeItem(resumeData.references, e.id))}
 					>
-						<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-							<Field.Field>
+						<div class="grid grid-cols-1 gap-4 @md/card:grid-cols-2 @2xl/card:grid-cols-3">
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-2">
 								<Field.Label>Name</Field.Label>
 								<Input placeholder="Dr. X" bind:value={e.name} required />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Designation</Field.Label>
 								<Input placeholder="Professor" bind:value={e.designation} />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Department</Field.Label>
 								<Input placeholder="Dept. of X" bind:value={e.dept} />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-2">
 								<Field.Label>Institute</Field.Label>
 								<Input placeholder="Uni of A" bind:value={e.org} required />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Phone</Field.Label>
 								<Input placeholder="+0000000" bind:value={e.phone} type="tel" />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Email</Field.Label>
 								<Input placeholder="mail@mail.mail" bind:value={e.email} type="email" />
 							</Field.Field>

@@ -14,6 +14,7 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import InlineEdit from '$lib/components/InlineEdit.svelte';
 	import VisibilityToggle from '$lib/components/VisibilityToggle.svelte';
+	import { cn } from '$lib/utils';
 </script>
 
 <Tabs.Content value={sections.experience.value}>
@@ -31,7 +32,7 @@
 			</Card.Title>
 			<Card.Description>{sections.experience.subtitle}</Card.Description>
 		</Card.Header>
-		<Card.Content>
+		<Card.Content class="@container/card">
 			{#if resumeData.experience.length > 0}
 				{#each resumeData.experience as e, index (e.id)}
 					<SectionEntry
@@ -43,28 +44,33 @@
 							(resumeData.experience = moveItem(resumeData.experience, index, 'down'))}
 						onRemove={() => (resumeData.experience = removeItem(resumeData.experience, e.id))}
 					>
-						<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-							<Field.Field>
+						<div class="grid grid-cols-1 gap-4 @md/card:grid-cols-2 @2xl/card:grid-cols-3">
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Job Title</Field.Label>
 								<Input placeholder="Software Engineer" bind:value={e.jobTitle} required />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Company</Field.Label>
 								<Input placeholder="Acme Corp" bind:value={e.company} required />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Location</Field.Label>
 								<Input placeholder="Dhaka, Bangladesh" bind:value={e.location} />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label>Start</Field.Label>
 								<Input placeholder="Jan 2020" bind:value={e.start} />
 							</Field.Field>
-							<Field.Field class={e.present ? 'pointer-events-none opacity-50' : ''}>
+							<Field.Field
+								class={cn(
+									e.present ? 'pointer-events-none opacity-50' : '',
+									'col-span-3 @md/card:col-span-1 @2xl/card:col-span-1'
+								)}
+							>
 								<Field.Label>End</Field.Label>
 								<Input placeholder="Dec 2023" bind:value={e.end} disabled={e.present} />
 							</Field.Field>
-							<Field.Field>
+							<Field.Field class="col-span-3 @md/card:col-span-1 @2xl/card:col-span-1">
 								<Field.Label></Field.Label>
 								<div class="flex items-center gap-2 pt-2">
 									<Checkbox
