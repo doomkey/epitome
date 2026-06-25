@@ -1,3 +1,7 @@
+### EPITOME is now a part of [Industrynect](https://industrynect.com)!
+
+Nothing changed (except some colors and fonts). The service remains as it was before.
+
 # Epitome
 
 ![](./static/banner_epitome.png)

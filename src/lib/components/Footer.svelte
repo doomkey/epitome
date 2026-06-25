@@ -112,15 +112,6 @@
 				© {new Date().getFullYear()} <span class="font-secondary">Epitome</span>. Open source and
 				free forever.
 			</p>
-
-			<a
-				href="https://github.com/doomkey/epitome"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="text-xs text-muted-foreground transition-colors hover:text-foreground"
-			>
-				github.com/doomkey/epitome
-			</a>
 		</div>
 	</div>
 </footer>
