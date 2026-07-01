@@ -14,7 +14,7 @@ If you're looking for a tool that actually respects your time (and your wallet),
 
 _(Of course we are going to put ours on top)_
 
-We built [Epitome](/epitome/generate) because we were tired of the "freemium" nonsense. It is a fully free, open-source CV builder that runs entirely in your browser. 
+We built [Epitome](/generate) because we were tired of the "freemium" nonsense. It is a fully free, open-source CV builder that runs entirely in your browser. 
 
 The biggest selling point? **Privacy.** No data is sent to a server. Everything stays on your machine.
 
@@ -26,7 +26,7 @@ The biggest selling point? **Privacy.** No data is sent to a server. Everything 
 * **Zero Ads:** No distractions, just your data.
 
 ### How to use it
-Upon opening the [generate](/epitome/generate) page, a new workspace is created automatically. It comes pre-filled so you can see the layout immediately. On a desktop, you can drag the handle to resize the info and preview panels side-by-side. 
+Upon opening the [generate](/generate) page, a new workspace is created automatically. It comes pre-filled so you can see the layout immediately. On a desktop, you can drag the handle to resize the info and preview panels side-by-side. 
 
 #### Adding Your Data
 Just navigate through the dropdown sections to input your info. 
@@ -35,7 +35,7 @@ Just navigate through the dropdown sections to input your info.
 
 The preview updates in real-time as you type. Your progress is saved automatically to your local browser storage when you switch sections, rename a workspace, or generate your PDF.
 
-> **Pro Tip:** Since data is saved locally in your browser, use the [Import/Export](/epitome/docs/data-management/exporting-data) feature if you need to switch from your laptop to a desktop.
+> **Pro Tip:** Since data is saved locally in your browser, use the [Import/Export](/docs/data-management/exporting-data) feature if you need to switch from your laptop to a desktop.
 
 ---
 
@@ -61,4 +61,4 @@ Old reliable. If you just want a standard, boring, but effective resume, a simpl
 | **Ease of Use** | High | Medium | High |
 | **Open Source** | Yes | Yes | No |
 
-If you value your data privacy and want a clean, professional PDF without the headache, give [Epitome](/epitome/generate) a try. It’s built by devs, for everyone.
+If you value your data privacy and want a clean, professional PDF without the headache, give [Epitome](/generate) a try. It’s built by devs, for everyone.
