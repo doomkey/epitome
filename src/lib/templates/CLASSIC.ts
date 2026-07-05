@@ -63,13 +63,9 @@ function buildClassicHeader(data: ResumeData) {
 	return {
 		stack: [
 			{ text: fullName || 'Your Name', style: 'name', alignment: 'center' },
-			{
-				columns: [
-					{ text: title?.toUpperCase() || '', style: 'jobTitle', alignment: 'left', width: '*' },
-					{ text: location || '', style: 'subtle', alignment: 'right', width: '*' }
-				],
-				margin: [0, 1, 0, 4]
-			},
+			ifNotEmpty(title, { text: title, style: 'jobTitle', alignment: 'center', width: '*' }),
+
+			{ text: location || '', style: 'subtle', alignment: 'center', width: '*' },
 			{ text: contactBar, style: 'contact', margin: [0, 4, 0, 0] }
 		].filter(Boolean),
 		margin: [0, 0, 0, pt(4)]

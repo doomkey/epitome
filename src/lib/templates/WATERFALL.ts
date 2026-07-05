@@ -82,7 +82,7 @@ function buildSectionWrapper(title: string, entries: any[]) {
 						type: 'line',
 						x1: 0,
 						y1: 0,
-						x2: pt(182),
+						x2: pt(160),
 						y2: 0,
 						lineWidth: 1,
 						lineColor: '#111111'
