@@ -1,6 +1,13 @@
 import { pt } from '$lib/functions/helpers';
 import { basePageConfig, baseDefaultStyle, buildSections } from './base';
-import { formatPeriod, ifNotEmpty, flattenSkills, buildEntry } from './utils';
+import {
+	formatPeriod,
+	ifNotEmpty,
+	flattenSkills,
+	buildEntry,
+	atsLinkNode,
+	prettyUrl
+} from './utils';
 import type { ResumeData } from '$lib/types';
 import { settingsStore } from '$lib/stores/settings.svelte';
 
@@ -37,11 +44,13 @@ function buildHeader(data: ResumeData) {
 	const { fullName, title, email, phone, location, linkedin, github, website } = data.personal;
 
 	const links = [
-		email ? { text: email, link: `mailto:${email}` } : null,
+		email
+			? { text: email, link: `mailto:${email}`, color: '#1a56db', decoration: 'underline' }
+			: null,
 		phone ? { text: phone, link: `tel:${phone}` } : null,
-		linkedin ? { text: 'LinkedIn', link: linkedin } : null,
-		github ? { text: 'GitHub', link: github } : null,
-		website ? { text: 'Portfolio', link: website } : null
+		linkedin ? atsLinkNode(linkedin) : null,
+		github ? atsLinkNode(github) : null,
+		website ? atsLinkNode(website) : null
 	].filter(Boolean);
 
 	const contactBar = [];
@@ -54,13 +63,15 @@ function buildHeader(data: ResumeData) {
 		stack: [
 			{ text: fullName || 'Your Name', style: 'name' },
 			ifNotEmpty(title, { text: title, style: 'jobTitle', margin: [0, 2, 0, 2] }),
-			{
-				columns: [
-					{ text: contactBar, style: 'meta', width: '*' },
-					{ text: location || '', style: 'subtle', alignment: 'right', width: 'auto' }
-				],
-				margin: [0, 2, 0, 0]
-			}
+			ifNotEmpty(location, { text: location, style: 'subtle', margin: [0, 0, 0, 0] }),
+			contactBar.length
+				? {
+						text: contactBar,
+						style: 'meta',
+						width: '*',
+						margin: [0, 2, 0, 0]
+					}
+				: null
 		].filter(Boolean),
 		margin: [0, 0, 0, pt(8)]
 	};
@@ -141,7 +152,7 @@ function buildProjectEntry(proj: ResumeData['projects'][number]) {
 	return buildEntry(
 		{
 			title: proj.name,
-			titleRight: proj.link ? 'View Project' : undefined,
+			titleRight: proj.link ? prettyUrl(proj.link) : undefined,
 			titleRightLink: proj.link,
 			subtitle: proj.technologies,
 			bullets: proj.description
@@ -180,7 +191,6 @@ function buildCertifications(data: ResumeData) {
 function buildCertEntry(cert: ResumeData['certifications'][number]) {
 	return buildEntry({
 		title: cert.name,
-		titleLink: cert.url,
 		titleRight: cert.url ? 'Verify' : undefined,
 		titleRightLink: cert.url,
 		subtitle: cert.organization

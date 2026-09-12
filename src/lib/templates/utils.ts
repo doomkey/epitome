@@ -35,6 +35,38 @@ export function flattenSkills(categories: { skills: string[] }[]): string {
 	return categories.flatMap((c) => c.skills).join(', ');
 }
 
+export const ATS_LINK_COLOR = '#1a56db';
+
+/** Display version of a URL for ATS parsers: strip protocol, www., trailing slash. */
+export function prettyUrl(url: string | undefined | null): string {
+	if (!url) return '';
+	let out = url.trim();
+	out = out
+		.replace(/^https?:\/\//i, '')
+		.replace(/^www\./i, '')
+		.replace(/\/+$/, '');
+	return out || url.trim();
+}
+
+/** Ensure clickable link has a scheme so pdfmake emits a valid URI annotation. */
+export function ensureHttpUrl(url: string | undefined | null): string {
+	if (!url) return '';
+	const trimmed = url.trim();
+	if (/^[a-z][a-z0-9+.-]*:/i.test(trimmed)) return trimmed;
+	return `https://${trimmed}`;
+}
+
+/** pdfmake text node showing the URL itself (ATS-parseable) with hyperlink attached. */
+export function atsLinkNode(url: string | undefined | null) {
+	if (!url?.trim()) return null;
+	return {
+		text: prettyUrl(url),
+		link: ensureHttpUrl(url),
+		color: ATS_LINK_COLOR,
+		decoration: 'underline'
+	};
+}
+
 import { pt } from '$lib/functions/helpers';
 
 export type EntryOptions = {
@@ -91,19 +123,33 @@ export function buildEntry(opts: EntryOptions, styles: EntryStyles = {}) {
 					text: [titleDecorator, title].filter(Boolean).join(' '),
 					style: titleStyle,
 					width: '*',
-					...(titleLink ? { link: titleLink } : {})
+					...(titleLink
+						? { link: ensureHttpUrl(titleLink), color: ATS_LINK_COLOR, decoration: 'underline' }
+						: {})
 				},
 				{
 					text: titleRight,
 					style: titleRightStyle,
 					alignment: 'right',
 					width: 'auto',
-					...(opts.titleRightLink ? { link: opts.titleRightLink, decoration: 'underline' } : {})
+					...(opts.titleRightLink
+						? {
+								link: ensureHttpUrl(opts.titleRightLink),
+								color: ATS_LINK_COLOR,
+								decoration: 'underline'
+							}
+						: {})
 				}
 			]
 		});
 	} else {
-		rows.push({ text: title, style: titleStyle, ...(titleLink ? { link: titleLink } : {}) });
+		rows.push({
+			text: title,
+			style: titleStyle,
+			...(titleLink
+				? { link: ensureHttpUrl(titleLink), color: ATS_LINK_COLOR, decoration: 'underline' }
+				: {})
+		});
 	}
 
 	if (subtitle) {
@@ -114,7 +160,13 @@ export function buildEntry(opts: EntryOptions, styles: EntryStyles = {}) {
 						text: subtitle,
 						style: subtitleStyle,
 						width: '*',
-						...(subtitleLink ? { link: subtitleLink } : {})
+						...(subtitleLink
+							? {
+									link: ensureHttpUrl(subtitleLink),
+									color: ATS_LINK_COLOR,
+									decoration: 'underline'
+								}
+							: {})
 					},
 					{ text: subtitleRight, style: subtitleRightStyle, alignment: 'right', width: 'auto' }
 				].filter(Boolean)
@@ -123,7 +175,9 @@ export function buildEntry(opts: EntryOptions, styles: EntryStyles = {}) {
 			rows.push({
 				text: subtitle,
 				style: subtitleStyle,
-				...(subtitleLink ? { link: subtitleLink } : {})
+				...(subtitleLink
+					? { link: ensureHttpUrl(subtitleLink), color: ATS_LINK_COLOR, decoration: 'underline' }
+					: {})
 			});
 		}
 	}

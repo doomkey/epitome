@@ -1,6 +1,14 @@
 import { pt } from '$lib/functions/helpers';
 import { basePageConfig, baseDefaultStyle, buildSections } from './base';
-import { formatPeriod, toBullets, ifNotEmpty, flattenSkills, buildEntry } from './utils';
+import {
+	formatPeriod,
+	toBullets,
+	ifNotEmpty,
+	flattenSkills,
+	buildEntry,
+	atsLinkNode,
+	prettyUrl
+} from './utils';
 import type { ResumeData } from '$lib/types';
 import { settingsStore } from '$lib/stores/settings.svelte';
 
@@ -46,18 +54,29 @@ const classicStyles: EntryStyles = {
 function buildClassicHeader(data: ResumeData) {
 	const { fullName, title, email, phone, location, linkedin, github, website } = data.personal;
 
-	const links = [
-		email ? { text: email, link: `mailto:${email}` } : null,
-		phone ? { text: phone, link: `tel:${phone}` } : null,
-		linkedin ? { text: 'LinkedIn', link: linkedin } : null,
-		github ? { text: 'GitHub', link: github } : null,
-		website ? { text: 'Portfolio', link: website } : null
+	const contactLinks = [
+		email
+			? { text: email, link: `mailto:${email}`, color: '#1a56db', decoration: 'underline' }
+			: null,
+		phone ? { text: phone, link: `tel:${phone}` } : null
+	].filter(Boolean);
+
+	const socialLinks = [
+		linkedin ? atsLinkNode(linkedin) : null,
+		github ? atsLinkNode(github) : null,
+		website ? atsLinkNode(website) : null
 	].filter(Boolean);
 
 	const contactBar: any[] = [];
-	links.forEach((link, i) => {
+	contactLinks.forEach((link, i) => {
 		contactBar.push(link);
-		if (i < links.length - 1) contactBar.push({ text: '  •  ', color: '#999999' });
+		if (i < contactLinks.length - 1) contactBar.push({ text: '  •  ', color: '#999999' });
+	});
+
+	const socialBar: any[] = [];
+	socialLinks.forEach((link, i) => {
+		socialBar.push(link);
+		if (i < socialLinks.length - 1) socialBar.push({ text: '  •  ', color: '#999999' });
 	});
 
 	return {
@@ -66,7 +85,8 @@ function buildClassicHeader(data: ResumeData) {
 			ifNotEmpty(title, { text: title, style: 'jobTitle', alignment: 'center', width: '*' }),
 
 			{ text: location || '', style: 'subtle', alignment: 'center', width: '*' },
-			{ text: contactBar, style: 'contact', margin: [0, 4, 0, 0] }
+			contactBar.length ? { text: contactBar, style: 'contact', margin: [0, 4, 0, 0] } : null,
+			socialBar.length ? { text: socialBar, style: 'contact', margin: [0, 2, 0, 0] } : null
 		].filter(Boolean),
 		margin: [0, 0, 0, pt(4)]
 	};
@@ -133,7 +153,7 @@ function buildClassicProjects(data: ResumeData) {
 			buildEntry(
 				{
 					title: proj.name,
-					titleRight: proj.link ? 'View Project' : undefined,
+					titleRight: proj.link ? prettyUrl(proj.link) : undefined,
 					titleRightLink: proj.link,
 					subtitle: proj.technologies,
 					bullets: proj.description,
@@ -169,7 +189,6 @@ function buildClassicCertifications(data: ResumeData) {
 			buildEntry(
 				{
 					title: cert.name,
-					titleLink: cert.url,
 					titleRight: cert.url ? 'Verify' : undefined,
 					titleRightLink: cert.url,
 					subtitle: cert.organization,

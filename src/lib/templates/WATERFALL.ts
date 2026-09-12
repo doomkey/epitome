@@ -1,6 +1,13 @@
 import { pt } from '$lib/functions/helpers';
 import { basePageConfig, baseDefaultStyle, buildSections } from './base';
-import { formatPeriod, ifNotEmpty, flattenSkills, buildEntry } from './utils';
+import {
+	formatPeriod,
+	ifNotEmpty,
+	flattenSkills,
+	buildEntry,
+	atsLinkNode,
+	prettyUrl
+} from './utils';
 import type { ResumeData } from '$lib/types';
 import { settingsStore } from '$lib/stores/settings.svelte';
 
@@ -41,31 +48,53 @@ export const waterfallTemplate = (data: ResumeData, font: string) => ({
 function buildHeader(data: ResumeData) {
 	const { fullName, title, email, phone, location, linkedin, github, website } = data.personal;
 
-	const links = [
-		email ? { text: email, link: `mailto:${email}` } : null,
+	const contactLinks = [
+		email
+			? { text: email, link: `mailto:${email}`, color: '#1a56db', decoration: 'underline' }
+			: null,
 		phone ? { text: phone } : null,
-		location ? { text: location } : null,
-		linkedin ? { text: 'LinkedIn', link: linkedin } : null,
-		github ? { text: 'GitHub', link: github } : null,
-		website ? { text: 'Portfolio', link: website } : null
+		location ? { text: location } : null
+	].filter(Boolean);
+
+	const socialLinks = [
+		linkedin ? atsLinkNode(linkedin) : null,
+		github ? atsLinkNode(github) : null,
+		website ? atsLinkNode(website) : null
 	].filter(Boolean);
 
 	const contactBar = [];
-	links.forEach((link, i) => {
+	contactLinks.forEach((link, i) => {
 		contactBar.push(link);
-		if (i < links.length - 1) contactBar.push({ text: '  |  ', color: '#aaaaaa', link: null });
+		if (i < contactLinks.length - 1)
+			contactBar.push({ text: '  |  ', color: '#aaaaaa', link: null });
+	});
+
+	const socialBar = [];
+	socialLinks.forEach((link, i) => {
+		socialBar.push(link);
+		if (i < socialLinks.length - 1) socialBar.push({ text: '  |  ', color: '#aaaaaa', link: null });
 	});
 
 	return {
 		stack: [
 			{ text: fullName || 'Your Name', style: 'name' },
 			ifNotEmpty(title, { text: title.toUpperCase(), style: 'jobTitle', margin: [0, 2, 0, 4] }),
-			{
-				text: contactBar,
-				style: 'meta',
-				alignment: 'center',
-				margin: [0, 2, 0, 0]
-			}
+			contactBar.length
+				? {
+						text: contactBar,
+						style: 'meta',
+						alignment: 'center',
+						margin: [0, 2, 0, 0]
+					}
+				: null,
+			socialBar.length
+				? {
+						text: socialBar,
+						style: 'meta',
+						alignment: 'center',
+						margin: [0, 2, 0, 0]
+					}
+				: null
 		].filter(Boolean),
 		margin: [0, 0, 0, pt(12)]
 	};
@@ -166,7 +195,7 @@ const buildProjects = (data: ResumeData) =>
 			buildEntry(
 				{
 					title: p.name,
-					titleRight: p.link ? 'Link' : undefined,
+					titleRight: p.link ? prettyUrl(p.link) : undefined,
 					titleRightLink: p.link,
 					subtitle: p.technologies,
 					bullets: p.description
