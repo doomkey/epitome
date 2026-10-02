@@ -18,13 +18,13 @@ export const waterfallTemplate = (data: ResumeData, font: string) => ({
 
 	defaultStyle: baseDefaultStyle(font),
 	styles: {
-		name: { fontSize: 24, bold: true, color: '#000000', alignment: 'center' },
+		name: { fontSize: 16, bold: true, color: '#000000', alignment: 'center' },
 		jobTitle: { fontSize: 11, color: '#333333', alignment: 'center' },
 		sectionHeader: {
 			fontSize: 11,
 			bold: true,
 			color: '#000000',
-			margin: [0, 6, 0, 2]
+			margin: [0, 2, 0, 2]
 		},
 		entryTitle: { fontSize: 10, bold: true },
 		entrySubtitle: { fontSize: 10, bold: false, color: '#222222' },
@@ -78,13 +78,13 @@ function buildHeader(data: ResumeData) {
 	return {
 		stack: [
 			{ text: fullName || 'Your Name', style: 'name' },
-			ifNotEmpty(title, { text: title.toUpperCase(), style: 'jobTitle', margin: [0, 2, 0, 4] }),
+			ifNotEmpty(title, { text: title.toUpperCase(), style: 'jobTitle', margin: [0, 0, 0, 0] }),
 			contactBar.length
 				? {
 						text: contactBar,
 						style: 'meta',
 						alignment: 'center',
-						margin: [0, 2, 0, 0]
+						margin: [0, 0, 0, 0]
 					}
 				: null,
 			socialBar.length
@@ -117,11 +117,11 @@ function buildSectionWrapper(title: string, entries: any[]) {
 						lineColor: '#111111'
 					}
 				],
-				margin: [0, 0, 0, pt(4)]
+				margin: [0, 0, 0, pt(2)]
 			},
 			...entries
 		],
-		margin: [0, 0, 0, pt(4)]
+		margin: [0, 0, 0, pt(2)]
 	};
 }
 
@@ -183,7 +183,7 @@ function buildSkills(data: ResumeData) {
 				{ text: `${cat.category}: `, style: 'entryTitle' },
 				{ text: cat.skills.join(', '), style: 'meta' }
 			],
-			margin: [0, 0, 0, pt(3)]
+			margin: [0, 0, 0, pt(1)]
 		}))
 	);
 }
